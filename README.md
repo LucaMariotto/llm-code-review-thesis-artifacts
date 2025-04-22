@@ -18,46 +18,102 @@ This DOI links to the specific version of these artifacts archived on Zenodo cor
 
 This research investigates the potential of Large Language Models (LLMs) to enhance Pull Request (PR) descriptions. The study evaluates the perceived quality of LLM-generated PR variations compared to human baselines and assesses the model agnosticism of the generation process. The artifacts in this repository allow for the replication of the data analysis presented in the thesis.
 
-**Repository Structure: `llm-pr-review-thesis-artifacts/`**
+## Repository Structure
 
-*   **`README.md`**: This file (Essential Info, Instructions).
-*   **`LICENSE`**: License information (e.g., MIT License).
-*   **`.gitignore`**: Files ignored by Git.
-*   **`requirements.txt`**: Python dependencies. *(Self-note: Need to create this)*
-
-*   **`scripts/`**: Directory containing analysis and utility scripts.
-    *   *(List key `.py` and `.html` files here, e.g., `analyze_agnosticism.py`, `survey_analysis_7.py`, `index.html`, etc.)*
-
-*   **`prompts/`**: Directory containing LLM prompt templates.
-    *   *(List `.txt` files here, e.g., `competencies_list.txt`, `degradation_prompt_template.txt`, etc.)*
-
-*   **`data/`**: Directory containing all data and configuration files.
-    *   **`config/`**: Configuration files.
-        *   `SETUP.csv` (Latin Square setup)
-    *   **`baseline_pr_stimuli/`**: Baseline JSONs (O, D, ID, IO) for the 6 PRs (ChatGPT-4o).
-        *   `1/` *(Contains 4 JSON files)*
-        *   `...` *(Dirs 2 through 5)*
-        *   `6/` *(Contains 4 JSON files)*
-    *   **`model_agnosticism_llm_outputs/`**: Generated JSONs from other LLMs.
-        *   `1/`
-            *   `claude_3.7_sonnet/` *(Contains 3 JSON files)*
-            *   `...` *(Dirs for other 4 LLMs)*
-        *   `...` *(Dirs 2 through 5)*
-        *   `6/`
-            *   `claude_3.7_sonnet/` *(Contains 3 JSON files)*
-            *   `...` *(Dirs for other 4 LLMs)*
-    *   **`analysis_outputs/`**: Processed data tables (CSV, XLSX) from analyses.
-        *   *(List key output files here, e.g., `combined_processed_responses_v7_anonymized.csv`, `specific_hypothesis_tests_raw.csv`, `metrics_summary_by_llm.csv`, `demographic_summary.xlsx`, etc.)*
-    *   **`raw_analysis_inputs/`**: (Optional - Renamed for clarity) Directory for essential raw-like data inputs for scripts.
-        *   `enhanced_pr_comparison.csv`
-        *   `pr_quality_analysis.csv`
-        *   *(Maybe `preprocessed_scored_prs.csv` if included)*
-
-*   **`reports/`**: Directory containing generated text/markdown reports.
-    *   *(List `.md`, `.txt` files here, e.g., `meta_results_summary_report_v7.md`, etc.)*
-
-*   **`visualizations/`**: Directory containing key PNG plots referenced in the thesis.
-    *   *(List key `.png` files here, e.g., `overall_alignment_comparison_percentage.png`, `repo_score_distributions_bundled.png`, etc.)*
+-   `/README.md`: This file
+-   `/LICENSE`: License information (MIT License assumed)
+-   `/requirements.txt`: Python dependencies
+-   `/.gitignore`: Files ignored by Git
+-   `scripts/`: Python scripts for fetching, scoring, analysis, etc. & JS/HTML for survey load balancer
+    -   `analyze_agnosticism.py`
+    -   `pr_analyzer9.py` # Or pr_quality_analyzer.py (use final name)
+    -   `pr_comparer.py`
+    -   `pr_fetcher_4.py`
+    -   `pr_link_creator.py`
+    -   `pr_scorer.py`
+    -   `survey_analysis_7.py`
+    -   `top_prs_getter.py`
+    -   `index.html`
+-   `prompts/`: Text files containing LLM prompt templates
+    -   `competencies_list.txt`
+    -   `degradation_prompt_template.txt`
+    -   `improvement_degraded_prompt_template.txt`
+    -   `improvement_original_prompt_template.txt`
+    -   `json_to_timeline_prompt.txt`
+-   `data/`: Contains configuration, stimuli, raw outputs, and processed analysis results
+    -   `config/`
+        -   `SETUP.csv`: Latin Square setup
+    -   `baseline_pr_stimuli/`: Baseline JSONs (O, D, ID, IO) for the 6 PRs (ChatGPT-4o)
+        -   `1/`
+            -   `original_pr.json`
+            -   `degraded_pr.json`
+            -   `improved_original_pr.json`
+            -   `improved_degraded.json`
+        -   `...` (Folders 2 through 6) ...
+    -   `model_agnosticism_llm_outputs/`: Generated JSONs from other LLMs for model agnosticism tests
+        -   `1/`: PR Number 1
+            -   `claude_3.7_sonnet/`
+                -   `degraded_pr.json`
+                -   `improved_degraded_pr.json`
+                -   `improved_original_pr.json`
+            -   `deepseek_deepthink_r1/`
+            -   `gemini_2.0_flash_thinking/`
+            -   `grok_3_thinking/`
+            -   `qwen2.5-max_thinking/`
+                -   `...` (3 json files per LLM) ...
+        -   `...` (Folders 2 through 6 with LLM subfolders) ...
+    -   `analysis_outputs/`: Processed data tables (CSV, XLSX) from analyses
+        -   `demographic_summary.xlsx`
+        -   `hypothesis_alignment_by_demographic_group.csv`
+        -   `overall_alignment_descriptive_analysis.csv`
+        -   `preference_correlations_kruskal_wallis.csv`
+        -   `preference_correlations_spearman.csv`
+        -   `specific_hypothesis_tests_formatted.csv`
+        -   `specific_hypothesis_tests_raw.csv`
+        -   # Model Agnosticism Summaries:
+        -   `metrics_summary_by_llm.csv`
+        -   `metrics_summary_by_version.csv`
+        -   `similarity_summary_by_llm.csv`
+        -   `similarity_summary_by_version.csv`
+        -   # Repo Scoring Summaries:
+        -   `cluster_characteristics.csv`
+        -   `competency_correlation_matrix.csv`
+        -   `overall_score_descriptives.csv`
+        -   `repo_kruskal_wallis_results.csv`
+        -   `repo_pr_counts.csv`
+        -   `repository_mean_std_summary_filtered.csv`
+        -   `repository_summary_with_clusters_pca.csv`
+    -   `# Essential Raw(ish) Data for Repro:`
+        -   `enhanced_pr_comparison.csv`: Raw similarity scores needed by S6
+        -   `pr_quality_analysis.csv`: Raw metrics needed by S6
+        -   `preprocessed_scored_prs.csv`: #<- Needed by S4 
+-   `reports/`: Generated text/markdown reports summarizing analyses
+    -   `meta_analysis_report.md`
+    -   `meta_results_summary_report_v7.md`
+    -   `report.txt`
+-   `visualizations/`: Key PNG plots referenced in the thesis text
+    -   `# Survey Plots:`
+    -   `demographic_experience_distribution.png`
+    -   `demographic_role_distribution.png`
+    -   `overall_alignment_comparison_percentage.png`
+    -   `# Model Agnosticism Plots:`
+    -   `variability_by_llm_overall_word_count.png`
+    -   `variability_by_version_body_readability_flesch_reading_ease.png`
+    -   `similarity_by_llm_sbert_cosine.png`
+    -   `similarity_by_llm_bleu.png`
+    -   `# Repo Scoring / PR Selection Plots:`
+    -   `repo_pr_counts_barplot_log_scale.png`
+    -   `overall_score_histograms_bundled.png`
+    -   `repo_score_distributions_bundled.png`
+    -   `competency_correlation_heatmap.png`
+    -   `kmeans_clusters_pca_binned_size.png`
+    -   `# Approach Diagrams:`
+    -   `approach_visualizations/model_agnosticism_flowchart.png`
+    -   `approach_visualizations/pr_selection_funnel_matplotlib.png`
+    -   `approach_visualizations/pr_variation_flowchart.png`
+    -   `approach_visualizations/survey_load_balancer_flowchart.png`
+    -   `# Appendix Diagrams:`
+    -   `appendix/images/prototype_workflow_diagram.png`
 
 
 ## Running the Analysis
