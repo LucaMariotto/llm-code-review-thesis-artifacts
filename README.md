@@ -6,7 +6,7 @@ This repository contains the code, processed data, configuration files, prompts,
 
 *   **Author:** Luca Mariotto
 *   **Institution:** Hasso Plattner Institute, University of Potsdam
-*   **Submission Date:** April 31, 2025
+*   **Submission Date:** April 30, 2025
 
 **Archived Version (Zenodo):**
 
