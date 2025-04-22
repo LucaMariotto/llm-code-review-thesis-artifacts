@@ -18,26 +18,46 @@ This DOI links to the specific version of these artifacts archived on Zenodo cor
 
 This research investigates the potential of Large Language Models (LLMs) to enhance Pull Request (PR) descriptions. The study evaluates the perceived quality of LLM-generated PR variations compared to human baselines and assesses the model agnosticism of the generation process. The artifacts in this repository allow for the replication of the data analysis presented in the thesis.
 
-## Repository Structure
-llm-pr-review-thesis-artifacts/
-├── README.md # This file
-├── LICENSE # License information (MIT)
-├── requirements.txt # Python dependencies <--- YOU NEED TO CREATE THIS!
-├── .gitignore # Files ignored by Git
-│
-├── scripts/ # Python scripts for fetching, scoring, analysis, etc. & JS/HTML for survey
-├── prompts/ # Text files containing LLM prompt templates
-│
-├── data/
-│ ├── config/ # Configuration files (e.g., Latin Square)
-│ ├── baseline_pr_stimuli/ # Baseline JSONs (O, D, ID, IO) for the 6 PRs (ChatGPT-4o)
-│ ├── model_agnosticism_llm_outputs/ # Generated JSONs from other LLMs for model agnosticism tests
-│ ├── analysis_outputs/ # Processed data tables (CSV, XLSX) from analyses
-│ └── # Folder containing essential raw-like data (e.g., anonymized responses, raw metrics/similarity)
-│
-├── reports/ # Generated text/markdown reports summarizing analyses
-│
-└── visualizations/ # Key PNG plots referenced in the thesis text
+**Repository Structure: `llm-pr-review-thesis-artifacts/`**
+
+*   **`README.md`**: This file (Essential Info, Instructions).
+*   **`LICENSE`**: License information (e.g., MIT License).
+*   **`.gitignore`**: Files ignored by Git.
+*   **`requirements.txt`**: Python dependencies. *(Self-note: Need to create this)*
+
+*   **`scripts/`**: Directory containing analysis and utility scripts.
+    *   *(List key `.py` and `.html` files here, e.g., `analyze_agnosticism.py`, `survey_analysis_7.py`, `index.html`, etc.)*
+
+*   **`prompts/`**: Directory containing LLM prompt templates.
+    *   *(List `.txt` files here, e.g., `competencies_list.txt`, `degradation_prompt_template.txt`, etc.)*
+
+*   **`data/`**: Directory containing all data and configuration files.
+    *   **`config/`**: Configuration files.
+        *   `SETUP.csv` (Latin Square setup)
+    *   **`baseline_pr_stimuli/`**: Baseline JSONs (O, D, ID, IO) for the 6 PRs (ChatGPT-4o).
+        *   `1/` *(Contains 4 JSON files)*
+        *   `...` *(Dirs 2 through 5)*
+        *   `6/` *(Contains 4 JSON files)*
+    *   **`model_agnosticism_llm_outputs/`**: Generated JSONs from other LLMs.
+        *   `1/`
+            *   `claude_3.7_sonnet/` *(Contains 3 JSON files)*
+            *   `...` *(Dirs for other 4 LLMs)*
+        *   `...` *(Dirs 2 through 5)*
+        *   `6/`
+            *   `claude_3.7_sonnet/` *(Contains 3 JSON files)*
+            *   `...` *(Dirs for other 4 LLMs)*
+    *   **`analysis_outputs/`**: Processed data tables (CSV, XLSX) from analyses.
+        *   *(List key output files here, e.g., `combined_processed_responses_v7_anonymized.csv`, `specific_hypothesis_tests_raw.csv`, `metrics_summary_by_llm.csv`, `demographic_summary.xlsx`, etc.)*
+    *   **`raw_analysis_inputs/`**: (Optional - Renamed for clarity) Directory for essential raw-like data inputs for scripts.
+        *   `enhanced_pr_comparison.csv`
+        *   `pr_quality_analysis.csv`
+        *   *(Maybe `preprocessed_scored_prs.csv` if included)*
+
+*   **`reports/`**: Directory containing generated text/markdown reports.
+    *   *(List `.md`, `.txt` files here, e.g., `meta_results_summary_report_v7.md`, etc.)*
+
+*   **`visualizations/`**: Directory containing key PNG plots referenced in the thesis.
+    *   *(List key `.png` files here, e.g., `overall_alignment_comparison_percentage.png`, `repo_score_distributions_bundled.png`, etc.)*
 
 
 ## Running the Analysis
