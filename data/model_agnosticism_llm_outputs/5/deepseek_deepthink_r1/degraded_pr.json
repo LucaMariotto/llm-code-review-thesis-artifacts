@@ -1,0 +1,85 @@
+{
+    "number": 7142,
+    "title": "Fix curl thing for agent",
+    "body": "curl in powershell has issues. Use curl.exe instead maybe. \r\n\r\nRef: https://curl.se/windows/microsoft.html\r\n\r\n\r\n### Proposed changelog entries\r\n\r\n- Update curl command\r\n\r\n\r\n### Submitter checklist\r\n\r\n- [x] Changelog stuff done\r\n\r\n### Maintainer checklist\r\n\r\nBefore merge:\r\n\r\n- [x] 2 approvals\r\n- [x] No complains\r\n- [x] Changelog ok\r\n- [x] Labels set\r\n- [x] Upgrade stuff if needed\r\n- [x] LTS thing if needed\r\n\n\n<a href=\"https://gitpod.io/#https://github.com/jenkinsci/jenkins/pull/7142\"><img src=\"https://gitpod.io/button/open-in-gitpod.svg\"/></a>\n\n",
+    "state": "MERGED",
+    "createdAt": "2022-09-22T14:17:11Z",
+    "closedAt": "2022-09-23T15:13:12Z",
+    "mergedAt": "2022-09-23T15:13:12Z",
+    "url": "https://github.com/jenkinsci/jenkins/pull/7142",
+    "author": {
+      "login": "jjasghar",
+      "url": "https://github.com/jjasghar"
+    },
+    "comments": {
+      "totalCount": 6,
+      "nodes": [
+        {
+          "body": "Should we say something about Windows?",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T15:04:08Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "> Should we say something about Windows?\r\n\r\nNot sure, maybe only sometimes",
+          "author": {
+            "login": "MarkEWaite",
+            "url": "https://github.com/MarkEWaite"
+          },
+          "createdAt": "2022-09-22T15:10:37Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Like maybe tell people to use curl.exe in PS? Took me forever to find this",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T15:59:39Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "> Like maybe tell people to use curl.exe in PS? Took me forever to find this\r\n\r\nYeah add that",
+          "author": {
+            "login": "MarkEWaite",
+            "url": "https://github.com/MarkEWaite"
+          },
+          "createdAt": "2022-09-22T16:20:24Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Tried adding a note, not sure about formatting",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T16:31:48Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Done",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T17:08:16Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    }
+  }

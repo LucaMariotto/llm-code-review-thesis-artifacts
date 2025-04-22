@@ -1,0 +1,143 @@
+{
+    "number": 57375,
+    "title": "[Update] Code Improvements",
+    "body": "<!--\r\nChecklist:\r\n* [ ] Maybe an issue exists?\r\n* [ ] Code might be updated\r\n* [ ] Tests might pass\r\n* [ ] Maybe some tests added\r\n\r\nRead CONTRIBUTING.md if needed.\r\n-->\r\n\r\nRefactor some code in tsserver.\r\n\r\n## Changes:\r\n\r\n### nodeServer.ts\r\n\r\nModified a function from switch statement to object lookup. Screenshot attached.\r\n\r\n### server.ts\r\n\r\nAdjusted code to reduce repetition. Before/after screenshots included.\r\n\r\n### Lint Fix\r\n\r\nChanged `null!` to `undefined` in nodeServer.ts to resolve lint warning.\r\n\r\nRelated to an issue I created.",
+    "state": "CLOSED",
+    "createdAt": "2024-02-11T20:24:59Z",
+    "closedAt": "2024-02-12T16:23:53Z",
+    "mergedAt": null,
+    "url": "https://github.com/microsoft/TypeScript/pull/57375",
+    "author": {
+      "login": "kevinuehara",
+      "url": "https://github.com/kevinuehara"
+    },
+    "comments": {
+      "totalCount": 4,
+      "nodes": [
+        {
+          "body": "No linked issue found. Please create one.",
+          "author": {
+            "login": "typescript-bot",
+            "url": "https://github.com/typescript-bot"
+          },
+          "createdAt": "2024-02-11T20:25:04Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "@microsoft-github-policy-service agree",
+          "author": {
+            "login": "kevinuehara",
+            "url": "https://github.com/kevinuehara"
+          },
+          "createdAt": "2024-02-11T20:26:33Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Need help with CI formatting step?",
+          "author": {
+            "login": "kevinuehara",
+            "url": "https://github.com/kevinuehara"
+          },
+          "createdAt": "2024-02-11T20:55:15Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Please focus on fixing real issues instead of code style changes.",
+          "author": {
+            "login": "RyanCavanaugh",
+            "url": "https://github.com/RyanCavanaugh"
+          },
+          "createdAt": "2024-02-12T16:23:54Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    },
+    "reviews": {
+      "totalCount": 3,
+      "nodes": [
+        {
+          "body": "",
+          "author": {
+            "login": "RyanCavanaugh",
+            "url": "https://github.com/RyanCavanaugh"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-02-12T16:18:58Z"
+        },
+        {
+          "body": "",
+          "author": {
+            "login": "RyanCavanaugh",
+            "url": "https://github.com/RyanCavanaugh"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-02-12T16:19:42Z"
+        },
+        {
+          "body": "",
+          "author": {
+            "login": "RyanCavanaugh",
+            "url": "https://github.com/RyanCavanaugh"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-02-12T16:20:43Z"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "totalCount": 3,
+      "nodes": [
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "This change adds unnecessary overhead.",
+                "author": {
+                  "login": "RyanCavanaugh",
+                  "url": "https://github.com/RyanCavanaugh"
+                },
+                "createdAt": "2024-02-12T16:18:59Z"
+              }
+            ]
+          }
+        },
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "Code formatting doesn't match project conventions.",
+                "author": {
+                  "login": "RyanCavanaugh",
+                  "url": "https://github.com/RyanCavanaugh"
+                },
+                "createdAt": "2024-02-12T16:19:42Z"
+              }
+            ]
+          }
+        },
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "No functional improvement shown.",
+                "author": {
+                  "login": "RyanCavanaugh",
+                  "url": "https://github.com/RyanCavanaugh"
+                },
+                "createdAt": "2024-02-12T16:20:43Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "filesChanged": []
+  }

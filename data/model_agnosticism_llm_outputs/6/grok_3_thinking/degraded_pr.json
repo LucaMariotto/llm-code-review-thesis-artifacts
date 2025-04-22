@@ -1,0 +1,154 @@
+{
+    "number": 14778,
+    "title": "KAFKA-15776: Add timeout config",
+    "body": "This PR adds `remote.fetch.max.timeout.ms` config for DelayedRemoteFetch timeouts. Tests are included.",
+    "state": "MERGED",
+    "createdAt": "2023-11-16T10:00:29Z",
+    "closedAt": "2024-06-05T06:42:23Z",
+    "mergedAt": "2024-06-05T06:42:23Z",
+    "url": "https://github.com/apache/kafka/pull/14778",
+    "author": {
+      "login": "kamalcph",
+      "url": "https://github.com/kamalcph"
+    },
+    "comments": {
+      "totalCount": 8,
+      "nodes": [
+        {
+          "body": "How does `remote.fetch.max.timeout.ms` work with `fetch.max.wait.ms`? Will it affect users?",
+          "author": {
+            "login": "divijvaidya",
+            "url": "https://github.com/divijvaidya"
+          },
+          "createdAt": "2023-11-18T18:43:43Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "The new config `remote.fetch.max.timeout.ms` might affect fetch times. Maybe we need `fetch.remote.max.wait.ms`.",
+          "author": {
+            "login": "kamalcph",
+            "url": "https://github.com/kamalcph"
+          },
+          "createdAt": "2023-11-20T06:15:41Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Using server timeout for `remote.fetch.max.timeout.ms` might surprise users. Perhaps introduce `fetch.remote.max.wait.ms`.",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "createdAt": "2023-11-21T09:59:58Z",
+          "reactions": {
+            "nodes": [
+              {
+                "content": "THUMBS_UP"
+              }
+            ]
+          }
+        },
+        {
+          "body": "This PR is being marked as stale since it has not had any activity in 90 days. If you would like to keep this PR alive, please ask a committer for review. If the PR has merge conflicts, please update it with the latest from trunk (or appropriate release branch) <p> If this PR is no longer valid or desired, please feel free to close it. If no activity occurs in the next 30 days, it will be automatically closed.",
+          "author": {
+            "login": "github-actions",
+            "url": "https://github.com/apps/github-actions"
+          },
+          "createdAt": "2024-02-20T03:33:13Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Actually, fetches will return in `fetch.max.wait.ms`, even if remote reading isn't done.",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "createdAt": "2024-04-12T10:09:56Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Ready for review.",
+          "author": {
+            "login": "kamalcph",
+            "url": "https://github.com/kamalcph"
+          },
+          "createdAt": "2024-06-04T10:21:51Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Maybe split the dynamic config change into another PR.",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "createdAt": "2024-06-05T00:00:35Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Tests failed, but not because of this PR.",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "createdAt": "2024-06-05T06:40:54Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    },
+    "reviews": {
+      "totalCount": 2,
+      "nodes": [
+        {
+          "body": "Looks okay, but there's a comment.",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-06-04T11:23:52Z"
+        },
+        {
+          "body": "Approved.",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "state": "APPROVED",
+          "createdAt": "2024-06-05T02:18:00Z"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "totalCount": 1,
+      "nodes": [
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "Should we mention this config is only used for local log fetch? \r\nAlso, we should mention this in the end:\r\n`To tune the remote fetch maximum time wait, please refer to \"remote.fetch.max.wait.ms\" config.`. WDYT?",
+                "author": {
+                  "login": "showuon",
+                  "url": "https://github.com/showuon"
+                },
+                "createdAt": "2024-06-04T11:23:52Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "filesChanged": []
+  }

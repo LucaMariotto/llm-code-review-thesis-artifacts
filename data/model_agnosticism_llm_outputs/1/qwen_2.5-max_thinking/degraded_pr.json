@@ -1,0 +1,195 @@
+{
+    "number": 73144,
+    "title": "Replaced OpenXR alert with log message",
+    "body": "Fixes #73141\n\nChanged OS alert dialog to a warning log when OpenXR fails. Added a project setting to toggle the old behavior.\n\n### Justification\n- Dialogs slow down startup\n- Warning appears in console/errors tab\n- Minor code change\n\n### Personal Impact\nThe dialog annoyed me during VR development.\n\n### Workarounds\nDisable OpenXR or keep SteamVR running, but these are inconvenient.",
+    "state": "MERGED",
+    "createdAt": "2023-02-12T04:35:58Z",
+    "closedAt": "2023-03-15T13:07:05Z",
+    "mergedAt": "2023-03-15T13:07:05Z",
+    "url": "https://github.com/godotengine/godot/pull/73144",
+    "author": {
+        "login": "chutchinson",
+        "url": "https://github.com/chutchinson"
+    },
+    "comments": {
+        "totalCount": 9,
+        "nodes": [
+            {
+                "body": "Startup delay is shorter now",
+                "author": {
+                    "login": "chutchinson",
+                    "url": "https://github.com/chutchinson"
+                },
+                "createdAt": "2023-02-12T04:50:30Z",
+                "reactions": {
+                    "nodes": []
+                }
+            },
+            {
+                "body": "Support usability improvements",
+                "author": {
+                    "login": "fire",
+                    "url": "https://github.com/fire"
+                },
+                "createdAt": "2023-02-12T05:03:19Z",
+                "reactions": {
+                    "nodes": []
+                }
+            },
+            {
+                "body": "Need option for XR-only devices",
+                "author": {
+                    "login": "BastiaanOlij",
+                    "url": "https://github.com/BastiaanOlij"
+                },
+                "createdAt": "2023-02-12T08:15:45Z",
+                "reactions": {
+                    "nodes": []
+                }
+            },
+            {
+                "body": "Added project setting. Should warning be an error?",
+                "author": {
+                    "login": "chutchinson",
+                    "url": "https://github.com/chutchinson"
+                },
+                "createdAt": "2023-02-13T06:25:27Z",
+                "reactions": {
+                    "nodes": []
+                }
+            },
+            {
+                "body": "Looks good",
+                "author": {
+                    "login": "BastiaanOlij",
+                    "url": "https://github.com/BastiaanOlij"
+                },
+                "createdAt": "2023-02-13T08:47:17Z",
+                "reactions": {
+                    "nodes": []
+                }
+            },
+            {
+                "body": "Merge approved",
+                "author": {
+                    "login": "BastiaanOlij",
+                    "url": "https://github.com/BastiaanOlij"
+                },
+                "createdAt": "2023-03-15T02:53:22Z",
+                "reactions": {
+                    "nodes": []
+                }
+            },
+            {
+                "body": "Thanks",
+                "author": {
+                    "login": "YuriSizov",
+                    "url": "https://github.com/YuriSizov"
+                },
+                "createdAt": "2023-03-15T13:07:18Z",
+                "reactions": {
+                    "nodes": []
+                }
+            },
+            {
+                "body": "Cherry-picked for 4.0.2",
+                "author": {
+                    "login": "YuriSizov",
+                    "url": "https://github.com/YuriSizov"
+                },
+                "createdAt": "2023-03-30T17:29:16Z",
+                "reactions": {
+                    "nodes": []
+                }
+            },
+            {
+                "body": "Contribution not linked to GitHub account",
+                "author": {
+                    "login": "YuriSizov",
+                    "url": "https://github.com/YuriSizov"
+                },
+                "createdAt": "2023-03-30T17:32:42Z",
+                "reactions": {
+                    "nodes": []
+                }
+            }
+        ]
+    },
+    "reviews": {
+        "totalCount": 4,
+        "nodes": [
+            {
+                "body": "",
+                "author": {
+                    "login": "BastiaanOlij",
+                    "url": "https://github.com/BastiaanOlij"
+                },
+                "state": "APPROVED",
+                "createdAt": "2023-02-13T08:46:31Z"
+            },
+            {
+                "body": "",
+                "author": {
+                    "login": "m4gr3d",
+                    "url": "https://github.com/m4gr3d"
+                },
+                "state": "COMMENTED",
+                "createdAt": "2023-02-14T17:13:12Z"
+            },
+            {
+                "body": "",
+                "author": {
+                    "login": "akien-mga",
+                    "url": "https://github.com/akien-mga"
+                },
+                "state": "COMMENTED",
+                "createdAt": "2023-02-14T17:20:34Z"
+            },
+            {
+                "body": "",
+                "author": {
+                    "login": "BastiaanOlij",
+                    "url": "https://github.com/BastiaanOlij"
+                },
+                "state": "COMMENTED",
+                "createdAt": "2023-03-15T02:53:10Z"
+            }
+        ]
+    },
+    "reviewThreads": {
+        "totalCount": 1,
+        "nodes": [
+            {
+                "comments": {
+                    "nodes": [
+                        {
+                            "body": "Use translation utility?",
+                            "author": {
+                                "login": "m4gr3d",
+                                "url": "https://github.com/m4gr3d"
+                            },
+                            "createdAt": "2023-02-14T17:13:12Z"
+                        },
+                        {
+                            "body": "Probably keep message in English",
+                            "author": {
+                                "login": "akien-mga",
+                                "url": "https://github.com/akien-mga"
+                            },
+                            "createdAt": "2023-02-14T17:20:34Z"
+                        },
+                        {
+                            "body": "Agree with English",
+                            "author": {
+                                "login": "BastiaanOlij",
+                                "url": "https://github.com/BastiaanOlij"
+                            },
+                            "createdAt": "2023-03-15T02:53:10Z"
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "filesChanged": []
+}

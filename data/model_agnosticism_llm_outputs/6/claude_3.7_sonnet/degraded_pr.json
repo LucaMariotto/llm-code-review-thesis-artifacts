@@ -1,0 +1,154 @@
+{
+    "number": 14778,
+    "title": "KAFKA-15776: Add remote.fetch.max.timeout.ms config",
+    "body": "KIP-1018\r\n\r\nTest: Ran tests\r\n\r\n### Committer Checklist (excluded from commit message)\r\n- [ ] check design \r\n- [ ] check tests\r\n- [ ] check docs\r\n",
+    "state": "MERGED",
+    "createdAt": "2023-11-16T10:00:29Z",
+    "closedAt": "2024-06-05T06:42:23Z",
+    "mergedAt": "2024-06-05T06:42:23Z",
+    "url": "https://github.com/apache/kafka/pull/14778",
+    "author": {
+      "login": "kamalcph",
+      "url": "https://github.com/kamalcph"
+    },
+    "comments": {
+      "totalCount": 8,
+      "nodes": [
+        {
+          "body": "How does this work with fetch.max.wait.ms? What happens when we get data from local and remote in one fetch call?\r\n\r\nWill this break clients? Before this change users got responses within fetch.max.wait.ms = 500ms but now they might wait until 40s request.timeout.ms. My app might break if I set timeouts based on fetch.max.wait.ms.",
+          "author": {
+            "login": "divijvaidya",
+            "url": "https://github.com/divijvaidya"
+          },
+          "createdAt": "2023-11-18T18:43:43Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "fetch.max.wait.ms timeout only applies when there isn't enough data. We read from both local and remote, the FETCH has to wait for combined latency.\r\n\r\nWe only read from one remote partition up to max.partition.fetch.bytes even if there's bandwidth in the FETCH response and client rotates partition order in next FETCH.\r\n\r\nfetch.max.wait.ms doesn't guarantee response within timeout. Client expires request only when it exceeds request.timeout.ms of 30 seconds (default). Time to serve FETCH can be higher than fetch.max.wait.ms due to slow disk, errors, etc.\r\n\r\nFetchRequest.json doesn't have client configured request timeout, so we use server timeout of 30 seconds. Could add fetch.remote.max.wait.ms for DelayedRemoteFetch. Need to decide if config should be in client/server since server operator might need to tune it if remote storage is slow.",
+          "author": {
+            "login": "kamalcph",
+            "url": "https://github.com/kamalcph"
+          },
+          "createdAt": "2023-11-20T06:15:41Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "I get the problem but using default timeout doesn't make sense. It breaks fetch protocol where fetch.max.wait.ms won't be exceeded with no data in \"local\" log. Remote read is unclear about if \"data exists or not\", but users will be surprised when fetch doesn't respond in fetch.max.wait.ms. We should make a new config for remote read waiting, not reuse request timeout.",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "createdAt": "2023-11-21T09:59:58Z",
+          "reactions": {
+            "nodes": [
+              {
+                "content": "THUMBS_UP"
+              }
+            ]
+          }
+        },
+        {
+          "body": "This PR is being marked as stale since it has not had any activity in 90 days. If you would like to keep this PR alive, please ask a committer for review. If the PR has  merge conflicts, please update it with the latest from trunk (or appropriate release branch) <p> If this PR is no longer valid or desired, please feel free to close it. If no activity occurs in the next 30 days, it will be automatically closed.",
+          "author": {
+            "login": "github-actions",
+            "url": "https://github.com/apps/github-actions"
+          },
+          "createdAt": "2024-02-20T03:33:13Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "I was wrong about this: \"users might be surprised when fetch doesn't respond in fetch.max.wait.ms time\". The fetch will still return in fetch.max.wait.ms even if remote reading isn't done. Just with empty response.",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "createdAt": "2024-04-12T10:09:56Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "@showuon @clolov @jeqo \r\n\r\nReady for review. \r\n\r\nWill make another PR for RemoteLogReader FetchRateAndTimeMs metric.",
+          "author": {
+            "login": "kamalcph",
+            "url": "https://github.com/kamalcph"
+          },
+          "createdAt": "2024-06-04T10:21:51Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "can we move dynamic config change to another PR? i have comments but they're separate from original changes",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "createdAt": "2024-06-05T00:00:35Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Failed tests not related.",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "createdAt": "2024-06-05T06:40:54Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    },
+    "reviews": {
+      "totalCount": 2,
+      "nodes": [
+        {
+          "body": "looks ok. one comment.",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-06-04T11:23:52Z"
+        },
+        {
+          "body": "ok",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "state": "APPROVED",
+          "createdAt": "2024-06-05T02:18:00Z"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "totalCount": 1,
+      "nodes": [
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "mention this is only for local log fetch? also add \"To tune remote fetch max wait time, see remote.fetch.max.wait.ms config\"",
+                "author": {
+                  "login": "showuon",
+                  "url": "https://github.com/showuon"
+                },
+                "createdAt": "2024-06-04T11:23:52Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "filesChanged": []
+  }

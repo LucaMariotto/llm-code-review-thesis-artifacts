@@ -1,0 +1,85 @@
+{
+  "number": 7142,
+  "title": "Revise curl sample for inbound agent",
+  "body": "The current `curl` command in PowerShell does not work as expected because it runs as a built-in cmd-let, causing the -sO flags to fail. Switching to `curl.exe` seems to resolve the issue.\n\nReference: https://curl.se/windows/microsoft.html\n\n### Update Log\n\n- Changed the command hint from `curl` to `curl.exe` to bypass the cmd-let behavior\n\n### Basic Checklist\n\n- [x] Update log entry added\n- [x] At least 2 reviews obtained\n- [x] Discussion considered complete or non-blocking\n- [x] Changelog information updated\n- [x] Appropriate labels set for any upgrade notes\n\n[Open in Gitpod](https://gitpod.io/#https://github.com/jenkinsci/jenkins/pull/7142)\n",
+  "state": "MERGED",
+  "createdAt": "2022-09-22T14:17:11Z",
+  "closedAt": "2022-09-23T15:13:12Z",
+  "mergedAt": "2022-09-23T15:13:12Z",
+  "url": "https://github.com/jenkinsci/jenkins/pull/7142",
+  "author": {
+    "login": "jjasghar",
+    "url": "https://github.com/jjasghar"
+  },
+  "comments": {
+    "totalCount": 6,
+    "nodes": [
+      {
+        "body": "Maybe add a short note that `curl.exe` is available by default on newer Windows versions.",
+        "author": {
+          "login": "jjasghar",
+          "url": "https://github.com/jjasghar"
+        },
+        "createdAt": "2022-09-22T15:04:08Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "Note that this change is only necessary for PowerShell. Using `curl` in a CMD window works without issues.",
+        "author": {
+          "login": "MarkEWaite",
+          "url": "https://github.com/MarkEWaite"
+        },
+        "createdAt": "2022-09-22T15:10:37Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "Perhaps rephrase it as: if you use PowerShell, run `curl.exe` instead of `curl`. This might help avoid confusion and save troubleshooting time.",
+        "author": {
+          "login": "jjasghar",
+          "url": "https://github.com/jjasghar"
+        },
+        "createdAt": "2022-09-22T15:59:39Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "That suggestion seems acceptable. Can you update the PR accordingly? The documentation quote you linked is a bit odd in tone.",
+        "author": {
+          "login": "MarkEWaite",
+          "url": "https://github.com/MarkEWaite"
+        },
+        "createdAt": "2022-09-22T16:20:24Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "I added that note as suggested.",
+        "author": {
+          "login": "jjasghar",
+          "url": "https://github.com/jjasghar"
+        },
+        "createdAt": "2022-09-22T16:31:48Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "Changed it as suggested. Thanks.",
+        "author": {
+          "login": "jjasghar",
+          "url": "https://github.com/jjasghar"
+        },
+        "createdAt": "2022-09-22T17:08:16Z",
+        "reactions": {
+          "nodes": []
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,174 @@
+{
+    "number": 73144,
+    "title": "Replace intrusive OpenXR startup alert with configurable warning log and project setting",
+    "body": "Fixes #73141\n\n**Summary**\n- Replaces blocking OS alert dialog with a WARN-level log message when OpenXR initialization fails\n- Introduces `xr_startup_alert_enabled` project setting (default: true) to maintain backward compatibility\n- Maintains visibility through Editor's Errors tab and console output\n\n**Key Improvements**\n1. Development Workflow\n   - Eliminates mandatory user interaction during project startup\n   - Reduces startup delay by ~3-5 seconds when OpenXR isn't ready\n   - Allows iterative development without HMD/SteamVR\n\n2. User Experience\n   - Preserves critical failure notification for XR-dependent projects\n   - Optional alert remains available for XR-only device configurations\n\n3. Consistency\n   - Matches logging behavior of other OpenXR failure modes\n   - Maintains English messages for searchability in documentation/forum references\n\n**Configuration Guidance**\n`xr_startup_alert_enabled` should remain enabled for:\n- Projects targeting XR-only devices\n- Teams prioritizing explicit failure notifications\n\nDisable for:\n- General development cycles\n- Non-VR projects using OpenXR features\n\nScreenshots: [Console Output](https://user-images.githubusercontent.com/2136005/218293226-52fc619c-b0c1-4436-9946-cd86a8455571.png), [Errors Tab](https://user-images.githubusercontent.com/2136005/218293237-d8533245-1b0b-4343-9946-c538d8b82938.png)",
+    "state": "MERGED",
+    "createdAt": "2023-02-12T04:35:58Z",
+    "closedAt": "2023-03-15T13:07:05Z",
+    "mergedAt": "2023-03-15T13:07:05Z",
+    "url": "https://github.com/godotengine/godot/pull/73144",
+    "author": {
+      "login": "chutchinson",
+      "url": "https://github.com/chutchinson"
+    },
+    "comments": {
+      "totalCount": 9,
+      "nodes": [
+        {
+          "body": "Performance Note: The 3-5 second delay reduction comes from eliminating MessageBoxW's message pump synchronization in Windows environments. This aligns with Godot's non-blocking initialization philosophy.",
+          "author": {
+            "login": "chutchinson",
+            "url": "https://github.com/chutchinson"
+          },
+          "createdAt": "2023-02-12T04:50:30Z",
+          "reactions": {
+            "nodes": [{"content": "THUMBS_UP"}]
+          }
+        },
+        {
+          "body": "Usability Team Endorsement: Non-critical failures shouldn't block core engine functionality. The configuration option strikes a good balance between visibility and workflow efficiency.",
+          "author": {
+            "login": "fire",
+            "url": "https://github.com/fire"
+          },
+          "createdAt": "2023-02-12T05:03:19Z"
+        },
+        {
+          "body": "XR Device Consideration: For projects targeting XR-only hardware, the startup alert remains crucial. The new project setting allows maintaining this behavior where necessary while enabling faster iteration for general development.",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "createdAt": "2023-02-12T08:15:45Z"
+        },
+        {
+          "body": "Configuration Feedback Request: The setting name `xr_startup_alert_enabled` clearly communicates its purpose. Should we add conditional logic to default this based on project XR mode detection?",
+          "author": {
+            "login": "chutchinson",
+            "url": "https://github.com/chutchinson"
+          },
+          "createdAt": "2023-02-13T06:25:27Z"
+        },
+        {
+          "body": "Implementation Approved: Current approach provides necessary flexibility without overcomplicating configuration. The WARN level is appropriate given the non-fatal nature of the failure.",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "createdAt": "2023-02-13T08:47:17Z"
+        },
+        {
+          "body": "Merge Readiness Confirmed",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "createdAt": "2023-03-15T02:53:22Z",
+          "reactions": {
+            "nodes": [{"content": "LAUGH"}]
+          }
+        },
+        {
+          "body": "Contribution Acknowledged",
+          "author": {
+            "login": "YuriSizov",
+            "url": "https://github.com/YuriSizov"
+          },
+          "createdAt": "2023-03-15T13:07:18Z"
+        },
+        {
+          "body": "Cherry-picked for 4.0.2 release",
+          "author": {
+            "login": "YuriSizov",
+            "url": "https://github.com/YuriSizov"
+          },
+          "createdAt": "2023-03-30T17:29:16Z"
+        },
+        {
+          "body": "GitHub Contribution Notice: Your commit email (chutchinson@dynics.com) isn't linked to your GitHub account. [Link instructions](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-email-preferences/adding-an-email-address-to-your-github-account)",
+          "author": {
+            "login": "YuriSizov",
+            "url": "https://github.com/YuriSizov"
+          },
+          "createdAt": "2023-03-30T17:32:42Z"
+        }
+      ]
+    },
+    "reviews": {
+      "totalCount": 4,
+      "nodes": [
+        {
+          "body": "Approved pending documentation updates for the new project setting",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "state": "APPROVED",
+          "createdAt": "2023-02-13T08:46:31Z"
+        },
+        {
+          "body": "Code Review: Confirm logging implementation avoids translation utilities per team conventions",
+          "author": {
+            "login": "m4gr3d",
+            "url": "https://github.com/m4gr3d"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2023-02-14T17:13:12Z"
+        },
+        {
+          "body": "Documentation Note: Should update OpenXR documentation page with new configuration option",
+          "author": {
+            "login": "akien-mga",
+            "url": "https://github.com/akien-mga"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2023-02-14T17:20:34Z"
+        },
+        {
+          "body": "Final Check: Verified project setting appears in Godot's settings menu and respects configuration changes",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2023-03-15T02:53:10Z"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "totalCount": 1,
+      "nodes": [
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "Localization Check: Message doesn't require TTR() as error messages should remain in English for consistency with documentation",
+                "author": {
+                  "login": "m4gr3d",
+                  "url": "https://github.com/m4gr3d"
+                },
+                "createdAt": "2023-02-14T17:13:12Z"
+              },
+              {
+                "body": "Translation Consensus: Agreed, technical messages shouldn't be localized to maintain searchability in support contexts",
+                "author": {
+                  "login": "akien-mga",
+                  "url": "https://github.com/akien-mga"
+                },
+                "createdAt": "2023-02-14T17:20:34Z"
+              },
+              {
+                "body": "Implementation Validated: Logging follows established patterns in OpenXR module",
+                "author": {
+                  "login": "BastiaanOlij",
+                  "url": "https://github.com/BastiaanOlij"
+                },
+                "createdAt": "2023-03-15T02:53:10Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "filesChanged": []
+  }

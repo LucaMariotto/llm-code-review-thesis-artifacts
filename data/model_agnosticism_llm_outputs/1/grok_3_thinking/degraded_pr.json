@@ -1,0 +1,203 @@
+{
+    "number": 73144,
+    "title": "Changed OpenXR initialization behavior",
+    "body": "This PR modifies how OpenXR initialization errors are handled. It used to show an alert dialog when it fails (like if SteamVR isn’t running or the HMD is off), but now it logs a warning message instead. There’s an option called **Startup Alert** to switch this behavior.\n\nThe dialog was annoying since it slowed things down and you had to click it every time. The warning shows up in the console now, which is less of a hassle.\n\nI didn’t like the old way because it messed up my work. I usually code without VR and test in VR later.\n\nYou could turn off OpenXR or keep SteamVR running as workarounds, but those aren’t great.\n\nThere are screenshots of the warning somewhere.",
+    "state": "MERGED",
+    "createdAt": "2023-02-12T04:35:58Z",
+    "closedAt": "2023-03-15T13:07:05Z",
+    "mergedAt": "2023-03-15T13:07:05Z",
+    "url": "https://github.com/godotengine/godot/pull/73144",
+    "author": {
+      "login": "chutchinson",
+      "url": "https://github.com/chutchinson"
+    },
+    "comments": {
+      "totalCount": 9,
+      "nodes": [
+        {
+          "body": "The project runs quicker now without the dialog popping up.",
+          "author": {
+            "login": "chutchinson",
+            "url": "https://github.com/chutchinson"
+          },
+          "createdAt": "2023-02-12T04:50:30Z",
+          "reactions": {
+            "nodes": [
+              {
+                "content": "THUMBS_UP"
+              }
+            ]
+          }
+        },
+        {
+          "body": "This seems alright, I guess. XR failing isn’t a huge problem.",
+          "author": {
+            "login": "fire",
+            "url": "https://github.com/fire"
+          },
+          "createdAt": "2023-02-12T05:03:19Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "What about XR-only devices? They might not work right without an alert.",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "createdAt": "2023-02-12T08:15:45Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "I put in a setting for the alert. Does that work?",
+          "author": {
+            "login": "chutchinson",
+            "url": "https://github.com/chutchinson"
+          },
+          "createdAt": "2023-02-13T06:25:27Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Yeah, it’s fine, I suppose.",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "createdAt": "2023-02-13T08:47:17Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Let’s just merge it.",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "createdAt": "2023-03-15T02:53:22Z",
+          "reactions": {
+            "nodes": [
+              {
+                "content": "LAUGH"
+              }
+            ]
+          }
+        },
+        {
+          "body": "Cool.",
+          "author": {
+            "login": "YuriSizov",
+            "url": "https://github.com/YuriSizov"
+          },
+          "createdAt": "2023-03-15T13:07:18Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Added to 4.0.2.",
+          "author": {
+            "login": "YuriSizov",
+            "url": "https://github.com/YuriSizov"
+          },
+          "createdAt": "2023-03-30T17:29:16Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Your email isn’t tied to your GitHub account or something.",
+          "author": {
+            "login": "YuriSizov",
+            "url": "https://github.com/YuriSizov"
+          },
+          "createdAt": "2023-03-30T17:32:42Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    },
+    "reviews": {
+      "totalCount": 4,
+      "nodes": [
+        {
+          "body": "Fix some stuff.",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "state": "CHANGES_REQUESTED",
+          "createdAt": "2023-02-13T08:46:31Z"
+        },
+        {
+          "body": "It’s okay.",
+          "author": {
+            "login": "m4gr3d",
+            "url": "https://github.com/m4gr3d"
+          },
+          "state": "APPROVED",
+          "createdAt": "2023-02-14T17:13:12Z"
+        },
+        {
+          "body": "Not sure about this.",
+          "author": {
+            "login": "akien-mga",
+            "url": "https://github.com/akien-mga"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2023-02-14T17:20:34Z"
+        },
+        {
+          "body": "Maybe think about the message.",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2023-03-15T02:53:10Z"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "totalCount": 1,
+      "nodes": [
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "Should the message be translated?",
+                "author": {
+                  "login": "m4gr3d",
+                  "url": "https://github.com/m4gr3d"
+                },
+                "createdAt": "2023-02-14T17:13:12Z"
+              },
+              {
+                "body": "Error messages are usually English, I think.",
+                "author": {
+                  "login": "akien-mga",
+                  "url": "https://github.com/akien-mga"
+                },
+                "createdAt": "2023-02-14T17:20:34Z"
+              },
+              {
+                "body": "Dunno, maybe keep it English.",
+                "author": {
+                  "login": "BastiaanOlij",
+                  "url": "https://github.com/BastiaanOlij"
+                },
+                "createdAt": "2023-03-15T02:53:10Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "filesChanged": []
+}

@@ -1,0 +1,86 @@
+{
+    "number": 7142,
+    "title": "Update curl command usage for PowerShell environments",
+    "body": "### Overview\n\nIn PowerShell, the command `curl` is an alias for the `Invoke-WebRequest` cmdlet, which does not correctly process flags such as `-sO`. To avoid this issue, users should invoke `curl.exe` when operating in PowerShell. This adjustment is only required for PowerShell environments; if you are using the Windows Command Prompt, the standard `curl` command functions as expected.\n\nFor more information, please refer to the [curl documentation on Windows](https://curl.se/windows/microsoft.html).\n\n### Changes\n\n- Updated the example command to use `curl.exe` in PowerShell to prevent conflicts with the default alias.\n\n### Proposed Changelog Entries\n\n- Use `curl.exe` instead of `curl` for PowerShell environments to ensure proper flag support.\n\n### Checklists\n\n#### Submitter Checklist\n\n- [x] Changelog entries and upgrade guidelines are clear, concise, and in the imperative mood.\n\n#### Maintainer Checklist\n\n- [x] At least two approvals have been obtained and all review comments have been addressed.\n- [x] Changelog entries are accurate and human-readable.\n- [x] Appropriate labels have been set to facilitate automatic changelog generation.\n- [x] No additional upgrade steps are required for users.\n- [x] If applicable, the change has been marked for backporting with the necessary Jira issue and labels.\n",
+    "state": "MERGED",
+    "createdAt": "2022-09-22T14:17:11Z",
+    "closedAt": "2022-09-23T15:13:12Z",
+    "mergedAt": "2022-09-23T15:13:12Z",
+    "url": "https://github.com/jenkinsci/jenkins/pull/7142",
+    "author": {
+      "login": "jjasghar",
+      "url": "https://github.com/jjasghar"
+    },
+    "comments": {
+      "totalCount": 6,
+      "nodes": [
+        {
+          "body": "Suggestion: Consider adding a note that clarifies the change applies specifically to PowerShell environments, since Windows 10 and later include `curl.exe` by default. This will help prevent confusion for users operating in different shells.",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T15:04:08Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Clarification: The update targets only PowerShell environments where the `curl` alias interferes with the expected behavior of the genuine curl executable. In the Windows Command Prompt, the command continues to operate as intended.",
+          "author": {
+            "login": "MarkEWaite",
+            "url": "https://github.com/MarkEWaite"
+          },
+          "createdAt": "2022-09-22T15:10:37Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Proposed revision for the note:\n\n\"If you are using PowerShell to run your remote agent, please execute `curl.exe` instead of `curl` to bypass the default alias. This ensures that flags like `-sO` work correctly.\"\n\nIncluding this explanation directly in the documentation could greatly reduce troubleshooting time for affected users.",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T15:59:39Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Update applied: The suggested note has been incorporated into the PR body to improve clarity. Please review the updated documentation.",
+          "author": {
+            "login": "MarkEWaite",
+            "url": "https://github.com/MarkEWaite"
+          },
+          "createdAt": "2022-09-22T16:20:24Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "The note has been added as requested. It now clearly states that this change is relevant only to PowerShell environments.",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T16:31:48Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Final update applied as per the discussion. Thank you for the constructive feedback.",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T17:08:16Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    }
+  }
+  

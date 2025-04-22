@@ -1,0 +1,85 @@
+{
+    "number": 7142,
+    "title": "fix curl example",
+    "body": "curl in powershell isnt working with -sO flags. use curl.exe instead.\r\n\r\nsee: https://curl.se/windows/microsoft.html\r\n\r\n\r\n### changelog\r\n\r\n- fixed the command to curl.exe instead of curl\r\n\r\n\r\n### Submitter checklist\r\n\r\n- [x] Changelog entries done\r\n\r\n### Maintainer checklist\r\n\r\nBefore the changes are marked as `ready-for-merge`:\r\n\r\n- [x] There are at least 2 approvals for the pull request and no outstanding requests for change\r\n- [x] Conversations in the pull request are over OR it is explicit that a reviewer does not block the change\r\n- [x] Changelog entries in the PR title and/or `Proposed changelog entries` are accurate, human-readable, and in the imperative mood\r\n- [x] Proper changelog labels are set so that the changelog can be generated automatically\r\n- [x] If the change needs additional upgrade steps from users, `upgrade-guide-needed` label is set and there is a `Proposed upgrade guidelines` section in the PR title. ([example](https://github.com/jenkinsci/jenkins/pull/4387))\r\n- [x] If it would make sense to backport the change to LTS, a Jira issue must exist, be a _Bug_ or _Improvement_, and be labeled as `lts-candidate` to be considered (see [query](https://issues.jenkins.io/issues/?filter=12146)).\r\n\n\n<a href=\"https://gitpod.io/#https://github.com/jenkinsci/jenkins/pull/7142\"><img src=\"https://gitpod.io/button/open-in-gitpod.svg\"/></a>\n\n",
+    "state": "MERGED",
+    "createdAt": "2022-09-22T14:17:11Z",
+    "closedAt": "2022-09-23T15:13:12Z",
+    "mergedAt": "2022-09-23T15:13:12Z",
+    "url": "https://github.com/jenkinsci/jenkins/pull/7142",
+    "author": {
+      "login": "jjasghar",
+      "url": "https://github.com/jjasghar"
+    },
+    "comments": {
+      "totalCount": 6,
+      "nodes": [
+        {
+          "body": "we should add something about curl.exe for windows. windows 10 has curl.exe installed by default",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T15:04:08Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "only needed for powershell not for cmd window. works fine in cmd",
+          "author": {
+            "login": "MarkEWaite",
+            "url": "https://github.com/MarkEWaite"
+          },
+          "createdAt": "2022-09-22T15:10:37Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "maybe say something like:\r\n> If using Powershell run curl.exe not curl because of alias\r\n\r\nit took me hours to figure this out. would help others",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T15:59:39Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "ok add that. the doc u linked says\r\n\r\n> A Powershell alias\r\n> \r\n> curl in powershell is an alias for invoke-webrequest and doesnt work like curl\r\n> \r\n> use curl.exe to fix it",
+          "author": {
+            "login": "MarkEWaite",
+            "url": "https://github.com/MarkEWaite"
+          },
+          "createdAt": "2022-09-22T16:20:24Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "i added it as a note not sure if formatting is right",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T16:31:48Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "done",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T17:08:16Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    }
+  }

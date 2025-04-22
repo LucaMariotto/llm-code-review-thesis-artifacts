@@ -1,0 +1,169 @@
+{
+    "number": 14778,
+    "title": "KAFKA-15776: Introduce remote.fetch.max.timeout.ms for granular remote fetch control",
+    "body": "**Objective**: Address latency variability in hybrid local/remote fetch scenarios by introducing a dedicated timeout configuration for remote fetch operations.\n\n**Implementation**: \n- Added `remote.fetch.max.timeout.ms` (default: 5000ms) to decouple remote fetch timing from `fetch.max.wait.ms`\n- Modified `RemoteFetchManager` to honor this timeout when awaiting remote storage responses\n- Updated request validation in `FetchRequestHandler` to prevent invalid timeout combinations\n\n**Testing**: \n- Added unit tests for timeout behavior in `RemoteFetchManagerTest`\n- Validated interaction with `fetch.max.wait.ms` in mixed-read scenarios\n- Verified fail-fast behavior when remote storage exceeds timeout\n- Confirmed backward compatibility with existing configurations\n\n**Documentation**: \n- Updated `docs/configuration.md` with parameter description and usage guidelines\n- Added note about timeout precedence in `RemoteLogManager` javadocs\n\n**Follow-up**: \n- Separate metrics enhancement tracked in KAFKA-15890\n- Configuration validation improvements planned for 3.6",
+    "state": "MERGED",
+    "createdAt": "2023-11-16T10:00:29Z",
+    "closedAt": "2024-06-05T06:42:23Z",
+    "mergedAt": "2024-06-05T06:42:23Z",
+    "url": "https://github.com/apache/kafka/pull/14778",
+    "author": {
+      "login": "kamalcph",
+      "url": "https://github.com/kamalcph"
+    },
+    "comments": {
+      "totalCount": 8,
+      "nodes": [
+        {
+          "body": "Could you clarify how this interacts with `fetch.max.wait.ms`? Specifically, what happens when both are set and we have mixed local/remote partitions?",
+          "author": {
+            "login": "divijvaidya",
+            "url": "https://github.com/divijvaidya"
+          },
+          "createdAt": "2023-11-18T18:43:43Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Good question. The remote timeout acts as a ceiling for individual remote fetch attempts, while `fetch.max.wait.ms` governs the overall request wait time. The fetch will return when either:\n1. All required data (local + remote) is available\n2. `fetch.max.wait.ms` expires\n3. Remote fetch exceeds its dedicated timeout\n\nThis prevents scenarios where a single slow remote partition blocks the entire fetch request.",
+          "author": {
+            "login": "kamalcph",
+            "url": "https://github.com/kamalcph"
+          },
+          "createdAt": "2023-11-20T06:15:41Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Suggest adding explicit validation to prevent `remote.fetch.max.timeout.ms` > `fetch.max.wait.ms` configurations. WDYT?",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "createdAt": "2023-11-21T09:59:58Z",
+          "reactions": {
+            "nodes": [
+              {
+                "content": "THUMBS_UP"
+              }
+            ]
+          }
+        },
+        {
+          "body": "PR appears inactive. Please address recent feedback or provide updates by 2024-02-27 to keep open.",
+          "author": {
+            "login": "github-actions",
+            "url": "https://github.com/apps/github-actions"
+          },
+          "createdAt": "2024-02-20T03:33:13Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Confirmed through testing: When remote data isn't ready, the fetch returns empty response immediately after `remote.fetch.max.timeout.ms`, not waiting for `fetch.max.wait.ms`",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "createdAt": "2024-04-12T10:09:56Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Ready for final review. Separated metric changes into KAFKA-15890 as suggested. @showuon @clolov @jeqo please confirm if additional changes needed.",
+          "author": {
+            "login": "kamalcph",
+            "url": "https://github.com/kamalcph"
+          },
+          "createdAt": "2024-06-04T10:21:51Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Approved configuration validation changes. Metrics enhancement should be handled separately as planned.",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "createdAt": "2024-06-05T00:00:35Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Verified test failures relate to flaky TestClientQuotaManager test - unrelated to this change",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "createdAt": "2024-06-05T06:40:54Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    },
+    "reviews": {
+      "totalCount": 2,
+      "nodes": [
+        {
+          "body": "Validated timeout interaction with mixed partition types. Suggest adding explicit documentation note about configuration precedence.",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-06-04T11:23:52Z"
+        },
+        {
+          "body": "Approved after verifying:\n- Configuration validation prevents invalid timeout combinations\n- Remote fetch respects dedicated timeout\n- Backward compatibility maintained\n- Documentation updated",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "state": "APPROVED",
+          "createdAt": "2024-06-05T02:18:00Z"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "totalCount": 1,
+      "nodes": [
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "Added configuration note to `RemoteFetchConfig` javadoc explaining interaction with `fetch.max.wait.ms`. Will update documentation site in follow-up PR.",
+                "author": {
+                  "login": "kamalcph",
+                  "url": "https://github.com/kamalcph"
+                },
+                "createdAt": "2024-06-04T11:23:52Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "filesChanged": [
+      {
+        "path": "src/main/java/kafka/server/RemoteFetchManager.java",
+        "additions": 18,
+        "deletions": 4,
+        "patch": "@@ -127,6 +127,10 @@ public class RemoteFetchManager {\n     private final int maxBytes;\n     private final int minBytes;\n     private final int maxWaitMs;\n+    /**\n+     * Maximum time to wait for remote storage responses (ms)\n+     */\n+    private final int remoteFetchMaxTimeoutMs;\n \n     public RemoteFetchManager(...) {\n         this.maxBytes = configs.getInt(...);",
+        "documentation": "Added timeout configuration and validation"
+      },
+      {
+        "path": "docs/configuration.md",
+        "additions": 12,
+        "deletions": 0,
+        "patch": "@@ -482,6 +482,18 @@ The following configurations are available:\n | `fetch.max.wait.ms` | 500 | Maximum time to wait for fetch response | \n | `fetch.min.bytes` | 1 | Minimum bytes to accumulate before returning | \n \n+### Remote Fetch Configuration\n+| Property | Default | Description |\n+|----------|---------|-------------|\n+| `remote.fetch.max.timeout.ms` | 5000 | Maximum time (ms) to wait for remote storage responses before failing fast |\n+\n+**Note**: This configuration applies only to remote partition fetches and is capped by `fetch.max.wait.ms`.\n+",
+        "documentation": "Documented new configuration parameter"
+      }
+    ]
+  }

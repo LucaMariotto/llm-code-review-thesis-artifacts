@@ -1,0 +1,85 @@
+{
+    "number": 7142,
+    "title": "Update curl example for inbound agents to use curl.exe on Windows PowerShell",
+    "body": "Revised the curl example for inbound agents to use `curl.exe` instead of `curl` in Windows PowerShell environments. This change addresses an issue where PowerShell's default `curl` alias (mapped to `Invoke-WebRequest`) does not support flags like `-sO`, causing the command to fail. By explicitly using `curl.exe`, we ensure the correct curl command-line tool is executed, supporting the intended functionality.\n\n### Why this change is necessary\nIn PowerShell, `curl` is an alias for `Invoke-WebRequest`, which has different behavior and does not recognize curl-specific flags like `-sO`. This can lead to errors or unexpected results when users follow the documentation in PowerShell. Using `curl.exe` resolves this by invoking the actual curl executable, which is included by default in Windows 10 and later. This change improves compatibility and reduces confusion for Windows users.\n\nFor more details, see the [official curl documentation for Windows](https://curl.se/windows/microsoft.html).\n\n### Proposed changelog entries\n- Updated the curl example for inbound agents to use `curl.exe` in Windows PowerShell, ensuring compatibility with required flags.\n\n### Submitter checklist\n- [x] Changelog entries and upgrade guidelines are appropriate for the audience affected by the change (users or developers, depending on the change) and are in the imperative mood. [Examples](https://github.com/jenkins-infra/jenkins.io/blob/master/content/_data/changelogs/weekly.yml)\n\n### Maintainer checklist\nBefore the changes are marked as `ready-for-merge`:\n- [x] There are at least 2 approvals for the pull request and no outstanding requests for change\n- [x] Conversations in the pull request are over OR it is explicit that a reviewer does not block the change\n- [x] Changelog entries in the PR title and/or `Proposed changelog entries` are accurate, human-readable, and in the imperative mood\n- [x] Proper changelog labels are set so that the changelog can be generated automatically\n- [x] If the change needs additional upgrade steps from users, `upgrade-guide-needed` label is set and there is a `Proposed upgrade guidelines` section in the PR title. ([example](https://github.com/jenkinsci/jenkins/pull/4387))\n- [x] If it would make sense to backport the change to LTS, a Jira issue must exist, be a _Bug_ or _Improvement_, and be labeled as `lts-candidate` to be considered (see [query](https://issues.jenkins.io/issues/?filter=12146)).\n\n\n<a href=\"https://gitpod.io/#https://github.com/jenkinsci/jenkins/pull/7142\"><img src=\"https://gitpod.io/button/open-in-gitpod.svg\"/></a>\n\n",
+    "state": "MERGED",
+    "createdAt": "2022-09-22T14:17:11Z",
+    "closedAt": "2022-09-23T15:13:12Z",
+    "mergedAt": "2022-09-23T15:13:12Z",
+    "url": "https://github.com/jenkinsci/jenkins/pull/7142",
+    "author": {
+      "login": "jjasghar",
+      "url": "https://github.com/jjasghar"
+    },
+    "comments": {
+      "totalCount": 6,
+      "nodes": [
+        {
+          "body": "Since Windows 10 and later include `curl.exe` by default, it might be helpful to add a note in the documentation for Windows users. This could clarify when and why `curl.exe` is needed, especially for those using PowerShell.",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T15:04:08Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Good suggestion! However, this is only necessary in PowerShell, as `curl` works fine in the Windows command prompt. We should ensure the note targets PowerShell users specifically to avoid confusion.",
+          "author": {
+            "login": "MarkEWaite",
+            "url": "https://github.com/MarkEWaite"
+          },
+          "createdAt": "2022-09-22T15:10:37Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "How about adding this to the documentation?\n\n> **Note for Windows PowerShell users:** When running the curl command in PowerShell, use `curl.exe` instead of `curl` to avoid conflicts with the `Invoke-WebRequest` alias. For example:\n> \n> ```powershell\n> curl.exe -sO http://example.com/file\n> ```\n> \n> As someone less familiar with Windows, I spent hours troubleshooting this. Including this note could save others the same frustration.",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T15:59:39Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "That’s a great idea! The example and explanation are clear and concise, making it easy for PowerShell users to understand. Could you add this note to the documentation in this PR? It’ll be a valuable addition.",
+          "author": {
+            "login": "MarkEWaite",
+            "url": "https://github.com/MarkEWaite"
+          },
+          "createdAt": "2022-09-22T16:20:24Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Done! I’ve added the note to the documentation as a highlighted section for PowerShell users. Let me know if it needs any tweaks.",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T16:31:48Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Looks perfect—thanks for the quick update! This change will make it much easier for Windows users to set up inbound agents correctly.",
+          "author": {
+            "login": "MarkEWaite",
+            "url": "https://github.com/MarkEWaite"
+          },
+          "createdAt": "2022-09-22T17:08:16Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    }
+  }

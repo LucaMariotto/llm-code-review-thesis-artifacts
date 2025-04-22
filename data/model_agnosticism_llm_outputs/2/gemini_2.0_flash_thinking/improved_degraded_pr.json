@@ -1,0 +1,115 @@
+{
+    "number": 69259,
+    "title": "Dashboards: Enhance Data Source Template Variable Options with UID for Reliable Selection",
+    "body": "This pull request introduces a significant enhancement to how data source template variables function within dashboards. It addresses inconsistencies that can arise in provisioned environments where data source names might vary across instances.\n\n**Purpose of this change:**\n\nThis update modifies the underlying mechanism for setting the current value of data source template variables. Instead of relying on the data source name, which can be ambiguous or inconsistent, the system now utilizes the unique identifier (UID) of the data source. This ensures that the intended data source is consistently selected, regardless of its name.\n\nPreviously, the 'value' field within the option structure was underutilized. This change leverages this field to store the data source UID, providing a more robust and reliable method for identifying and selecting data sources in template variables.\n\n**Benefits of this change:**\n\n* **Improved Reliability in Provisioned Environments:** When dashboards and data sources are provisioned programmatically, the names might not always be identical across different Grafana instances. Using the UID eliminates this potential point of failure, guaranteeing the correct data source is selected.\n* **Enhanced Consistency:** By prioritizing the UID, this change ensures a more consistent experience for users, especially in complex environments with numerous data sources.\n* **More Predictable Behavior:** Selecting data sources based on a unique identifier offers a more predictable and less error-prone approach compared to relying on potentially variable names.\n\n**Impact and Migration:**\n\nThis change introduces a breaking change in how data source template variables are interpolated. Previously, the default interpolation `${dsVar}` would output the data source name. Now, it will output the data source UID. To maintain the previous behavior of displaying the data source name, users will need to explicitly use the `:text` modifier in their variable interpolation, like this:\n\n```\n${dsVar}        // Now outputs the data source UID\nName: ${dsVar:text} // Outputs the data source name (previous default)\nUID: ${dsVar:raw}  // Outputs the data source UID (remains unchanged)\n```\n\n**Affected Areas:**\n\nUsers who utilize data source template variables in the following contexts might need to make adjustments:\n\n* **Text Panels:** If data source variables are displayed directly in text panels, the output will now be the UID instead of the name.\n* **Query Editors:** Queries that directly use the interpolated variable without the `:text` modifier will now be filtering by the data source UID.\n\n**Mitigation Strategy:**\n\nTo ensure a smooth transition, we recommend the following:\n\n* **Review Existing Dashboards:** Identify dashboards that use data source template variables and check how they are being interpolated.\n* **Update Interpolations:** Modify the variable interpolations in text panels and queries to use the `:text` modifier where the data source name is required.\n\n**Documentation Update:**\n\nDetailed documentation regarding this change and its implications has been updated and can be found [Link to updated documentation]. This documentation provides further guidance on how to adapt existing dashboards and leverage the new UID-based selection.\n\n**Testing:**\n\nComprehensive testing has been performed to ensure the reliability of the new UID-based selection and to validate the backward compatibility for older dashboards that rely on data source names. New tests have been added to specifically cover the alternative variable form (`:text`).",
+    "state": "MERGED",
+    "createdAt": "2023-05-30T15:24:59Z",
+    "closedAt": "2023-06-12T08:05:51Z",
+    "mergedAt": "2023-06-12T08:05:51Z",
+    "url": "https://github.com/grafana/grafana/pull/69259",
+    "author": {
+      "login": "darrenjaneczek",
+      "url": "https://github.com/darrenjaneczek"
+    },
+    "comments": {
+      "totalCount": 7,
+      "nodes": [
+        {
+          "body": "@darrenjaneczek This change to use the data source UID for template variable options makes sense for improving consistency, especially in provisioned environments. It's good that older dashboards relying on the name will still function. To ensure a smooth transition for users, we should clearly communicate the breaking change and the necessary adjustments in the release notes and potentially in a dedicated blog post. It would also be beneficial to highlight the benefits of this more robust approach.",
+          "author": {
+            "login": "dprokop",
+            "url": "https://github.com/dprokop"
+          },
+          "createdAt": "2023-05-31T08:43:09Z",
+          "reactions": {
+            "nodes":[]
+          }
+        },
+        {
+          "body": "@dprokop I agree that this is a necessary improvement for long-term stability and consistency. Given the potential impact on existing dashboards, it's crucial that we provide clear guidance on how users can adapt. Including this as a prominent breaking change in the release notes with specific examples of how to update variable interpolations is essential. Perhaps we could also provide a query or script to help users identify affected dashboards.",
+          "author": {
+            "login": "torkelo",
+            "url": "https://github.com/torkelo"
+          },
+          "createdAt": "2023-05-31T08:46:15Z",
+          "reactions": {
+            "nodes":[]
+          }
+        },
+        {
+          "body": "@darrenjaneczek Considering the potential for disruption, even with backward compatibility for name-based lookups, it might be prudent to target this change for a release where we can provide more lead time and communication. While 9.5.x is the current milestone, could we consider a later release to allow for broader awareness and preparation among our user base?",
+          "author": {
+            "login": "dprokop",
+            "url": "https://github.com/dprokop"
+          },
+          "createdAt": "2023-05-31T10:19:49Z",
+          "reactions": {
+            "nodes":[]
+          }
+        },
+        {
+          "body": "> Previously noted the milestone as 9.5.x and raised concerns about the breaking nature of the change.\n\n@darrenjaneczek To ensure a smoother adoption, would it be feasible to postpone this to a subsequent release to allow more time for user awareness and documentation updates?",
+          "author": {
+            "login": "darrenjaneczek",
+            "url": "https://github.com/darrenjaneczek"
+          },
+          "createdAt": "2023-05-31T13:56:00Z",
+          "reactions": {
+            "nodes":[]
+          }
+        },
+        {
+          "body": "> Regarding the user impact, it's important to emphasize the need to update `${dsVar:text}` for the previous behavior.\n\nThanks @dprokop for highlighting this. I've added a unit test specifically for this alternative variable format to ensure its continued functionality. Additionally, I've reviewed the code and addressed a couple of minor inconsistencies to improve its overall quality.",
+          "author": {
+            "login": "darrenjaneczek",
+            "url": "https://github.com/darrenjaneczek"
+          },
+          "createdAt": "2023-05-31T14:07:02Z",
+          "reactions": {
+            "nodes":[]
+          }
+        },
+        {
+          "body": "> Following up on the milestone and potential user impact.\n\nYes, given the breaking nature and the timing for the current release, moving this to a later version like 10.1.x seems like a reasonable approach. It will provide us with more time to thoroughly document the change, communicate it effectively to our users, and potentially explore automated migration strategies for common use cases in markdown panels and queries.",
+          "author": {
+            "login": "ivanortegaalba",
+            "url": "https://github.com/ivanortegaalba"
+          },
+          "createdAt": "2023-05-31T16:05:31Z",
+          "reactions": {
+            "nodes":[]
+          }
+        },
+        {
+          "body": "Acknowledging the feedback regarding the release timeline and the need for clear communication:\n\n* The milestone has been updated to 10.1.x to allow for better planning and communication.\n* The breaking change notice in the PR body has been expanded with more detail and specific examples of how users can adapt their dashboards. A link to the updated documentation will be added once it's live.\n* We will also ensure this change is prominently featured in the release notes for 10.1.x, potentially with a dedicated blog post highlighting the benefits and providing migration guidance.",
+          "author": {
+            "login": "darrenjaneczek",
+            "url": "https://github.com/darrenjaneczek"
+          },
+          "createdAt": "2023-05-31T16:16:35Z",
+          "reactions": {
+            "nodes":[]
+          }
+        }
+      ]
+    },
+    "reviews": {
+      "totalCount": 1,
+      "nodes": [
+        {
+          "body": "This looks good. The change addresses a real issue with data source consistency in provisioned environments, and the updated PR body clearly outlines the impact and provides guidance for users. Moving it to 10.1.x will give us the necessary time to communicate this effectively. Ensure the documentation is updated and linked here before the final release.",
+          "author": {
+            "login": "dprokop",
+            "url": "https://github.com/dprokop"
+          },
+          "state": "APPROVED",
+          "createdAt": "2023-06-02T07:55:24Z"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "totalCount": 0,
+      "nodes":[]
+    },
+    "filesChanged":[]
+  }

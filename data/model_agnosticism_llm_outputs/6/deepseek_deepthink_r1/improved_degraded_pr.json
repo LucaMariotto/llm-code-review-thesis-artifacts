@@ -1,0 +1,154 @@
+{
+    "number": 14778,
+    "title": "KAFKA-15776: Introduce remote.fetch.max.timeout.ms configuration for remote fetch timeouts",
+    "body": "## Problem Statement\nRemote log storage systems may experience higher latency than local storage. This change introduces a dedicated timeout configuration (`remote.fetch.max.timeout.ms`) to prevent consumer request timeouts during remote partition fetching, as outlined in KIP-1018.\n\n## Technical Implementation\n- Adds new configuration parameter with 30s default value\n- Decouples remote fetch timing from existing `fetch.max.wait.ms`\n- Maintains backward compatibility through configuration validation\n- Updates `RemoteLogManager` timeout handling logic\n\n## Validation\n- Added unit tests for timeout scenarios in `RemoteFetchTest`\n- Verified integration with tiered storage in QA environment\n- Updated configuration documentation in `kafka-configs.md`\n\n## Related Work\n- JIRA: https://issues.apache.org/jira/browse/KAFKA-15776\n- Follow-up PR planned for metric collection improvements (KAFKA-15802)\n\nChecklist:\n- [x] Architectural review completed\n- [x] Cross-broker compatibility testing\n- [x] Documentation updates committed",
+    "state": "MERGED",
+    "createdAt": "2023-11-16T10:00:29Z",
+    "closedAt": "2024-06-05T06:42:23Z",
+    "mergedAt": "2024-06-05T06:42:23Z",
+    "url": "https://github.com/apache/kafka/pull/14778",
+    "author": {
+      "login": "kamalcph",
+      "url": "https://github.com/kamalcph"
+    },
+    "comments": {
+      "totalCount": 8,
+      "nodes": [
+        {
+          "body": "Could we clarify the relationship between this new timeout and the existing `fetch.max.wait.ms`? The documentation suggests they operate independently but we should ensure there's no unintended interaction in hybrid storage scenarios.",
+          "author": {
+            "login": "divijvaidya",
+            "url": "https://github.com/divijvaidya"
+          },
+          "createdAt": "2023-11-18T18:43:43Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Good observation. The two timeouts are intentionally separate:\n1. `fetch.max.wait.ms` controls overall consumer request waiting\n2. `remote.fetch.max.timeout.ms` specifically bounds remote storage operations\nWe've added validation to ensure remote timeout ≤ consumer timeout. See `RemoteFetchValidator.java` for enforcement logic.",
+          "author": {
+            "login": "kamalcph",
+            "url": "https://github.com/kamalcph"
+          },
+          "createdAt": "2023-11-20T06:15:41Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "The default value alignment with request.timeout.ms looks reasonable, but we should document this relationship explicitly. Suggest adding a note in both Javadoc and configuration reference.",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "createdAt": "2023-11-21T09:59:58Z",
+          "reactions": {
+            "nodes": [
+              {
+                "content": "THUMBS_UP"
+              }
+            ]
+          }
+        },
+        {
+          "body": "Marking the PR as inactive due to no recent updates. Please review or update to keep it active.",
+          "author": {
+            "login": "github-actions",
+            "url": "https://github.com/apps/github-actions"
+          },
+          "createdAt": "2024-02-20T03:33:13Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Update: Final implementation ensures empty responses are only returned after both local and remote timeouts are exhausted. See updated flow diagram in `remote-fetch-sequence.md`",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "createdAt": "2024-04-12T10:09:56Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Ready for final review @showuon @clolov @jeqo. Addressed all previous feedback:\n- Added configuration validation rules\n- Separated metric changes to KAFKA-15802\n- Updated documentation cross-references",
+          "author": {
+            "login": "kamalcph",
+            "url": "https://github.com/kamalcph"
+          },
+          "createdAt": "2024-06-04T10:21:51Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Agreed on separating dynamic config changes. Let's track that work in KAFKA-15803. This PR remains focused on static configuration.",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "createdAt": "2024-06-05T00:00:35Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Confirmed test failures are unrelated flaky tests. Greenlit for merge after verifying latest CI run.",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "createdAt": "2024-06-05T06:40:54Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    },
+    "reviews": {
+      "totalCount": 2,
+      "nodes": [
+        {
+          "body": "The validation logic looks solid. One minor suggestion: Could we add a log warning when remote timeout exceeds consumer timeout? This would help operators detect misconfigurations.",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-06-04T11:23:52Z"
+        },
+        {
+          "body": "All concerns addressed. The documentation updates clearly explain configuration relationships, and the validation logic prevents invalid combinations. Approved for merge.",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "state": "APPROVED",
+          "createdAt": "2024-06-05T02:18:00Z"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "totalCount": 1,
+      "nodes": [
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "Added configuration scope notes in both `Configuration.md` and the parameter's Javadoc. The remote/local timeout relationship is now documented in the 'Tiered Storage' section of the architecture guide.",
+                "author": {
+                  "login": "kamalcph",
+                  "url": "https://github.com/kamalcph"
+                },
+                "createdAt": "2024-06-04T11:23:52Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "filesChanged": []
+  }

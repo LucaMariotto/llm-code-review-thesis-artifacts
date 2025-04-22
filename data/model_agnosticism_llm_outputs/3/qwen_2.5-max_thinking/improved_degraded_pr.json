@@ -1,0 +1,129 @@
+{
+    "number": 97224,
+    "title": "Expressions: Add user-facing notification for Strict Mode in Reduce component with i18n support",
+    "body": "<!--\n\nThank you for contributing to Grafana. To ensure smooth collaboration:\n\n1. Verify alignment with contribution guidelines\n2. Validate automated tests and documentation updates\n3. Use draft status for work-in-progress changes\n4. Rebase instead of merge for conflict resolution\n\n-->\n\n**Problem Statement**\nUsers may encounter unexpected NaN values when using fill(null) in InfluxQL queries under Strict Mode. This change introduces a contextual warning notification to:\n- Clarify the behavior of fill(null) in Strict Mode\n- Guide users toward valid data handling practices\n\n**Implementation Details**\n1. Added persistent notification in src/components/Reduce/Reduce.tsx\n2. Implemented using existing Notification component pattern\n3. Integrated with i18n translation system (en_US added, other locales pending)\n4. Added unit tests covering visibility conditions\n\n**Follow-up Considerations**\n- Comprehensive error handling for edge cases\n- Additional localization updates\n- UX review of notification placement\n\nDocumentation updates pending in /docs/sources/influxql.md",
+    "state": "MERGED",
+    "createdAt": "2024-12-02T03:50:27Z",
+    "closedAt": "2024-12-29T11:58:21Z",
+    "mergedAt": "2024-12-29T11:58:21Z",
+    "url": "https://github.com/grafana/grafana/pull/97224",
+    "author": {
+      "login": "shubhankarunhale",
+      "url": "https://github.com/shubhankarunhale"
+    },
+    "comments": {
+      "totalCount": 1,
+      "nodes": [
+        {
+          "body": "CLA check verified ✅",
+          "author": {
+            "login": "CLAassistant",
+            "url": "https://github.com/CLAassistant"
+          },
+          "createdAt": "2024-12-02T03:50:34Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    },
+    "reviews": {
+      "totalCount": 4,
+      "nodes": [
+        {
+          "body": "Functional change looks good. Two suggestions:\n1. Add translation key to /public/locales/en_US.json\n2. Verify notification doesn't overlap with existing alerts\n\nSee implementation pattern in src/components/QueryEditor for reference",
+          "author": {
+            "login": "itsmylife",
+            "url": "https://github.com/itsmylife"
+          },
+          "state": "CHANGES_REQUESTED",
+          "createdAt": "2024-12-23T21:54:47Z"
+        },
+        {
+          "body": "Addressed feedback:\n- Added translation key 'strict-mode.fill-null-warning'\n- Verified layout with @grafana/ui Storybook\n- Rebased onto main to resolve conflicts",
+          "author": {
+            "login": "shubhankarunhale",
+            "url": "https://github.com/shubhankarunhale"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-12-27T14:52:29Z"
+        },
+        {
+          "body": "Layout verification:\n- Notification appears below query editor\n- No overlap with existing alerts\n- Responsive behavior maintained\n\nTested with various panel sizes 👍",
+          "author": {
+            "login": "itsmylife",
+            "url": "https://github.com/itsmylife"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-12-29T11:01:29Z"
+        },
+        {
+          "body": "🚀 Approved pending documentation update",
+          "author": {
+            "login": "itsmylife",
+            "url": "https://github.com/itsmylife"
+          },
+          "state": "APPROVED",
+          "createdAt": "2024-12-29T11:10:03Z"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "totalCount": 2,
+      "nodes": [
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "Please update translation file:\n1. Add key to public/locales/en_US.json\n2. Run 'yarn i18n:extract' to generate template",
+                "author": {
+                  "login": "itsmylife",
+                  "url": "https://github.com/itsmylife"
+                },
+                "createdAt": "2024-12-23T21:54:48Z"
+              },
+              {
+                "body": "Added translation key and verified extraction. Rebased to resolve conflicts with main branch",
+                "author": {
+                  "login": "shubhankarunhale",
+                  "url": "https://github.com/shubhankarunhale"
+                },
+                "createdAt": "2024-12-27T14:52:29Z"
+              }
+            ]
+          }
+        },
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "Confirmed UI implementation matches design system patterns. Consider adding visual regression test in follow-up",
+                "author": {
+                  "login": "itsmylife",
+                  "url": "https://github.com/itsmylife"
+                },
+                "createdAt": "2024-12-29T11:01:29Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "filesChanged": [
+      {
+        "path": "src/components/Reduce/Reduce.tsx",
+        "additions": 28,
+        "deletions": 3
+      },
+      {
+        "path": "public/locales/en_US.json",
+        "additions": 1,
+        "deletions": 0
+      },
+      {
+        "path": "src/components/Reduce/__tests__/Reduce.test.tsx",
+        "additions": 42,
+        "deletions": 0
+      }
+    ]
+  }

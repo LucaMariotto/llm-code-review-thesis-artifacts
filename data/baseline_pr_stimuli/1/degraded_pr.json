@@ -1,0 +1,203 @@
+{
+  "number": 73144,
+  "title": "Swapped OpenXR alert for a log warning",
+  "body": "Fixes #73141\r\n\r\nThis change replaces the intrusive alert dialog with a simple warning log when OpenXR fails to start, which can happen if StreamVR isn’t running or if an HMD is off or in standby. A new project setting (Startup Alert, default true) has been added to let users decide if they want the alert. \r\n\r\nNotes:\r\n- The alert was causing extra delay and interrupting workflow.\r\n- The warning now appears in the error logs much like other OpenXR issues.\r\n\r\nUser note:\r\nThe alert was slowing down work, so this update was needed even though it may not be ideal in all cases.\r\n\r\nAlternatives:\r\nDisabling OpenXR can avoid the alert but requires a restart, which isn’t great.\r\n\r\nScreenshots:\r\nScreenshots attached show the warning in both the console and the error tab.",
+  "state": "MERGED",
+  "createdAt": "2023-02-12T04:35:58Z",
+  "closedAt": "2023-03-15T13:07:05Z",
+  "mergedAt": "2023-03-15T13:07:05Z",
+  "url": "https://github.com/godotengine/godot/pull/73144",
+  "author": {
+    "login": "chutchinson",
+    "url": "https://github.com/chutchinson"
+  },
+  "comments": {
+    "totalCount": 9,
+    "nodes": [
+      {
+        "body": "The fix seems to cut down the start-up delay since the dialog no longer pops up. Not exactly clear why the original delay happened—maybe some lower-level Windows stuff was at play.",
+        "author": {
+          "login": "chutchinson",
+          "url": "https://github.com/chutchinson"
+        },
+        "createdAt": "2023-02-12T04:50:30Z",
+        "reactions": {
+          "nodes": [
+            {
+              "content": "THUMBS_UP"
+            }
+          ]
+        }
+      },
+      {
+        "body": "This looks acceptable since the XR failure isn’t stopping the engine from running.",
+        "author": {
+          "login": "fire",
+          "url": "https://github.com/fire"
+        },
+        "createdAt": "2023-02-12T05:03:19Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "Not fully accurate though. On devices that rely only on XR, the screen might just go blank. Perhaps having a setting is a better idea, though overall it seems okay to suppress the dialog.",
+        "author": {
+          "login": "BastiaanOlij",
+          "url": "https://github.com/BastiaanOlij"
+        },
+        "createdAt": "2023-02-12T08:15:45Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "I added a project setting for showing the alert on startup (default true). The warning always shows though. Not sure if the warning should be made more severe. Feedback on the property name or description would be helpful.",
+        "author": {
+          "login": "chutchinson",
+          "url": "https://github.com/chutchinson"
+        },
+        "createdAt": "2023-02-13T06:25:27Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "Seems okay as it is, thanks.",
+        "author": {
+          "login": "BastiaanOlij",
+          "url": "https://github.com/BastiaanOlij"
+        },
+        "createdAt": "2023-02-13T08:47:17Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "I’m for merging this change.",
+        "author": {
+          "login": "BastiaanOlij",
+          "url": "https://github.com/BastiaanOlij"
+        },
+        "createdAt": "2023-03-15T02:53:22Z",
+        "reactions": {
+          "nodes": [
+            {
+              "content": "LAUGH"
+            }
+          ]
+        }
+      },
+      {
+        "body": "Thanks.",
+        "author": {
+          "login": "YuriSizov",
+          "url": "https://github.com/YuriSizov"
+        },
+        "createdAt": "2023-03-15T13:07:18Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "Cherry-picked for 4.0.2.",
+        "author": {
+          "login": "YuriSizov",
+          "url": "https://github.com/YuriSizov"
+        },
+        "createdAt": "2023-03-30T17:29:16Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "FYI, the identity used for this PR doesn’t match your GitHub account, so it doesn’t count toward your contributions.\r\n\r\n```\r\nChris Hutchinson <chutchinson@dynics.com>\r\n```",
+        "author": {
+          "login": "YuriSizov",
+          "url": "https://github.com/YuriSizov"
+        },
+        "createdAt": "2023-03-30T17:32:42Z",
+        "reactions": {
+          "nodes": []
+        }
+      }
+    ]
+  },
+  "reviews": {
+    "totalCount": 4,
+    "nodes": [
+      {
+        "body": "",
+        "author": {
+          "login": "BastiaanOlij",
+          "url": "https://github.com/BastiaanOlij"
+        },
+        "state": "APPROVED",
+        "createdAt": "2023-02-13T08:46:31Z"
+      },
+      {
+        "body": "",
+        "author": {
+          "login": "m4gr3d",
+          "url": "https://github.com/m4gr3d"
+        },
+        "state": "COMMENTED",
+        "createdAt": "2023-02-14T17:13:12Z"
+      },
+      {
+        "body": "",
+        "author": {
+          "login": "akien-mga",
+          "url": "https://github.com/akien-mga"
+        },
+        "state": "COMMENTED",
+        "createdAt": "2023-02-14T17:20:34Z"
+      },
+      {
+        "body": "",
+        "author": {
+          "login": "BastiaanOlij",
+          "url": "https://github.com/BastiaanOlij"
+        },
+        "state": "COMMENTED",
+        "createdAt": "2023-03-15T02:53:10Z"
+      }
+    ]
+  },
+  "reviewThreads": {
+    "totalCount": 1,
+    "nodes": [
+      {
+        "comments": {
+          "nodes": [
+            {
+              "body": "The log message might need to be wrapped in the translation utility.",
+              "author": {
+                "login": "m4gr3d",
+                "url": "https://github.com/m4gr3d"
+              },
+              "createdAt": "2023-02-14T17:13:12Z"
+            },
+            {
+              "body": "Keep in mind that if the translation function is used, the string should be on one line. Not sure if we even translate these types of alerts, as leaving them in English could help with searching for issues.",
+              "author": {
+                "login": "akien-mga",
+                "url": "https://github.com/akien-mga"
+              },
+              "createdAt": "2023-02-14T17:20:34Z"
+            },
+            {
+              "body": "I agree, translating this might not be necessary.",
+              "author": {
+                "login": "BastiaanOlij",
+                "url": "https://github.com/BastiaanOlij"
+              },
+              "createdAt": "2023-03-15T02:53:10Z"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "filesChanged": []
+}

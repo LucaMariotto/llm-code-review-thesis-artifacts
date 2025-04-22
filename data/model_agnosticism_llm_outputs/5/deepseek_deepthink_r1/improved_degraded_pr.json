@@ -1,0 +1,85 @@
+{
+    "number": 7142,
+    "title": "Fix PowerShell curl compatibility in agent installation docs",
+    "body": "## Problem Statement\nWindows PowerShell aliases `curl` to its built-in cmdlet, conflicting with standard cURL flags. This causes silent failures when using our existing installation instructions.\n\n## Solution\n- Replace `curl` with `curl.exe` in PowerShell examples to bypass alias\n- Add Windows environment compatibility notes\n- Reference official cURL Windows documentation\n\n## Technical Details\n- Affected file: `docs/inbound-agent-installation.md`\n- Windows versions >= 10 1803 include curl.exe in PATH\n- Verified in PowerShell 5.1 and PowerShell Core 7.2\n\n## Testing Protocol\n1. Fresh Windows 10 VM\n2. Both PowerShell and CMD environments\n3. Validate agent download and checksum verification\n\n## Documentation Impact\n- Added Windows shell selection note in installation troubleshooting\n- Cross-linked to repository's environment requirements\n\n### Change Log\n- Corrected PowerShell example to use native cURL executable\n- Added Windows shell-specific installation notes\n- Improved cross-platform command consistency\n\n### Quality Assurance\n- [x] Manual validation on multiple Windows versions\n- [x] Cross-referenced with cURL Windows documentation\n- [x] Verified backward compatibility with existing CMD examples\n- [x] Added test matrix documentation\n- [x] Updated related helpdesk troubleshooting guide\n\n[Open in Gitpod](https://gitpod.io/#https://github.com/jenkinsci/jenkins/pull/7142)\n",
+    "state": "MERGED",
+    "createdAt": "2022-09-22T14:17:11Z",
+    "closedAt": "2022-09-23T15:13:12Z",
+    "mergedAt": "2022-09-23T15:13:12Z",
+    "url": "https://github.com/jenkinsci/jenkins/pull/7142",
+    "author": {
+      "login": "jjasghar",
+      "url": "https://github.com/jjasghar"
+    },
+    "comments": {
+      "totalCount": 6,
+      "nodes": [
+        {
+          "body": "Suggestion: Let's explicitly mention that:\n1. `curl.exe` ships with Windows 10 1803+\n2. Users on older systems need manual cURL installation\n3. Consider adding equivalent `iwr` (Invoke-WebRequest) example as fallback",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T15:04:08Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Important context:\n```diff\n- For PowerShell users:\n+ For Windows environments:\n  - Use `curl.exe` in PowerShell\n  - `curl` works normally in CMD.exe\n```\nLet's maintain parity between shell environments in documentation.",
+          "author": {
+            "login": "MarkEWaite",
+            "url": "https://github.com/MarkEWaite"
+          },
+          "createdAt": "2022-09-22T15:10:37Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Proposed restructuring:\n1. Separate platform-specific installation sections\n2. Add environment detection troubleshooting\n3. Include verification command:\n```ps1\nGet-Command curl.exe -ErrorAction SilentlyContinue\n```",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T15:59:39Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "The version compatibility note would be more authoritative if we reference Microsoft's documentation directly. Let's use this format:\n```\nWindows 10 users (versions 1803 and later) can verify cURL availability with:\n`where.exe curl.exe`\n```",
+          "author": {
+            "login": "MarkEWaite",
+            "url": "https://github.com/MarkEWaite"
+          },
+          "createdAt": "2022-09-22T16:20:24Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Implemented changes:\n- Added Windows version matrix in installation prerequisites\n- Created separate troubleshooting section for shell environments\n- Included verification commands for both PowerShell and CMD\n- Cross-linked to Microsoft's PATH management docs",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T16:31:48Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Approved with thanks for the comprehensive documentation improvements. Final suggestion: Let's add a CI check for documentation examples using shellspec.",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T17:08:16Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    }
+  }

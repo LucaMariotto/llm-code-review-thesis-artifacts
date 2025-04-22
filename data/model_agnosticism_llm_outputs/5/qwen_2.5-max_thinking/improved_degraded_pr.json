@@ -1,0 +1,85 @@
+{
+    "number": 7142,
+    "title": "Fix PowerShell curl command by using curl.exe explicitly",
+    "body": "The existing `curl` command example fails in PowerShell environments because the `curl` alias defaults to the `Invoke-WebRequest` cmdlet, which does not support standard curl flags like `-sO`. This change explicitly uses `curl.exe` to leverage the native Windows curl binary, ensuring compatibility with the documented flags.\n\n**Key updates**:\n- Modified command examples to use `curl.exe` in PowerShell contexts\n- Added compatibility note for Windows 10+ systems where curl.exe is preinstalled\n- Updated documentation references to clarify the distinction between PowerShell cmdlets and native binaries\n\nReference: [Microsoft's curl documentation](https://curl.se/windows/microsoft.html) (explains Windows curl integration)\n\n### Validation\n- Tested on Windows 10/11 PowerShell 5.1 and 7.2\n- Verified fallback behavior in legacy CMD environments\n\n### Checklist\n- [x] Compatibility note added for Windows versions\n- [x] Multi-environment testing completed\n- [x] Documentation references updated\n- [x] 2+ approvals received\n- [x] Changelog updated\n- [x] Upgrade labels applied\n\n[Open in Gitpod](https://gitpod.io/#https://github.com/jenkinsci/jenkins/pull/7142)",
+    "state": "MERGED",
+    "createdAt": "2022-09-22T14:17:11Z",
+    "closedAt": "2022-09-23T15:13:12Z",
+    "mergedAt": "2022-09-23T15:13:12Z",
+    "url": "https://github.com/jenkinsci/jenkins/pull/7142",
+    "author": {
+      "login": "jjasghar",
+      "url": "https://github.com/jjasghar"
+    },
+    "comments": {
+      "totalCount": 6,
+      "nodes": [
+        {
+          "body": "Added a compatibility note specifying that curl.exe ships with Windows 10+ by default. This should help users understand when they might need to install curl manually.",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T15:04:08Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Confirmed this change only affects PowerShell usage - CMD and bash environments remain unaffected. Added explicit documentation about environment-specific commands.",
+          "author": {
+            "login": "MarkEWaite",
+            "url": "https://github.com/MarkEWaite"
+          },
+          "createdAt": "2022-09-22T15:10:37Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Revised documentation wording: 'In PowerShell environments, use `curl.exe` to access the native curl binary rather than the default `Invoke-WebRequest` cmdlet alias.'",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T15:59:39Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Documentation updates look good. Suggest adding a brief explanation of why the distinction matters - helps future maintainers understand the reasoning.",
+          "author": {
+            "login": "MarkEWaite",
+            "url": "https://github.com/MarkEWaite"
+          },
+          "createdAt": "2022-09-22T16:20:24Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Added technical note explaining the cmdlet vs binary distinction in the documentation. Also updated the reference link text for clarity.",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T16:31:48Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Final updates applied. Ready for final review and merge.",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T17:08:16Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    }
+  }

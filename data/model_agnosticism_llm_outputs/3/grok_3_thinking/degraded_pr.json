@@ -1,0 +1,113 @@
+{
+    "number": 97224,
+    "title": "Add notification",
+    "body": "**What is this feature?**\n\nAdded a notification in the Reduce component.\n\n**Why do we need this feature?**\n\nBecause users might get confused.\n\n**Who is this feature for?**\n\nGrafana users.\n\n**Which issue(s) does this PR fix?**:\n\nFixes #79315\n\n**Special notes for your reviewer:**\n\nCheck if it works.\n",
+    "state": "MERGED",
+    "createdAt": "2024-12-02T03:50:27Z",
+    "closedAt": "2024-12-29T11:58:21Z",
+    "mergedAt": "2024-12-29T11:58:21Z",
+    "url": "https://github.com/grafana/grafana/pull/97224",
+    "author": {
+      "login": "shubhankarunhale",
+      "url": "https://github.com/shubhankarunhale"
+    },
+    "comments": {
+      "totalCount": 1,
+      "nodes": [
+        {
+          "body": "[![CLA assistant check](https://cla-assistant.io/pull/badge/signed)](https://cla-assistant.io/grafana/grafana?pullRequest=97224) <br/>All committers have signed the CLA.",
+          "author": {
+            "login": "CLAassistant",
+            "url": "https://github.com/CLAassistant"
+          },
+          "createdAt": "2024-12-02T03:50:34Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    },
+    "reviews": {
+      "totalCount": 4,
+      "nodes": [
+        {
+          "body": "There are errors, fix them.",
+          "author": {
+            "login": "itsmylife",
+            "url": "https://github.com/itsmylife"
+          },
+          "state": "CHANGES_REQUESTED",
+          "createdAt": "2024-12-23T21:54:47Z"
+        },
+        {
+          "body": "Did something.",
+          "author": {
+            "login": "shubhankarunhale",
+            "url": "https://github.com/shubhankarunhale"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-12-27T14:52:29Z"
+        },
+        {
+          "body": "OK",
+          "author": {
+            "login": "itsmylife",
+            "url": "https://github.com/itsmylife"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-12-29T11:01:29Z"
+        },
+        {
+          "body": "Guess it’s fine.",
+          "author": {
+            "login": "itsmylife",
+            "url": "https://github.com/itsmylife"
+          },
+          "state": "APPROVED",
+          "createdAt": "2024-12-29T11:10:03Z"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "totalCount": 2,
+      "nodes": [
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "Add the key somewhere and run something.",
+                "author": {
+                  "login": "itsmylife",
+                  "url": "https://github.com/itsmylife"
+                },
+                "createdAt": "2024-12-23T21:54:48Z"
+              },
+              {
+                "body": "I did stuff, now there’s tags or something. Check it?",
+                "author": {
+                  "login": "shubhankarunhale",
+                  "url": "https://github.com/shubhankarunhale"
+                },
+                "createdAt": "2024-12-27T14:52:29Z"
+              }
+            ]
+          }
+        },
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "Fine.",
+                "author": {
+                  "login": "itsmylife",
+                  "url": "https://github.com/itsmylife"
+                },
+                "createdAt": "2024-12-29T11:01:29Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "filesChanged": []
+  }

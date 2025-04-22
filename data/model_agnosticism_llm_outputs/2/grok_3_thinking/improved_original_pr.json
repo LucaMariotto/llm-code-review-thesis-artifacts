@@ -1,0 +1,203 @@
+{
+    "number": 73144,
+    "title": "Replaced OpenXR operating system alert dialog with a warning log message",
+    "body": "**Problem Description:**\nWhen OpenXR fails to initialize (e.g., due to SteamVR not running or an HMD being disconnected), Godot currently displays an operating system alert dialog. This dialog is intrusive and delays project startup, requiring user interaction each time.\n\n**Solution:**\nThis PR replaces the alert dialog with a warning log message by default. A new project setting, 'Startup Alert' (default: true), allows users to toggle the alert dialog, accommodating XR-only device scenarios.\n\n**Justification:**\n- The alert dialog disrupts development by causing delays and requiring manual dismissal.\n- The warning message aligns with other OpenXR failure notifications, appearing in the Errors tab and console.\n- The change minimally impacts the codebase, leveraging existing logging mechanisms.\n\n**Impact:**\nThis enhancement accelerates VR project development by reducing interruptions, while retaining flexibility for XR-only device users via the toggle. It streamlines workflows, especially for iterative testing outside VR, and sets a precedent for user-friendly improvements in Godot.\n\n**Screenshots:**\n- Warning message in console: ![log_example](https://user-images.githubusercontent.com/2136005/218293226-52fc619c-b0c1-4436-99a9-3d86a8455571.png)\n- Errors tab notification: ![openxr_errors_tab_example](https://user-images.githubusercontent.com/2136005/218293237-d8533245-1b0b-4343-9946-c538d8b82938.png)\n- Project setting UI: ![image](https://user-images.githubusercontent.com/2136005/218386058-c4ad31ad-5b7d-410b-a65e-d6f352d92ed2.png)",
+    "state": "MERGED",
+    "createdAt": "2023-02-12T04:35:58Z",
+    "closedAt": "2023-03-15T13:07:05Z",
+    "mergedAt": "2023-03-15T13:07:05Z",
+    "url": "https://github.com/godotengine/godot/pull/73144",
+    "author": {
+      "login": "chutchinson",
+      "url": "https://github.com/chutchinson"
+    },
+    "comments": {
+      "totalCount": 9,
+      "nodes": [
+        {
+          "body": "This change also reduces project startup time on Windows 11, a welcome side effect. The original alert dialog introduced a noticeable delay, possibly due to system-level factors. This makes development noticeably smoother.",
+          "author": {
+            "login": "chutchinson",
+            "url": "https://github.com/chutchinson"
+          },
+          "createdAt": "2023-02-12T04:50:30Z",
+          "reactions": {
+            "nodes": [
+              {
+                "content": "THUMBS_UP"
+              }
+            ]
+          }
+        },
+        {
+          "body": "From a usability perspective, I support this update. The XR initialization failure doesn’t halt the engine, making a warning log more suitable for most development use cases.",
+          "author": {
+            "login": "fire",
+            "url": "https://github.com/fire"
+          },
+          "createdAt": "2023-02-12T05:03:19Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "I see the concern for XR-only devices, where a blank screen could confuse users without an alert. Adding a project setting to toggle the behavior feels like a solid solution, letting users tailor it to development or XR-only needs. I fully agree that suppressing the dialog improves the development experience.",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "createdAt": "2023-02-12T08:15:45Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "@BastiaanOlij I've added a 'Startup Alert' project setting (default: true) to optionally show the dialog. The warning logs regardless of the setting. Should we consider making it an error-level message instead? Feedback on the setting’s name or description would be great!",
+          "author": {
+            "login": "chutchinson",
+            "url": "https://github.com/chutchinson"
+          },
+          "createdAt": "2023-02-13T06:25:27Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Looks perfect as is—thanks for the thoughtful implementation!",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "createdAt": "2023-02-13T08:47:17Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "I’m all in favor of merging this—great work!",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "createdAt": "2023-03-15T02:53:22Z",
+          "reactions": {
+            "nodes": [
+              {
+                "content": "LAUGH"
+              }
+            ]
+          }
+        },
+        {
+          "body": "Thanks!",
+          "author": {
+            "login": "YuriSizov",
+            "url": "https://github.com/YuriSizov"
+          },
+          "createdAt": "2023-03-15T13:07:18Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Cherry-picked for 4.0.2.",
+          "author": {
+            "login": "YuriSizov",
+            "url": "https://github.com/YuriSizov"
+          },
+          "createdAt": "2023-03-30T17:29:16Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Noticed that the commit author identity (Chris Hutchinson <chutchinson@dynics.com>) isn’t linked to your GitHub account, so it’s not reflecting in your contributions. Might be worth connecting it!",
+          "author": {
+            "login": "YuriSizov",
+            "url": "https://github.com/YuriSizov"
+          },
+          "createdAt": "2023-03-30T17:32:42Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    },
+    "reviews": {
+      "totalCount": 4,
+      "nodes": [
+        {
+          "body": "",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "state": "APPROVED",
+          "createdAt": "2023-02-13T08:46:31Z"
+        },
+        {
+          "body": "",
+          "author": {
+            "login": "m4gr3d",
+            "url": "https://github.com/m4gr3d"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2023-02-14T17:13:12Z"
+        },
+        {
+          "body": "",
+          "author": {
+            "login": "akien-mga",
+            "url": "https://github.com/akien-mga"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2023-02-14T17:20:34Z"
+        },
+        {
+          "body": "",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2023-03-15T02:53:10Z"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "totalCount": 1,
+      "nodes": [
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "The message should be wrapped in the tools translate utility (e.g., `TTR(\"...\")`).",
+                "author": {
+                  "login": "m4gr3d",
+                  "url": "https://github.com/m4gr3d"
+                },
+                "createdAt": "2023-02-14T17:13:12Z"
+              },
+              {
+                "body": "For `TTR()` to work, the message needs to be a single-line string due to how translation extraction processes lines. However, we typically don’t translate OS alerts like this to keep error messages searchable in English for easier troubleshooting.",
+                "author": {
+                  "login": "akien-mga",
+                  "url": "https://github.com/akien-mga"
+                },
+                "createdAt": "2023-02-14T17:20:34Z"
+              },
+              {
+                "body": "I agree, translating this doesn’t add much value given its purpose.",
+                "author": {
+                  "login": "BastiaanOlij",
+                  "url": "https://github.com/BastiaanOlij"
+                },
+                "createdAt": "2023-03-15T02:53:10Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "filesChanged": []
+  }

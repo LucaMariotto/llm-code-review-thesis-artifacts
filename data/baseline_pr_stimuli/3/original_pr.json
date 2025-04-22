@@ -1,0 +1,113 @@
+{
+"number": 97224,
+"title": "Expressions: Add notification for Strict Mode behavior in Reduce component",
+"body": "<!--\r\n\r\nThank you for sending a pull request! Here are some tips:\r\n\r\n1. If this is your first time, please read our contribution guide at https://github.com/grafana/grafana/blob/main/CONTRIBUTING.md\r\n\r\n2. Ensure you include and run the appropriate tests as part of your Pull Request.\r\n\r\n3. In a new feature or configuration option, an update to the documentation is necessary. Everything related to the documentation is under the docs folder in the root of the repository.\r\n\r\n4. If the Pull Request is a work in progress, make use of GitHub's \"Draft PR\" feature and mark it as such.\r\n\r\n5. If you can not merge your Pull Request due to a merge conflict, Rebase it. This gets it in sync with the main branch.\r\n\r\n6. Name your PR as \"<FeatureArea>: Describe your change\", e.g. Alerting: Prevent race condition. If it's a fix or feature relevant for the changelog describe the user impact in the title. The PR title is used to auto-generate the changelog for issues marked with the \"add to changelog\" label.\r\n\r\n7. If your PR content should be added to the What's New document for the next major or minor release, add the **add to what's new** label to your PR. Note that you should add this label to the main PR that introduces the feature; do not add this label to smaller PRs for the feature.\r\n\r\n-->\r\n\r\n**What is this feature?**\r\n\r\nThis feature adds a notification to the Reduce component in Grafana when \"Strict Mode\" is selected. It informs users about the behavior of the fill(null) function in InfluxQL, which results in NaN.\r\n\r\n**Why do we need this feature?**\r\n\r\nUsers unfamiliar with the behavior of \"Strict Mode\" may find the NaN result confusing when using fill(null). This notification provides clarity and directs users to the relevant documentation, improving the user experience.\r\n\r\n**Who is this feature for?**\r\n\r\nThis feature is for Grafana users who use the Reduce component with \"Strict Mode\" enabled, especially those working with InfluxQL queries.\r\n\r\n**Which issue(s) does this PR fix?**:\r\nFixes \r\n<!--\r\n\r\n- Automatically closes linked issue when the Pull Request is merged.\r\n\r\nUsage: \"Fixes #<issue number>\", or \"Fixes (paste link of issue)\"\r\n\r\n-->\r\n\r\nFixes #79315 \r\n\r\n**Special notes for your reviewer:**\r\n\r\nPlease check that:\r\n- [ ] It works as expected from a user's perspective.\r\n- [ ] If this is a pre-GA feature, it is behind a feaxture toggle.\r\n- [ ] The docs are updated, and if this is a [notable improvement](https://grafana.com/docs/writers-toolkit/contribute/release-notes/#how-to-determine-if-content-belongs-in-whats-new), it's added to our [What's New](https://grafana.com/docs/writers-toolkit/contribute/release-notes/) doc.\r\n\r\n<img width=\"1244\" alt=\"GraphanaFix\" src=\"https://github.com/user-attachments/assets/3b1cbc4f-2370-4eaa-b24c-4768cc8602d3\">\r\n\r\n",
+"state": "MERGED",
+"createdAt": "2024-12-02T03:50:27Z",
+"closedAt": "2024-12-29T11:58:21Z",
+"mergedAt": "2024-12-29T11:58:21Z",
+"url": "https://github.com/grafana/grafana/pull/97224",
+"author": {
+  "login": "shubhankarunhale",
+  "url": "https://github.com/shubhankarunhale"
+},
+"comments": {
+  "totalCount": 1,
+  "nodes": [
+    {
+      "body": "[![CLA assistant check](https://cla-assistant.io/pull/badge/signed)](https://cla-assistant.io/grafana/grafana?pullRequest=97224) <br/>All committers have signed the CLA.",
+      "author": {
+        "login": "CLAassistant",
+        "url": "https://github.com/CLAassistant"
+      },
+      "createdAt": "2024-12-02T03:50:34Z",
+      "reactions": {
+        "nodes": []
+      }
+    }
+  ]
+},
+"reviews": {
+  "totalCount": 4,
+  "nodes": [
+    {
+      "body": "LGTM but i18n check is failing due to the key must be added to the translations file. Could you please add it too?",
+      "author": {
+        "login": "itsmylife",
+        "url": "https://github.com/itsmylife"
+      },
+      "state": "CHANGES_REQUESTED",
+      "createdAt": "2024-12-23T21:54:47Z"
+    },
+    {
+      "body": "",
+      "author": {
+        "login": "shubhankarunhale",
+        "url": "https://github.com/shubhankarunhale"
+      },
+      "state": "COMMENTED",
+      "createdAt": "2024-12-27T14:52:29Z"
+    },
+    {
+      "body": "",
+      "author": {
+        "login": "itsmylife",
+        "url": "https://github.com/itsmylife"
+      },
+      "state": "COMMENTED",
+      "createdAt": "2024-12-29T11:01:29Z"
+    },
+    {
+      "body": "\ud83d\ude80 ",
+      "author": {
+        "login": "itsmylife",
+        "url": "https://github.com/itsmylife"
+      },
+      "state": "APPROVED",
+      "createdAt": "2024-12-29T11:10:03Z"
+    }
+  ]
+},
+"reviewThreads": {
+  "totalCount": 2,
+  "nodes": [
+    {
+      "comments": {
+        "nodes": [
+          {
+            "body": "You need to add the key in this file https://github.com/grafana/grafana/blob/main/public/locales/en-US/grafana.json\r\nAnd then run `make i18n-extract` then commit the files. ",
+            "author": {
+              "login": "itsmylife",
+              "url": "https://github.com/itsmylife"
+            },
+            "createdAt": "2024-12-23T21:54:48Z"
+          },
+          {
+            "body": "Added the translations keys, an incorrect rebase which I now reverted, made the grafana-pr-automation add extra tags to the issue. I don't think I have the permission to remove these. \r\n@itsmylife Can you please review?",
+            "author": {
+              "login": "shubhankarunhale",
+              "url": "https://github.com/shubhankarunhale"
+            },
+            "createdAt": "2024-12-27T14:52:29Z"
+          }
+        ]
+      }
+    },
+    {
+      "comments": {
+        "nodes": [
+          {
+            "body": "This looks good. Thank you!",
+            "author": {
+              "login": "itsmylife",
+              "url": "https://github.com/itsmylife"
+            },
+            "createdAt": "2024-12-29T11:01:29Z"
+          }
+        ]
+      }
+    }
+  ]
+},
+"filesChanged": []
+}

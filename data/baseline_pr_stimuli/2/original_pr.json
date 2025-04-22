@@ -1,0 +1,115 @@
+{
+  "number": 69259,
+  "title": "Dashboards: Data source template variable options now specify a current value using uid.",
+  "body": "<!--\r\n\r\nThank you for sending a pull request! Here are some tips:\r\n\r\n1. If this is your first time, please read our contribution guide at https://github.com/grafana/grafana/blob/main/CONTRIBUTING.md\r\n\r\n2. Ensure you include and run the appropriate tests as part of your Pull Request.\r\n\r\n3. In a new feature or configuration option, an update to the documentation is necessary. Everything related to the documentation is under the docs folder in the root of the repository.\r\n\r\n4. If the Pull Request is a work in progress, make use of GitHub's \"Draft PR\" feature and mark it as such.\r\n\r\n5. If you can not merge your Pull Request due to a merge conflict, Rebase it. This gets it in sync with the main branch.\r\n\r\n6. Name your PR as \"<FeatureArea>: Describe your change\", e.g. Alerting: Prevent race condition. If it's a fix or feature relevant for the changelog describe the user impact in the title. The PR title is used to auto-generate the changelog for issues marked with the \"add to changelog\" label.\r\n\r\n7. If your PR content should be added to the What's New document for the next major or minor release, add the **add to what's new** label to your PR. Note that you should add this label to the main PR that introduces the feature; do not add this label to smaller PRs for the feature.\r\n\r\n-->\r\n\r\n**What is this feature?**\r\n\r\nThe goal was to make it possible for a dashboard to specify a provisioned data source as the \"current\" option for a template variable. The only way to currently achieve this is to use the name of the datasource, but for our use case this would vary between grafana cloud instances. \r\n\r\nThe solution makes use of the `value` part of the `{text, value}` structure under a template variable's `options.current`. The `value` field was being completely ignored and was a duplicate of `text`: the name of data source. This PR now takes the `value` into consideration when resolving the initial template variable value, and for data source template variables, the `value` now corresponds to the uid. It will be reflected in new dashboard JSON accordingly. Old dashboard JSON which uses the data source name will still function as before.\r\n\r\n**Why do we need this feature?**\r\n\r\nWhen provisioning dashboards and datasources with specific uids, we might want a dashboard to initially select that specific datasource first, instead of defaulting to alphabetical order and choosing the first on the list. This should also make it possible to set a selected value for query-based template variables as well.\r\n\r\n**Who is this feature for?**\r\n\r\nSpecifically, cloud customers accessing the Cardinality management dashboards with multiple metrics datasources defined. We want the dashboards to choose the provisioned `grafanacloud-prom` to be selected first by default when opening the dashboard, instead of the datasource with the earliest name in alphabetical sort. Since the `grafanacloud-prom` datasource has a inconstant name: `grafanacloud-${instanceName}-prom`, it cannot be specified by setting the `current` value in dashboard JSON. This PR allows specifying that uid through the variable's `current.value` field.\r\n\r\n**Special notes for your reviewer:**\r\n\r\n- There didn't seem to be any place where the documentation needed to know about the specifics of this issue.\r\n- Previously, when a user changes their variable, the `current` fields of `text`, and `value` would both be set to the data source name. Now `text` gets the name, and `value` gets the uid. This will be reflected in the JSON. Old dashboards which use the name for both will still be compatible.\r\n \r\n\r\nPlease check that:\r\n- [x] It works as expected from a user's perspective.\r\n- [x] If this is a pre-GA feature, it is behind a feature toggle.\r\n- [x] The docs are updated, and if this is a [notable improvement](https://grafana.com/docs/writers-toolkit/writing-guide/contribute-release-notes/#how-to-determine-if-content-belongs-in-a-whats-new-document), it's added to our [What's New](https://grafana.com/docs/writers-toolkit/writing-guide/contribute-release-notes/) doc.\r\n\r\n\r\n# Release notice breaking change\r\n\r\nThe data source template variable type has changed the way it represents its options. The `text` field still represents the data source name, but the `value` has been changed to the `uid` of the data source. This allows dashboards to declare the currently selected option by `uid`, however it changes how a datasource template variable value will be rendered by default. If the name of the data source is expected, the variable syntax will have to be changed to specify the [text format](https://grafana.com/docs/grafana/latest/dashboards/variables/variable-syntax/#text).\r\n\r\nFor example, given a data source variable (datasourceVariable), the following string:\r\n\r\n```\r\n${datasourceVariable}<br/>\r\nName: ${datasourceVariable:text}<br/>\r\nUID: ${datasourceVariable:raw}\r\n```\r\nwas previously interpolated as:\r\n```\r\ngrafanacloud-k8smonitoring-prom\r\nName: grafanacloud-k8smonitoring-prom\r\nUID: grafanacloud-k8smonitoring-prom\r\n```\r\nAfter these changes, it's interpolated as:\r\n```\r\nd7bbe725-9e48-4af8-a0cb-6cb255d873a3\r\nName: grafanacloud-k8smonitoring-prom\r\nUID: d7bbe725-9e48-4af8-a0cb-6cb255d873a3\r\n```\r\nAny dashboards that are relying on the data source name being returned by `${datasourceVariable}` will have to update all their usages to `${datasourceVariable:text}` in order to get the previous behavior.\r\n\r\nAffected use cases:\r\n- Using `${datasourceVariable}` to display the data source name in text panel or in the panel title.\r\n- Using `${datasourceVariable}` to use the data source name as part of the query content.\r\n\r\nUnaffected use cases:\r\n- Using the `${datasourceVariable}` to choose which data source to use for a query (through its data source picker) will not be affected since it can use both the name and the uid",
+  "state": "MERGED",
+  "createdAt": "2023-05-30T15:24:59Z",
+  "closedAt": "2023-06-12T08:05:51Z",
+  "mergedAt": "2023-06-12T08:05:51Z",
+  "url": "https://github.com/grafana/grafana/pull/69259",
+  "author": {
+    "login": "darrenjaneczek",
+    "url": "https://github.com/darrenjaneczek"
+  },
+  "comments": {
+    "totalCount": 7,
+    "nodes": [
+      {
+        "body": "@darrenjaneczek I see the point of this change, and I do think this is a good direction. Tho, I'm afraid this is a breaking change from the POV of the variable interpolation. Given a data source variable (`dsVar`), the following string:\r\n\r\n```\r\n${dsVar}<br/>\r\nName: ${dsVar:text}<br/>\r\nUID: ${dsVar:raw}\r\n```\r\n\r\nis interpolated as:\r\n\r\n```\r\ngrafanacloud-k8smonitoring-prom\r\nName: grafanacloud-k8smonitoring-prom\r\nUID: grafanacloud-k8smonitoring-prom\r\n```\r\n\r\n**After your changes**, it's interpolated as:\r\n\r\n```\r\nd7bbe725-9e48-4af8-a0cb-6cb255d873a3\r\nName: grafanacloud-k8smonitoring-prom\r\nUID: d7bbe725-9e48-4af8-a0cb-6cb255d873a3\r\n```\r\n\r\nThink this should be ok, but requires a breaking change notice and an update for everyone who's relying in their dashboards on the data source name being returned by `${dsVar}`. Now, they will have to update all their usages to `${dsVar:text}` in order to get previous behavior.\r\n\r\nI'm ok accepting this change but would like to hear thoughts from @axelavargas and @torkelo before proceeding with it.",
+        "author": {
+          "login": "dprokop",
+          "url": "https://github.com/dprokop"
+        },
+        "createdAt": "2023-05-31T08:43:09Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "@dprokop \r\n\r\nI think this change makes sense as well, it could be a breaking change for some edge cases where data source variable is not used for it's normal use cases (as value in the datasource / datasource.uid prop). \r\n\r\nSo we need to add a breaking change release notes notice (add breaking change label to this PR, and a section in the PR description with title \"Release notice breaking change\" , see https://github.com/grafana/grafana/pull/66466  for example. ",
+        "author": {
+          "login": "torkelo",
+          "url": "https://github.com/torkelo"
+        },
+        "createdAt": "2023-05-31T08:46:15Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "@darrenjaneczek one more comment. I see the milestone you set is 9.5.x. Given this is a breaking change I think we need to release it in 10.1.",
+        "author": {
+          "login": "dprokop",
+          "url": "https://github.com/dprokop"
+        },
+        "createdAt": "2023-05-31T10:19:49Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "> one more comment. I see the milestone you set is 9.5.x. Given this is a breaking change I think we need to release it in 10.1.\r\n\r\n@dprokop \r\nIs it too late for 10.0.0?",
+        "author": {
+          "login": "darrenjaneczek",
+          "url": "https://github.com/darrenjaneczek"
+        },
+        "createdAt": "2023-05-31T13:56:00Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "> Now, they will have to update all their usages to `${dsVar:text}` in order to get previous behavior.\r\n\r\nThanks @dprokop. I wasn't aware of that formation. I've added to the test to include this alternative variable form: https://github.com/grafana/grafana/pull/69259/commits/6513cb328f0a13b9fdfdb873778bf2b61c8b81b5 and corrected further in https://github.com/grafana/grafana/pull/69259/commits/b74d51e488cfe4bd3d645fdc3228326327dabf34.\r\n",
+        "author": {
+          "login": "darrenjaneczek",
+          "url": "https://github.com/darrenjaneczek"
+        },
+        "createdAt": "2023-05-31T14:07:02Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "> > one more comment. I see the milestone you set is 9.5.x. Given this is a breaking change I think we need to release it in 10.1.\r\n> \r\n> @dprokop Is it too late for 10.0.0?\r\n\r\nYes, it is, the hard freeze for G10 started last week \ud83d\ude13 \r\n\r\nI like this change, it goes in the right direction. I'd love to have second eyes on this one, but it looks good.\r\n\r\nAbout breaking change notes, it creates the necessity for the customer to do something about this change, but it is not clear what use cases are affected by this change. \r\nCould we please mention the use cases that are affected? The most common ones I'm aware of are:\r\n* Use `${dsVariable}` as part of a markdown panel\r\n* Use `${dsVariable}` as part of the query content. Use the variable selecting it in the DS picker is not affected.",
+        "author": {
+          "login": "ivanortegaalba",
+          "url": "https://github.com/ivanortegaalba"
+        },
+        "createdAt": "2023-05-31T16:05:31Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "Sad that I missed the G10 boat :ship:.\r\n- Updated milestone to 10.1.x\r\n- Updated \"breaking changes\" content.",
+        "author": {
+          "login": "darrenjaneczek",
+          "url": "https://github.com/darrenjaneczek"
+        },
+        "createdAt": "2023-05-31T16:16:35Z",
+        "reactions": {
+          "nodes": []
+        }
+      }
+    ]
+  },
+  "reviews": {
+    "totalCount": 1,
+    "nodes": [
+      {
+        "body": "",
+        "author": {
+          "login": "dprokop",
+          "url": "https://github.com/dprokop"
+        },
+        "state": "APPROVED",
+        "createdAt": "2023-06-02T07:55:24Z"
+      }
+    ]
+  },
+  "reviewThreads": {
+    "totalCount": 0,
+    "nodes": []
+  },
+  "filesChanged": []
+}

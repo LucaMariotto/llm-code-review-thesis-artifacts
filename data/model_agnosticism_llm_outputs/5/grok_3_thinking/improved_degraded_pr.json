@@ -1,0 +1,85 @@
+{
+    "number": 7142,
+    "title": "Update curl command in PowerShell documentation for inbound agent to use curl.exe",
+    "body": "The current documentation for setting up an inbound agent on Windows using PowerShell recommends the `curl` command. However, in PowerShell, `curl` is an alias for `Invoke-WebRequest`, which does not support the same flags (e.g., `-sO`) as the standalone curl executable. This causes the command to fail unexpectedly.\n\nTo address this, the documentation now specifies `curl.exe` instead of `curl` for PowerShell users, ensuring the correct executable is invoked. A note has also been added to clarify that `curl.exe` is included by default in newer Windows versions (e.g., Windows 10 version 1803 and later). For older versions, users may need to install curl separately.\n\nReference: [Microsoft's note on curl in PowerShell](https://curl.se/windows/microsoft.html)\n\n### Update Log\n\n- Updated the PowerShell example from `curl` to `curl.exe` to ensure compatibility with the required flags.\n- Added a note explaining that `curl` is a PowerShell alias for `Invoke-WebRequest`, while `curl.exe` is the standalone executable.\n- Specified that this change applies only to PowerShell; `curl` works as expected in CMD.\n\n### Basic Checklist\n\n- [x] Update log entry added\n- [x] At least 2 reviews obtained\n- [x] Discussion considered complete or non-blocking\n- [x] Changelog information updated\n- [x] Appropriate labels set for any upgrade notes\n\n[Open in Gitpod](https://gitpod.io/#https://github.com/jenkinsci/jenkins/pull/7142)\n",
+    "state": "MERGED",
+    "createdAt": "2022-09-22T14:17:11Z",
+    "closedAt": "2022-09-23T15:13:12Z",
+    "mergedAt": "2022-09-23T15:13:12Z",
+    "url": "https://github.com/jenkinsci/jenkins/pull/7142",
+    "author": {
+      "login": "jjasghar",
+      "url": "https://github.com/jjasghar"
+    },
+    "comments": {
+      "totalCount": 6,
+      "nodes": [
+        {
+          "body": "Consider adding a note that `curl.exe` is included by default on newer Windows versions, so users understand they might not need to install it separately.",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T15:04:08Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Please clarify that this change is specific to PowerShell. In CMD, `curl` works as expected since it directly invokes the executable.",
+          "author": {
+            "login": "MarkEWaite",
+            "url": "https://github.com/MarkEWaite"
+          },
+          "createdAt": "2022-09-22T15:10:37Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Please update the documentation to explicitly state that PowerShell users should use `curl.exe` instead of `curl` to avoid confusion with the `Invoke-WebRequest` alias. This will streamline troubleshooting for users.",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T15:59:39Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Please incorporate the suggested note into the documentation. Also, the tone of the linked documentation quote feels informal; consider rephrasing it for consistency with the project's style.",
+          "author": {
+            "login": "MarkEWaite",
+            "url": "https://github.com/MarkEWaite"
+          },
+          "createdAt": "2022-09-22T16:20:24Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "I’ve updated the documentation with the note as requested.",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T16:31:48Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "All changes have been implemented based on the feedback. Thanks for the suggestions!",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T17:08:16Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    }
+  }

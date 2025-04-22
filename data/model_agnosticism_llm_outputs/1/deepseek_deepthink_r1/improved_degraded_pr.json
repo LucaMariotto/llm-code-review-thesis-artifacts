@@ -1,0 +1,203 @@
+{
+    "number": 73144,
+    "title": "Replace blocking OpenXR dialog with configurable log warning",
+    "body": "## Summary\r\nFixes #73141 - XR runtime initialization workflow improvements\r\n\r\n**Key Changes:**\r\n- Replaced blocking system dialog with non-blocking log warning\r\n- Added `project_settings/application/xr/suppress_runtime_warnings` toggle (default: enabled)\r\n- Maintained fallback error reporting for critical initialization failures\r\n\r\n**Performance Impact:**\r\nRemoves synchronous MessageBoxW call that caused ~300ms delay during project startup on Windows when no HMD is detected.\r\n\r\n**User Experience Rationale:**\r\n- Reduces friction for developers working in non-XR workflows\r\n- Preserves critical error visibility through editor logging system\r\n- Allows advanced users to re-enable warnings via project settings\r\n\r\n**Testing Protocol:**\r\n1. Clean project start with HMD connected\r\n2. Clean start without XR hardware\r\n3. Forced error condition in OpenXR initialization\r\n4. Settings toggle verification across restart cycles\r\n\r\n**Screenshots:**\r\n- [Project settings panel update](link)\r\n- [Editor log output example](link)\r\n- [Fallback error dialog preservation](link)",
+    "state": "MERGED",
+    "createdAt": "2023-02-12T04:35:58Z",
+    "closedAt": "2023-03-15T13:07:05Z",
+    "mergedAt": "2023-03-15T13:07:05Z",
+    "url": "https://github.com/godotengine/godot/pull/73144",
+    "author": {
+        "login": "chutchinson",
+        "url": "https://github.com/chutchinson"
+    },
+    "comments": {
+        "totalCount": 9,
+        "nodes": [
+            {
+                "body": "Initial benchmarks show ~17% faster project startup on Windows when no HMD present. The MessageBoxW call was creating unexpected UI thread contention. Let's verify these results across different Windows versions.",
+                "author": {
+                    "login": "chutchinson",
+                    "url": "https://github.com/chutchinson"
+                },
+                "createdAt": "2023-02-12T04:50:30Z",
+                "reactions": {
+                    "nodes": [
+                        {
+                            "content": "THUMBS_UP"
+                        }
+                    ]
+                }
+            },
+            {
+                "body": "UX team confirms this aligns with our progressive disclosure principles. Non-critical warnings should not block execution flow. We recommend keeping the log visibility default-enabled for now.",
+                "author": {
+                    "login": "fire",
+                    "url": "https://github.com/fire"
+                },
+                "createdAt": "2023-02-12T05:03:19Z",
+                "reactions": {
+                    "nodes": []
+                }
+            },
+            {
+                "body": "For XR-dedicated devices, consider adding an additional check in `platform/xr_server.cpp` to maintain visual feedback. Could we extend the setting to have three states: [Always Log, Log When Headset Present, Always Dialog]?",
+                "author": {
+                    "login": "BastiaanOlij",
+                    "url": "https://github.com/BastiaanOlij"
+                },
+                "createdAt": "2023-02-12T08:15:45Z",
+                "reactions": {
+                    "nodes": []
+                }
+            },
+            {
+                "body": "Implemented the tri-state setting as suggested:\r\n- 0: Always show dialog (legacy behavior)\r\n- 1: Log warning when no HMD detected (default)\r\n- 2: Always log\r\n\r\nAdded input validation in `xr_interface.cpp` to handle invalid enum values.",
+                "author": {
+                    "login": "chutchinson",
+                    "url": "https://github.com/chutchinson"
+                },
+                "createdAt": "2023-02-13T06:25:27Z",
+                "reactions": {
+                    "nodes": []
+                }
+            },
+            {
+                "body": "Verified the state transitions work as expected across multiple hardware configurations. The fallback error handling remains intact.",
+                "author": {
+                    "login": "BastiaanOlij",
+                    "url": "https://github.com/BastiaanOlij"
+                },
+                "createdAt": "2023-02-13T08:47:17Z",
+                "reactions": {
+                    "nodes": []
+                }
+            },
+            {
+                "body": "This is ready for merge pending final CI verification. The translation team has been notified about the new setting strings.",
+                "author": {
+                    "login": "BastiaanOlij",
+                    "url": "https://github.com/BastiaanOlij"
+                },
+                "createdAt": "2023-03-15T02:53:22Z",
+                "reactions": {
+                    "nodes": [
+                        {
+                            "content": "LAUGH"
+                        }
+                    ]
+                }
+            },
+            {
+                "body": "Merged with rebase to resolve minor conflict in `editor_settings.cpp`. Documentation team will handle UI string updates.",
+                "author": {
+                    "login": "YuriSizov",
+                    "url": "https://github.com/YuriSizov"
+                },
+                "createdAt": "2023-03-15T13:07:18Z",
+                "reactions": {
+                    "nodes": []
+                }
+            },
+            {
+                "body": "Cherry-picked to 4.1 branch with additional null-check safeguards in `xr_settings.cpp`.",
+                "author": {
+                    "login": "YuriSizov",
+                    "url": "https://github.com/YuriSizov"
+                },
+                "createdAt": "2023-03-30T17:29:16Z",
+                "reactions": {
+                    "nodes": []
+                }
+            },
+            {
+                "body": "Please ensure your git config email matches your GitHub account for proper attribution. You can amend the commit with:\r\n`git commit --amend --author=\"Your Name <email@domain>\"`",
+                "author": {
+                    "login": "YuriSizov",
+                    "url": "https://github.com/YuriSizov"
+                },
+                "createdAt": "2023-03-30T17:32:42Z",
+                "reactions": {
+                    "nodes": []
+                }
+            }
+        ]
+    },
+    "reviews": {
+        "totalCount": 4,
+        "nodes": [
+            {
+                "body": "Approved after verifying:\r\n1. No regression in XR initialization sequence\r\n2. Settings persistence across project reloads\r\n3. Proper cleanup of legacy dialog code paths\r\n\r\nWell-documented tradeoffs between developer experience and error visibility.",
+                "author": {
+                    "login": "BastiaanOlij",
+                    "url": "https://github.com/BastiaanOlij"
+                },
+                "state": "APPROVED",
+                "createdAt": "2023-02-13T08:46:31Z"
+            },
+            {
+                "body": "The new setting display name in `editor_property_names.cpp` should use TTR() for localization. Line 348 currently has a raw string.",
+                "author": {
+                    "login": "m4gr3d",
+                    "url": "https://github.com/m4gr3d"
+                },
+                "state": "COMMENTED",
+                "createdAt": "2023-02-14T17:13:12Z"
+            },
+            {
+                "body": "Given this is a developer-facing setting, should we keep it untranslated for consistency with other technical settings? The description field is already localized.",
+                "author": {
+                    "login": "akien-mga",
+                    "url": "https://github.com/akien-mga"
+                },
+                "state": "COMMENTED",
+                "createdAt": "2023-02-14T17:20:34Z"
+            },
+            {
+                "body": "Consensus reached with i18n team - technical identifiers remain in English while user-facing descriptions are translated. This follows existing conventions.",
+                "author": {
+                    "login": "BastiaanOlij",
+                    "url": "https://github.com/BastiaanOlij"
+                },
+                "state": "COMMENTED",
+                "createdAt": "2023-03-15T02:53:10Z"
+            }
+        ]
+    },
+    "reviewThreads": {
+        "totalCount": 1,
+        "nodes": [
+            {
+                "comments": {
+                    "nodes": [
+                        {
+                            "body": "For the setting name in `editor_property_names.cpp`, let's follow the pattern from line 212 where technical settings use TTRC() while display names use TTR().",
+                            "author": {
+                                "login": "m4gr3d",
+                                "url": "https://github.com/m4gr3d"
+                            },
+                            "createdAt": "2023-02-14T17:13:12Z"
+                        },
+                        {
+                            "body": "Confirmed with documentation team - we'll use TTR() for the display name but keep the actual setting identifier as raw English string. This matches our settings taxonomy guidelines.",
+                            "author": {
+                                "login": "akien-mga",
+                                "url": "https://github.com/akien-mga"
+                            },
+                            "createdAt": "2023-02-14T17:20:34Z"
+                        },
+                        {
+                            "body": "Updated in 2a4fe67 - used TTR() with context comment explaining the design decision. The identifier remains technical English as per style guide.",
+                            "author": {
+                                "login": "BastiaanOlij",
+                                "url": "https://github.com/BastiaanOlij"
+                            },
+                            "createdAt": "2023-03-15T02:53:10Z"
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "filesChanged": []
+}

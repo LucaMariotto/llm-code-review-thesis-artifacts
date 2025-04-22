@@ -1,0 +1,13 @@
+Hypothesis,Comparison,Expected Winner,Expected Loser,N Winner,N Loser,N Neither,N Other,N Total,% Winner (of W+L),Conf. Interval (%),P-value (Formatted),Significance
+H1: O > D,Original vs Degraded,Original,Degraded,15,16,7,0,38,48.4%,"[32.7, 100.0]",0.640,p = 0.640 (ns)
+H2: IO > O,Original vs Improved_Original,Improved_Original,Original,20,11,7,0,38,64.5%,"[48.2, 100.0]",0.075,p = 0.075 (ns)
+H3: ID > D,Degraded vs Improved_Degraded,Improved_Degraded,Degraded,23,11,4,0,38,67.6%,"[52.2, 100.0]",0.029,p = 0.029 (*)
+H4: IO > ID,Improved_Degraded vs Improved_Original,Improved_Original,Improved_Degraded,20,11,7,0,38,64.5%,"[48.2, 100.0]",0.075,p = 0.075 (ns)
+H5: ID > O,Original vs Improved_Degraded,Improved_Degraded,Original,19,8,11,0,38,70.4%,"[52.9, 100.0]",0.026,p = 0.026 (*)
+H6: IO > D,Degraded vs Improved_Original,Improved_Original,Degraded,22,13,3,0,38,62.9%,"[47.6, 100.0]",0.088,p = 0.088 (ns)
+H7: D > O,Original vs Degraded,Degraded,Original,16,15,7,0,38,51.6%,"[35.7, 100.0]",0.500,p = 0.500 (ns)
+H8: O > IO,Original vs Improved_Original,Original,Improved_Original,11,20,7,0,38,35.5%,"[21.3, 100.0]",0.965,p = 0.965 (ns)
+H9: D > ID,Degraded vs Improved_Degraded,Degraded,Improved_Degraded,11,23,4,0,38,32.4%,"[19.3, 100.0]",0.988,p = 0.988 (ns)
+H10: ID > IO,Improved_Degraded vs Improved_Original,Improved_Degraded,Improved_Original,11,20,7,0,38,35.5%,"[21.3, 100.0]",0.965,p = 0.965 (ns)
+H11: O > ID,Original vs Improved_Degraded,Original,Improved_Degraded,8,19,11,0,38,29.6%,"[15.7, 100.0]",0.990,p = 0.990 (ns)
+H12: D > IO,Degraded vs Improved_Original,Degraded,Improved_Original,13,22,3,0,38,37.1%,"[23.6, 100.0]",0.955,p = 0.955 (ns)

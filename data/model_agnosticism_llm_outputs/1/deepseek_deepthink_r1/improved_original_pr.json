@@ -1,0 +1,203 @@
+{
+    "number": 73144,
+    "title": "feat(xr): Replace intrusive OpenXR init dialog with configurable logging",
+    "body": "Resolves #73141\n\n### Summary\nReplaces the blocking OS alert dialog during OpenXR initialization failures with non-blocking WARN-level logging, while maintaining critical visibility through:\n- Editor's Errors tab\n- Console output\n- New **xr/openxr/display_initialization_alert** project setting (default: true)\n\n### Rationale\n- **User Experience**:\n  - Eliminates 2-5 second startup delay caused by dialog initialization\n  - Removes mandatory user interaction requirement before project execution\n  - Maintains critical visibility for XR-only devices through default-enabled setting\n\n- **Development Workflow**:\n  - Supports mixed 2D/VR development patterns\n  - Allows testing iterations without hardware dependencies\n  - Preserves error visibility through established logging channels\n\n- **Implementation Strategy**:\n  - Centralized error handling in `platform/xr/openxr/openxr_interface.cpp`\n  - Utilizes existing logging infrastructure (`WARN_PRINT`)\n  - Maintains backward compatibility through versioned project settings\n\n### Technical Details\n1. **New Project Setting**:\n   - Path: `xr/openxr/display_initialization_alert`\n   - Description: \"Display system alert when OpenXR initialization fails. Recommended for XR-focused projects. Disable for faster 2D development iterations.\"\n   - Version: 4.0.2+\n\n2. **Error Handling Flow**:\n   ```cpp\n   if (!initialize_openxr()) {\n       String err_msg = \"OpenXR initialization failed - XR features disabled\";\n       WARN_PRINT(err_msg);\n       \n       if (GLOBAL_GET(\"xr/openxr/display_initialization_alert\")) {\n           OS::get_singleton()->alert(err_msg);\n       }\n   }\n   ```\n\n3. **Localization Considerations**:\n   - Error message remains untranslated per maintainer consensus (searchability/documentation alignment)\n\n### Visual Documentation\n![Error Display Locations](https://user-images.githubusercontent.com/2136005/218293226-52fc619c-b0c1-4436-99a9-3d86a8455571.png)\n*Consistent error visibility across editor surfaces*\n\n### Upgrade Path\n- Existing projects retain default alert behavior\n- New projects created with 4.0.2+ inherit optimized workflow defaults",
+    "state": "MERGED",
+    "createdAt": "2023-02-12T04:35:58Z",
+    "closedAt": "2023-03-15T13:07:05Z",
+    "mergedAt": "2023-03-15T13:07:05Z",
+    "url": "https://github.com/godotengine/godot/pull/73144",
+    "author": {
+      "login": "chutchinson",
+      "url": "https://github.com/chutchinson"
+    },
+    "comments": {
+      "totalCount": 9,
+      "nodes": [
+        {
+          "body": "Performance analysis shows 2-5 second startup improvement on Windows 11 systems when alert is disabled. This aligns with removal of system resource initialization overhead from `MessageBoxW` calls.",
+          "author": {
+            "login": "chutchinson",
+            "url": "https://github.com/chutchinson"
+          },
+          "createdAt": "2023-02-12T04:50:30Z",
+          "reactions": {
+            "nodes": [
+              {
+                "content": "THUMBS_UP"
+              }
+            ]
+          }
+        },
+        {
+          "body": "Usability Team Approval:\nThis change better aligns error severity with workflow impact. Non-blocking handling is appropriate given XR initialization failure doesn't prevent core editor functionality.",
+          "author": {
+            "login": "fire",
+            "url": "https://github.com/fire"
+          },
+          "createdAt": "2023-02-12T05:03:19Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Important consideration for XR-focused workflows:\n- Default-enabled alert ensures hardware-dependent projects maintain critical visibility\n- Recommend documenting setting in XR development guide\n\nApproved with suggested documentation follow-up.",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "createdAt": "2023-02-12T08:15:45Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Implemented configurable alert setting as suggested. For review:\n- Setting path: `xr/openxr/display_initialization_alert`\n- Default value rationale matches XR device requirements\n- Error message consistency verified across logging subsystems",
+          "author": {
+            "login": "chutchinson",
+            "url": "https://github.com/chutchinson"
+          },
+          "createdAt": "2023-02-13T06:25:27Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Implementation meets requirements. Documentation ticket created: #00000",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "createdAt": "2023-02-13T08:47:17Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Ready for merge pending final CI verification",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "createdAt": "2023-03-15T02:53:22Z",
+          "reactions": {
+            "nodes": [
+              {
+                "content": "LAUGH"
+              }
+            ]
+          }
+        },
+        {
+          "body": "Merged to main. Will cherry-pick to 4.0.2 after integration testing.",
+          "author": {
+            "login": "YuriSizov",
+            "url": "https://github.com/YuriSizov"
+          },
+          "createdAt": "2023-03-15T13:07:18Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Cherry-picked to 4.0.2-stable (commit 1234567)",
+          "author": {
+            "login": "YuriSizov",
+            "url": "https://github.com/YuriSizov"
+          },
+          "createdAt": "2023-03-30T17:29:16Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "NOTE: Ensure commit email (chutchinson@dynics.com) is associated with your GitHub account for contribution attribution.",
+          "author": {
+            "login": "YuriSizov",
+            "url": "https://github.com/YuriSizov"
+          },
+          "createdAt": "2023-03-30T17:32:42Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    },
+    "reviews": {
+      "totalCount": 4,
+      "nodes": [
+        {
+          "body": "Verified implementation against XR hardware test matrix. Approved with documentation ticket.",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "state": "APPROVED",
+          "createdAt": "2023-02-13T08:46:31Z"
+        },
+        {
+          "body": "Localization review: Confirmed error message exclusion from translation per maintainer guidelines.",
+          "author": {
+            "login": "m4gr3d",
+            "url": "https://github.com/m4gr3d"
+          },
+          "state": "APPROVED",
+          "createdAt": "2023-02-14T17:13:12Z"
+        },
+        {
+          "body": "Security review: No surface area impact detected.",
+          "author": {
+            "login": "akien-mga",
+            "url": "https://github.com/akien-mga"
+          },
+          "state": "APPROVED",
+          "createdAt": "2023-02-14T17:20:34Z"
+        },
+        {
+          "body": "Final approval pending CI greenlight",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "state": "APPROVED",
+          "createdAt": "2023-03-15T02:53:10Z"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "totalCount": 1,
+      "nodes": [
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "Consider wrapping message in translation utility for localization support.",
+                "author": {
+                  "login": "m4gr3d",
+                  "url": "https://github.com/m4gr3d"
+                },
+                "createdAt": "2023-02-14T17:13:12Z"
+              },
+              {
+                "body": "Recommend keeping message in English for:\n- Error search consistency\n- Technical documentation alignment\n- Reduced translation maintenance",
+                "author": {
+                  "login": "akien-mga",
+                  "url": "https://github.com/akien-mga"
+                },
+                "createdAt": "2023-02-14T17:20:34Z"
+              },
+              {
+                "body": "Consensus reached - no translation needed. Documented in code comments.",
+                "author": {
+                  "login": "BastiaanOlij",
+                  "url": "https://github.com/BastiaanOlij"
+                },
+                "createdAt": "2023-03-15T02:53:10Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "filesChanged": []
+  }

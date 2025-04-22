@@ -1,0 +1,85 @@
+{
+    "number": 7142,
+    "title": "Clarify curl usage for inbound agent in PowerShell",
+    "body": "The documentation currently suggests using `curl` for the inbound agent setup. However, in PowerShell, `curl` is an alias for the `Invoke-WebRequest` cmdlet, which handles parameters differently and can lead to unexpected behavior, specifically with the `-sO` flags. This pull request updates the documentation to explicitly recommend using the `curl.exe` executable when running the command in PowerShell.\n\nThis ensures that users in PowerShell environments can execute the command as intended, aligning with the behavior in other command-line interpreters like CMD.\n\nFor more details on the differences between `curl` and `curl.exe` in Windows, please refer to the official documentation: https://curl.se/windows/microsoft.html\n\n### Proposed Changes\n\n- Updated the command example to use `curl.exe` instead of `curl` when the context is PowerShell.\n- Added a clarifying note about the availability of `curl.exe` on newer Windows versions by default.\n- Mentioned that the standard `curl` command remains suitable for CMD and other environments.\n\n### Checklist\n\n- [x] Documentation updated to reflect the change.\n- [x] At least one review obtained and all feedback addressed.\n- [x] Discussion points resolved and consensus reached.\n- [x] Changelog updated with a clear description of the fix.\n- [x] Appropriate labels added for relevant upgrade or compatibility considerations.\n\n[Open in Gitpod](https://gitpod.io/#https://github.com/jenkinsci/jenkins/pull/7142)\n",
+    "state": "MERGED",
+    "createdAt": "2022-09-22T14:17:11Z",
+    "closedAt": "2022-09-23T15:13:12Z",
+    "mergedAt": "2022-09-23T15:13:12Z",
+    "url": "https://github.com/jenkinsci/jenkins/pull/7142",
+    "author": {
+      "login": "jjasghar",
+      "url": "https://github.com/jjasghar"
+    },
+    "comments": {
+      "totalCount": 6,
+      "nodes": [
+        {
+          "body": "Consider adding a brief note mentioning that `curl.exe` is typically included in recent Windows distributions. This could further assist users.",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T15:04:08Z",
+          "reactions": {
+            "nodes":[]
+          }
+        },
+        {
+          "body": "It's important to highlight that this adjustment specifically targets PowerShell users. The standard `curl` command should continue to function as expected in CMD and other shell environments.",
+          "author": {
+            "login": "MarkEWaite",
+            "url": "https://github.com/MarkEWaite"
+          },
+          "createdAt": "2022-09-22T15:10:37Z",
+          "reactions": {
+            "nodes":[]
+          }
+        },
+        {
+          "body": "To improve clarity for PowerShell users, perhaps the documentation could explicitly state: 'If you are using PowerShell, please use `curl.exe` instead of `curl` to avoid potential issues with parameter handling.' This direct instruction could save users time and reduce confusion during setup.",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T15:59:39Z",
+          "reactions": {
+            "nodes":[]
+          }
+        },
+        {
+          "body": "That's a good suggestion. Could you please update the pull request with this specific wording? Also, the tone of the linked documentation excerpt feels a little informal; perhaps we can rely on the main point about the PowerShell behavior.",
+          "author": {
+            "login": "MarkEWaite",
+            "url": "https://github.com/MarkEWaite"
+          },
+          "createdAt": "2022-09-22T16:20:24Z",
+          "reactions": {
+            "nodes":[]
+          }
+        },
+        {
+          "body": "I've incorporated the suggested clarification regarding PowerShell usage.",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T16:31:48Z",
+          "reactions": {
+            "nodes":[]
+          }
+        },
+        {
+          "body": "The documentation has been updated as recommended. Thank you for the feedback!",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T17:08:16Z",
+          "reactions": {
+            "nodes":[]
+          }
+        }
+      ]
+    }
+  }

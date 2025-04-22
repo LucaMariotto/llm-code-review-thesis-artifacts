@@ -1,0 +1,67 @@
+{
+    "number": 7142,
+    "title": "Use curl.exe explicitly in PowerShell examples to avoid alias conflicts",
+    "body": "The `curl` command in PowerShell is an alias for `Invoke-WebRequest`, which does not support the `-sO` flags. This change replaces `curl` with `curl.exe` in documentation examples to ensure compatibility with the native curl executable on Windows systems. PowerShell users will now avoid conflicts with the default alias.\n\nReference: https://curl.se/windows/microsoft.html\n\n### Proposed changelog entries\n- Update PowerShell examples to use `curl.exe` instead of `curl` to prevent conflicts with the Invoke-WebRequest alias\n- Add documentation note clarifying curl.exe usage for Windows environments\n\n### Submitter checklist\n- [x] Changelog entries and upgrade guidelines are appropriate for users/developers and use imperative mood\n- [x] Documentation updates include context about PowerShell alias behavior\n\n### Maintainer checklist\n- [x] 2+ approvals and no outstanding change requests\n- [x] Changelog entries accurately describe user impact\n- [x] `upgrade-guide-needed` label applied if applicable\n- [x] LTS backport requirements verified via Jira\n\n<a href=\"https://gitpod.io/#https://github.com/jenkinsci/jenkins/pull/7142\"><img src=\"https://gitpod.io/button/open-in-gitpod.svg\"/></a>",
+    "state": "MERGED",
+    "createdAt": "2022-09-22T14:17:11Z",
+    "closedAt": "2022-09-23T15:13:12Z",
+    "mergedAt": "2022-09-23T15:13:12Z",
+    "url": "https://github.com/jenkinsci/jenkins/pull/7142",
+    "author": {
+      "login": "jjasghar",
+      "url": "https://github.com/jjasghar"
+    },
+    "comments": {
+      "totalCount": 6,
+      "nodes": [
+        {
+          "body": "Suggest adding a documentation note clarifying that Windows 10+ includes curl.exe by default, which avoids the PowerShell alias issue. This would help users distinguish between command environments.",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T15:04:08Z"
+        },
+        {
+          "body": "Confirmed: This change only affects PowerShell users. The `curl` command in Windows Command Prompt (cmd) works as expected without modification. The documentation note should specify this distinction.",
+          "author": {
+            "login": "MarkEWaite",
+            "url": "https://github.com/MarkEWaite"
+          },
+          "createdAt": "2022-09-22T15:10:37Z"
+        },
+        {
+          "body": "Proposed documentation enhancement:\n> **Note for PowerShell users**: Use `curl.exe` instead of `curl` when running remote agent commands to avoid conflicts with PowerShell's built-in `Invoke-WebRequest` alias. This resolves compatibility issues with the `-sO` flags.",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T15:59:39Z"
+        },
+        {
+          "body": "Documentation note approved. Including the [curl.exe workaround reference](https://daniel.haxx.se/blog/2016/08/19/removing-the-powershell-curl-alias/) adds helpful context about PowerShell's alias behavior. Thank you for addressing this common pain point.",
+          "author": {
+            "login": "MarkEWaite",
+            "url": "https://github.com/MarkEWaite"
+          },
+          "createdAt": "2022-09-22T16:20:24Z"
+        },
+        {
+          "body": "Documentation formatting verified. The new note appears in the 'Troubleshooting' section of the agent setup guide.",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T16:31:48Z"
+        },
+        {
+          "body": "Changes implemented per feedback. Documentation now includes PowerShell-specific guidance and reference links.",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T17:08:16Z"
+        }
+      ]
+    }
+  }

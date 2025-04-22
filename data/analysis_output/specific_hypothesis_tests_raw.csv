@@ -1,0 +1,13 @@
+Hypothesis,Comparison,Expected Winner,Expected Loser,N Total,N Winner,N Loser,N Neither,N Other,% Winner (of W+L),% Loser (of W+L),% Neither (of Total),P-value (Binomial),Significance,Conf. Interval Low (%),Conf. Interval High (%)
+H1: O > D,Original vs Degraded,Original,Degraded,38,15,16,7,0,48.387,51.613,18.421,0.640,p = 0.640 (ns),32.674,100.000
+H2: IO > O,Original vs Improved_Original,Improved_Original,Original,38,20,11,7,0,64.516,35.484,18.421,0.075,p = 0.075 (ns),48.175,100.000
+H3: ID > D,Degraded vs Improved_Degraded,Improved_Degraded,Degraded,38,23,11,4,0,67.647,32.353,10.526,0.029,p = 0.029 (*),52.181,100.000
+H4: IO > ID,Improved_Degraded vs Improved_Original,Improved_Original,Improved_Degraded,38,20,11,7,0,64.516,35.484,18.421,0.075,p = 0.075 (ns),48.175,100.000
+H5: ID > O,Original vs Improved_Degraded,Improved_Degraded,Original,38,19,8,11,0,70.370,29.630,28.947,0.026,p = 0.026 (*),52.861,100.000
+H6: IO > D,Degraded vs Improved_Original,Improved_Original,Degraded,38,22,13,3,0,62.857,37.143,7.895,0.088,p = 0.088 (ns),47.560,100.000
+H7: D > O,Original vs Degraded,Degraded,Original,38,16,15,7,0,51.613,48.387,18.421,0.500,p = 0.500 (ns),35.657,100.000
+H8: O > IO,Original vs Improved_Original,Original,Improved_Original,38,11,20,7,0,35.484,64.516,18.421,0.965,p = 0.965 (ns),21.336,100.000
+H9: D > ID,Degraded vs Improved_Degraded,Degraded,Improved_Degraded,38,11,23,4,0,32.353,67.647,10.526,0.988,p = 0.988 (ns),19.319,100.000
+H10: ID > IO,Improved_Degraded vs Improved_Original,Improved_Degraded,Improved_Original,38,11,20,7,0,35.484,64.516,18.421,0.965,p = 0.965 (ns),21.336,100.000
+H11: O > ID,Original vs Improved_Degraded,Original,Improved_Degraded,38,8,19,11,0,29.630,70.370,28.947,0.990,p = 0.990 (ns),15.682,100.000
+H12: D > IO,Degraded vs Improved_Original,Degraded,Improved_Original,38,13,22,3,0,37.143,62.857,7.895,0.955,p = 0.955 (ns),23.560,100.000

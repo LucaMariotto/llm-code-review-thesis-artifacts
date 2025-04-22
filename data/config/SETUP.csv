@@ -1,0 +1,7 @@
+Survey,PR (Original vs Degraded),PR (Original vs Improved_Degraded),PR (Degraded vs Improved_Degraded), PR (Improved_Degraded vs Improved_Original),PR (Original vs Improved_Original),PR (Degraded vs Improved_Original)
+1,1,2,3,4,5,6
+2,2,3,4,5,6,1
+3,3,4,5,6,1,2
+4,4,5,6,1,2,3
+5,5,6,1,2,3,4
+6,6,1,2,3,4,5

@@ -1,0 +1,113 @@
+{
+    "number": 97224,
+    "title": "Expressions: Add notification for Strict Mode in Reduce",
+    "body": "<!--\r\n\r\nSome PR tips here...\r\n-->\r\n\r\n**What is this?**\r\n\r\nAdds a notification for Strict Mode in Reduce component. It tells users something about NaN when using fill(null).\r\n\r\n**Why?**\r\n\r\nUsers get confused. This might help.\r\n\r\n**Who uses this?**\r\n\r\nPeople using Reduce with Strict Mode.\r\n\r\n**Fixes:**\r\nFixes #79315 \r\n\r\n**Notes for reviewer:**\r\n\r\n- [ ] Maybe check if it works?\r\n- [ ] Docs? Not sure\r\n\r\n<img width=\"1244\" alt=\"GraphanaFix\" src=\"https://github.com/user-attachments/assets/3b1cbc4f-2370-4eaa-b24c-4768cc8602d3\">",
+    "state": "MERGED",
+    "createdAt": "2024-12-02T03:50:27Z",
+    "closedAt": "2024-12-29T11:58:21Z",
+    "mergedAt": "2024-12-29T11:58:21Z",
+    "url": "https://github.com/grafana/grafana/pull/97224",
+    "author": {
+      "login": "shubhankarunhale",
+      "url": "https://github.com/shubhankarunhale"
+    },
+    "comments": {
+      "totalCount": 1,
+      "nodes": [
+        {
+          "body": "[CLA check](https://cla-assistant.io/grafana/grafana?pullRequest=97224)",
+          "author": {
+            "login": "CLAassistant",
+            "url": "https://github.com/CLAassistant"
+          },
+          "createdAt": "2024-12-02T03:50:34Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    },
+    "reviews": {
+      "totalCount": 4,
+      "nodes": [
+        {
+          "body": "LGTM but translation key missing?",
+          "author": {
+            "login": "itsmylife",
+            "url": "https://github.com/itsmylife"
+          },
+          "state": "CHANGES_REQUESTED",
+          "createdAt": "2024-12-23T21:54:47Z"
+        },
+        {
+          "body": "idk",
+          "author": {
+            "login": "shubhankarunhale",
+            "url": "https://github.com/shubhankarunhale"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-12-27T14:52:29Z"
+        },
+        {
+          "body": "",
+          "author": {
+            "login": "itsmylife",
+            "url": "https://github.com/itsmylife"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-12-29T11:01:29Z"
+        },
+        {
+          "body": "👍",
+          "author": {
+            "login": "itsmylife",
+            "url": "https://github.com/itsmylife"
+          },
+          "state": "APPROVED",
+          "createdAt": "2024-12-29T11:10:03Z"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "totalCount": 2,
+      "nodes": [
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "Add key to grafana.json maybe",
+                "author": {
+                  "login": "itsmylife",
+                  "url": "https://github.com/itsmylife"
+                },
+                "createdAt": "2024-12-23T21:54:48Z"
+              },
+              {
+                "body": "Did something with translations. There was a rebase problem. Can u check?",
+                "author": {
+                  "login": "shubhankarunhale",
+                  "url": "https://github.com/shubhankarunhale"
+                },
+                "createdAt": "2024-12-27T14:52:29Z"
+              }
+            ]
+          }
+        },
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "ok",
+                "author": {
+                  "login": "itsmylife",
+                  "url": "https://github.com/itsmylife"
+                },
+                "createdAt": "2024-12-29T11:01:29Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "filesChanged": []
+  }

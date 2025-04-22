@@ -1,0 +1,113 @@
+{
+    "number": 97224,
+    "title": "Expressions: Enhance user awareness of Strict Mode behavior in Reduce component",
+    "body": "\n\nThis pull request introduces an informative notification within the Reduce component that appears when Strict Mode is enabled. This enhancement aims to proactively guide users regarding the specific behavior of the `fill(null)` function in InfluxQL, which can unexpectedly result in `NaN` values under these conditions. By displaying this message, we intend to improve user understanding and prevent potential confusion or errors during query construction and analysis.\n\n**Key improvements and considerations:**\n\n* **User Experience:** The notification is designed to be non-intrusive yet easily noticeable, providing timely guidance without disrupting the workflow.\n* **Clarity:** The message clearly explains the potential issue and its context within Strict Mode and InfluxQL.\n* **Maintainability:** The notification logic is encapsulated within the Reduce component, ensuring modularity and ease of future updates.\n* **Documentation:** This change necessitates an update to the documentation covering the Reduce component and its interaction with Strict Mode in InfluxQL. Please ensure the relevant sections in `docs/sources/features/panels/reduce.md` are updated to reflect this new notification.\n* **Testing:** Comprehensive testing has been performed to ensure the notification appears correctly under the intended conditions and does not introduce any regressions.\n\nThis update represents an initial step towards improving the user experience when working with Strict Mode and InfluxQL. Future iterations could explore more detailed explanations or links to relevant documentation directly within the notification.\n\n**Merge Instructions:**\n\nUpon approval, this PR can be merged following standard procedures. Please ensure all tests pass and the documentation updates are included in the final merge.\n",
+    "state": "MERGED",
+    "createdAt": "2024-12-02T03:50:27Z",
+    "closedAt": "2024-12-29T11:58:21Z",
+    "mergedAt": "2024-12-29T11:58:21Z",
+    "url": "https://github.com/grafana/grafana/pull/97224",
+    "author": {
+      "login": "shubhankarunhale",
+      "url": "https://github.com/shubhankarunhale"
+    },
+    "comments": {
+      "totalCount": 1,
+      "nodes": [
+        {
+          "body": "CLA signature is valid.",
+          "author": {
+            "login": "CLAassistant",
+            "url": "https://github.com/CLAassistant"
+          },
+          "createdAt": "2024-12-02T03:50:34Z",
+          "reactions": {
+            "nodes":[]
+          }
+        }
+      ]
+    },
+    "reviews": {
+      "totalCount": 4,
+      "nodes": [
+        {
+          "body": "This change looks good overall. However, to ensure proper internationalization and accessibility, could you please add the necessary translation key for the notification message? This will allow us to support multiple languages effectively.",
+          "author": {
+            "login": "itsmylife",
+            "url": "https://github.com/itsmylife"
+          },
+          "state": "CHANGES_REQUESTED",
+          "createdAt": "2024-12-23T21:54:47Z"
+        },
+        {
+          "body": "Acknowledged. The translation key has been added, and I've addressed the minor rebase conflicts. Please take another look when you have a moment.",
+          "author": {
+            "login": "shubhankarunhale",
+            "url": "https://github.com/shubhankarunhale"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-12-27T14:52:29Z"
+        },
+        {
+          "body": "Thanks for the quick update! The addition of the translation key is appreciated. I've also reviewed the rebase and it looks clean.",
+          "author": {
+            "login": "itsmylife",
+            "url": "https://github.com/itsmylife"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-12-29T11:01:29Z"
+        },
+        {
+          "body": "Excellent work! This enhancement will definitely improve the user experience by proactively informing them about a potential pitfall. The implementation looks solid, and the inclusion of the translation key ensures we maintain our standards for internationalization. Merging now. 🚀",
+          "author": {
+            "login": "itsmylife",
+            "url": "https://github.com/itsmylife"
+          },
+          "state": "APPROVED",
+          "createdAt": "2024-12-29T11:10:03Z"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "totalCount": 2,
+      "nodes": [
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "To ensure this notification is properly localized, please add a corresponding entry to the translation file located at `public/locales/en.json` and then run the translation extraction command (`yarn i18n:extract`).",
+                "author": {
+                  "login": "itsmylife",
+                  "url": "https://github.com/itsmylife"
+                },
+                "createdAt": "2024-12-23T21:54:48Z"
+              },
+              {
+                "body": "Done. The translation key `expressions.reduce.strictModeNotification` has been added to the English locale file, and the extraction command has been executed. I also resolved a minor merge conflict that arose during this process. Ready for another review.",
+                "author": {
+                  "login": "shubhankarunhale",
+                  "url": "https://github.com/shubhankarunhale"
+                },
+                "createdAt": "2024-12-27T14:52:29Z"
+              }
+            ]
+          }
+        },
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "This is a valuable improvement. Providing this context directly within the application will help users avoid potential issues with `fill(null)` in Strict Mode. Thank you for taking the initiative on this!",
+                "author": {
+                  "login": "itsmylife",
+                  "url": "https://github.com/itsmylife"
+                },
+                "createdAt": "2024-12-29T11:01:29Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "filesChanged":[]
+  }

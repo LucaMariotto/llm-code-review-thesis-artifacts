@@ -1,0 +1,203 @@
+{
+    "number": 73144,
+    "title": "Replaced OpenXR operating system alert dialog with a warning log message",
+    "body": "Fixes #73141\r\n\r\nThis pull request replaces (at user discretion) an alert dialog when OpenXR fails to initialize (usually due to StreamVR not running, or an HMD is disconnected or in standby) with a **WARN** log message. A new project setting exists (**Startup Alert**), which defaults to true, and toggles this behavior to account for users with an XR-only device.\r\n\r\n### Justification\r\n\r\n- Operating system alert dialog is intrusive and harmful to (in my opinion) the development workflow\r\n    - Dialog causes significant delay when starting a project (several seconds)\r\n    - Dialog requires user input before starting the project; making adjustments is painful because the dialog must be dismissed on every run\r\n- The warning message shows up in the Errors tab (editor), in addition to a Console output window (if available), which is consistent behavior when compared to other OpenXR failure modes (eg. **create_instance** failure)\r\n- The impact on the codebase is minimal (one statement, using existing technology)\r\n\r\n### Personal Impact\r\n\r\nThis issue became personal. Godot is incredible software and I was inspired to work on a VR project. The dialog was damaging to my workflow, which I argue is probably not uncommon: my workflow consists of implementing game logic, behavior, visual effects, environments, etc. and then testing and iterating outside of VR (fast feedback loop). I launch and perform testing in an HMD when new features have gone through some iterations, and are ready for testing and feedback.\r\n\r\n### Possible Workarounds\r\n\r\nIt is possible to workaround this issue to some extent, by disabling OpenXR in the project settings; however, this requires the user to restart the editor which is similarly intrusive. If the user desires to perform testing in VR they must modify the project setting again (and restart). \r\n\r\nAnother workaround is to ensure an OpenXR runtime is running (SteamVR), and an HMD is connected. My argument against this is that during development it's not uncommon for the HMD to enter standby mode, or to close StreamVR, or to just open Godot and begin working without initializing SteamVR or plugging in an HMD.\r\n\r\nIt is my opinion that these workarounds are hostile to the user\r\n\r\n### Screenshots\r\n\r\nAttached are screenshots depicting the warning message in the console window and in the **Errors** tab.\r\n\r\n![log_example](https://user-images.githubusercontent.com/2136005/218293226-52fc619c-b0c1-4436-99a9-3d86a8455571.png)\r\n![openxr_errors_tab_example](https://user-images.githubusercontent.com/2136005/218293237-d8533245-1b0b-4343-9946-c538d8b82938.png)\r\n\r\n![image](https://user-images.githubusercontent.com/2136005/218386058-c4ad31ad-5b7d-410b-a65e-d6f352d92ed2.png)\r\n\r\n",
+    "state": "MERGED",
+    "createdAt": "2023-02-12T04:35:58Z",
+    "closedAt": "2023-03-15T13:07:05Z",
+    "mergedAt": "2023-03-15T13:07:05Z",
+    "url": "https://github.com/godotengine/godot/pull/73144",
+    "author": {
+      "login": "chutchinson",
+      "url": "https://github.com/chutchinson"
+    },
+    "comments": {
+      "totalCount": 9,
+      "nodes": [
+        {
+          "body": "A pleasant side effect of this bug fix, besides not having to dismiss a dialog on every project run, is that the delay when running a project is much shorter. There was a significant delay (on my Windows 11 system) before the alert dialog appeared. \r\n\r\nI'm not sure how that could happen, because **OS_Windows::alert** directly calls **MessageBoxW**, but perhaps it's related to loading **user32**, or some low-level Windows behavior (message loop, themes, or something?). ",
+          "author": {
+            "login": "chutchinson",
+            "url": "https://github.com/chutchinson"
+          },
+          "createdAt": "2023-02-12T04:50:30Z",
+          "reactions": {
+            "nodes": [
+              {
+                "content": "THUMBS_UP"
+              }
+            ]
+          }
+        },
+        {
+          "body": "I support this as part of the usability team. The xr failure is not a critical error that the engine can't continue.",
+          "author": {
+            "login": "fire",
+            "url": "https://github.com/fire"
+          },
+          "createdAt": "2023-02-12T05:03:19Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "> I support this as part of the usability team. The xr failure is not a critical error that the engine can't continue.\r\n\r\nThat's not strictly true, on XR only devices, the screen will remain black with the user being unaware of what is going on. An alert that on their device OpenXR is not supported or failed to start is the correct behavior imho.\r\n\r\nSo I think this should be either a project setting with the default being the alert, or a difference in behavior between runtime and debug.\r\n\r\nOther than that, fully agree that suppressing the message should be an option especially to make the development workflow easier.",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "createdAt": "2023-02-12T08:15:45Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "@BastiaanOlij I added a project setting for displaying the alert modal on startup (default = true). The warning message prints regardless of the setting. Should that warning be escalated to an error message? The message itself does indicate \"failure\", so I can understand if that's desirable.\r\n\r\nI would appreciate any feedback on the name and/or description (help) for the property.",
+          "author": {
+            "login": "chutchinson",
+            "url": "https://github.com/chutchinson"
+          },
+          "createdAt": "2023-02-13T06:25:27Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "I think it's great the way it is, thanks!",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "createdAt": "2023-02-13T08:47:17Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "I'm all for merging this btw",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "createdAt": "2023-03-15T02:53:22Z",
+          "reactions": {
+            "nodes": [
+              {
+                "content": "LAUGH"
+              }
+            ]
+          }
+        },
+        {
+          "body": "Thanks!",
+          "author": {
+            "login": "YuriSizov",
+            "url": "https://github.com/YuriSizov"
+          },
+          "createdAt": "2023-03-15T13:07:18Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Cherry-picked for 4.0.2.",
+          "author": {
+            "login": "YuriSizov",
+            "url": "https://github.com/YuriSizov"
+          },
+          "createdAt": "2023-03-30T17:29:16Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "By the way, it seems that the identity that you used to author this PR is not connected with your GitHub account. So it doesn't count towards your contributions.\r\n\r\n```\r\nChris Hutchinson <chutchinson@dynics.com>\r\n```",
+          "author": {
+            "login": "YuriSizov",
+            "url": "https://github.com/YuriSizov"
+          },
+          "createdAt": "2023-03-30T17:32:42Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    },
+    "reviews": {
+      "totalCount": 4,
+      "nodes": [
+        {
+          "body": "",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "state": "APPROVED",
+          "createdAt": "2023-02-13T08:46:31Z"
+        },
+        {
+          "body": "",
+          "author": {
+            "login": "m4gr3d",
+            "url": "https://github.com/m4gr3d"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2023-02-14T17:13:12Z"
+        },
+        {
+          "body": "",
+          "author": {
+            "login": "akien-mga",
+            "url": "https://github.com/akien-mga"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2023-02-14T17:20:34Z"
+        },
+        {
+          "body": "",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2023-03-15T02:53:10Z"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "totalCount": 1,
+      "nodes": [
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "The message should be wrapped in the tools translate utility (e.g: `TTR(\"...\")`).",
+                "author": {
+                  "login": "m4gr3d",
+                  "url": "https://github.com/m4gr3d"
+                },
+                "createdAt": "2023-02-14T17:13:12Z"
+              },
+              {
+                "body": "Note that for `TTR()` to work, it will need to be all on a single line, as the translation strings extraction works line by line and this should all be a single string/paragraph in the translation template.\r\n\r\nThat being said, I'm not sure we translate this kind of OS alert normally. It's within the realm of error message we want to be easily searchable so it's better if it stays in English, so you can easily find documentation / forum posts / bug reports which mention it.",
+                "author": {
+                  "login": "akien-mga",
+                  "url": "https://github.com/akien-mga"
+                },
+                "createdAt": "2023-02-14T17:20:34Z"
+              },
+              {
+                "body": "yeah I agree that it doesn't make a whole lot of sense to translate this.",
+                "author": {
+                  "login": "BastiaanOlij",
+                  "url": "https://github.com/BastiaanOlij"
+                },
+                "createdAt": "2023-03-15T02:53:10Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "filesChanged": []
+  }

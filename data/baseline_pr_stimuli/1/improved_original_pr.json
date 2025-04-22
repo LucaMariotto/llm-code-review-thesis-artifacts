@@ -1,0 +1,204 @@
+{
+    "number": 73144,
+    "title": "Update: Replace OS Alert Dialog with Warning Log for OpenXR Initialization Failure",
+    "body": "Fixes #73141\n\nThis pull request implements a change in the handling of OpenXR initialization failures. Instead of displaying an alert dialog that interrupts workflow, the system now logs a warning message. This behavior is configurable via the new project setting **Startup Alert** (defaulting to true), allowing users to choose whether to display the modal alert during startup.\n\n### Rationale\n\n- The alert dialog introduces unnecessary delays by requiring manual dismissal, which can impede rapid development cycles.\n- Logging a warning message provides visibility of the failure in both the console and the Errors tab, in line with other OpenXR error reporting (e.g., **create_instance** failures).\n- The change leverages existing logging mechanisms, ensuring a minimal impact on the overall codebase.\n\n### Alternatives Considered\n\nAlternative solutions, such as disabling OpenXR entirely or enforcing the presence of an active runtime (e.g., SteamVR), were reviewed. These alternatives would require additional configuration changes or restarts, leading to further disruption during development.\n\n### Additional Considerations\n\nThe warning message remains in English to facilitate consistent searchability in documentation and community support. Future enhancements may explore differentiating behavior based on the execution context (e.g., runtime versus debug mode).\n\n### Visual Evidence\n\nThe screenshots below illustrate the warning message as displayed in the console window and the Errors tab:\n\n![log_example](https://user-images.githubusercontent.com/2136005/218293226-52fc619c-b0c1-4436-99a9-3d86a8455571.png)\n![openxr_errors_tab_example](https://user-images.githubusercontent.com/2136005/218293237-d8533245-1b0b-4343-9946-c538d8b82938.png)\n![image](https://user-images.githubusercontent.com/2136005/218386058-c4ad31ad-5b7d-410b-a65e-d6f352d92ed2.png)\n",
+    "state": "MERGED",
+    "createdAt": "2023-02-12T04:35:58Z",
+    "closedAt": "2023-03-15T13:07:05Z",
+    "mergedAt": "2023-03-15T13:07:05Z",
+    "url": "https://github.com/godotengine/godot/pull/73144",
+    "author": {
+      "login": "chutchinson",
+      "url": "https://github.com/chutchinson"
+    },
+    "comments": {
+      "totalCount": 9,
+      "nodes": [
+        {
+          "body": "This fix also appears to reduce the startup delay observed on Windows systems. The delay might be associated with the initialization of system libraries (e.g., user32.dll) or other low-level Windows behaviors related to message handling.",
+          "author": {
+            "login": "chutchinson",
+            "url": "https://github.com/chutchinson"
+          },
+          "createdAt": "2023-02-12T04:50:30Z",
+          "reactions": {
+            "nodes": [
+              {
+                "content": "THUMBS_UP"
+              }
+            ]
+          }
+        },
+        {
+          "body": "From a usability perspective, this change ensures that non-critical OpenXR failures do not impede the engine's operation.",
+          "author": {
+            "login": "fire",
+            "url": "https://github.com/fire"
+          },
+          "createdAt": "2023-02-12T05:03:19Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "It is important to note that on devices exclusively reliant on XR, a failure to initialize OpenXR could result in a blank screen without clear feedback. In such scenarios, displaying an alert may be essential. A further refinement could consider differing behaviors between runtime and debug environments.",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "createdAt": "2023-02-12T08:15:45Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "In response to previous feedback, a project setting has been added to control the display of the alert modal at startup (default set to true). The warning message is logged regardless of this setting. Please advise if the warning should be escalated to an error, given that the message currently signifies a failure. Additional feedback on the property name and its description would be appreciated.",
+          "author": {
+            "login": "chutchinson",
+            "url": "https://github.com/chutchinson"
+          },
+          "createdAt": "2023-02-13T06:25:27Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "The implementation meets the intended requirements. Thank you.",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "createdAt": "2023-02-13T08:47:17Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "The changes have been reviewed and are approved for merging.",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "createdAt": "2023-03-15T02:53:22Z",
+          "reactions": {
+            "nodes": [
+              {
+                "content": "LAUGH"
+              }
+            ]
+          }
+        },
+        {
+          "body": "Acknowledged.",
+          "author": {
+            "login": "YuriSizov",
+            "url": "https://github.com/YuriSizov"
+          },
+          "createdAt": "2023-03-15T13:07:18Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Cherry-picked for version 4.0.2.",
+          "author": {
+            "login": "YuriSizov",
+            "url": "https://github.com/YuriSizov"
+          },
+          "createdAt": "2023-03-30T17:29:16Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Please note: the commit author's identity (Chris Hutchinson <chutchinson@dynics.com>) is not linked to your GitHub account and may not be counted towards your contributions.",
+          "author": {
+            "login": "YuriSizov",
+            "url": "https://github.com/YuriSizov"
+          },
+          "createdAt": "2023-03-30T17:32:42Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    },
+    "reviews": {
+      "totalCount": 4,
+      "nodes": [
+        {
+          "body": "",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "state": "APPROVED",
+          "createdAt": "2023-02-13T08:46:31Z"
+        },
+        {
+          "body": "",
+          "author": {
+            "login": "m4gr3d",
+            "url": "https://github.com/m4gr3d"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2023-02-14T17:13:12Z"
+        },
+        {
+          "body": "",
+          "author": {
+            "login": "akien-mga",
+            "url": "https://github.com/akien-mga"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2023-02-14T17:20:34Z"
+        },
+        {
+          "body": "",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2023-03-15T02:53:10Z"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "totalCount": 1,
+      "nodes": [
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "For consistency with localization practices, the warning message should be wrapped using the translation utility (e.g., `TTR(\"...\")`).",
+                "author": {
+                  "login": "m4gr3d",
+                  "url": "https://github.com/m4gr3d"
+                },
+                "createdAt": "2023-02-14T17:13:12Z"
+              },
+              {
+                "body": "Please ensure that the entire translation string is on a single line, as the extraction process parses strings line by line. Note that error messages intended for searchability are typically maintained in English.",
+                "author": {
+                  "login": "akien-mga",
+                  "url": "https://github.com/akien-mga"
+                },
+                "createdAt": "2023-02-14T17:20:34Z"
+              },
+              {
+                "body": "Acknowledged. It appears that translating this specific message is not necessary.",
+                "author": {
+                  "login": "BastiaanOlij",
+                  "url": "https://github.com/BastiaanOlij"
+                },
+                "createdAt": "2023-03-15T02:53:10Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "filesChanged": []
+  }
+  

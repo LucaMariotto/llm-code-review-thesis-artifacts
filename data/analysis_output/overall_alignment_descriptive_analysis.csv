@@ -1,0 +1,7 @@
+Comparison Type,Primary Hypothesis,Expected Winner,Expected Loser,Total Responses,Count Aligned (Success),Count Contradicted (Failure),Count Neutral,Count Other/Unknown,% Aligned (of Total),% Contradicted (of Total),% Neutral (of Total),% Other/Unknown (of Total)
+Original vs Degraded,H1: O > D,Original,Degraded,38,15,16,7,0,39.5%,42.1%,18.4%,0.0%
+Original vs Improved_Degraded,H5: ID > O,Improved_Degraded,Original,38,19,8,11,0,50.0%,21.1%,28.9%,0.0%
+Degraded vs Improved_Degraded,H3: ID > D,Improved_Degraded,Degraded,38,23,11,4,0,60.5%,28.9%,10.5%,0.0%
+Improved_Degraded vs Improved_Original,H4: IO > ID,Improved_Original,Improved_Degraded,38,20,11,7,0,52.6%,28.9%,18.4%,0.0%
+Original vs Improved_Original,H2: IO > O,Improved_Original,Original,38,20,11,7,0,52.6%,28.9%,18.4%,0.0%
+Degraded vs Improved_Original,H6: IO > D,Improved_Original,Degraded,38,22,13,3,0,57.9%,34.2%,7.9%,0.0%

@@ -1,0 +1,52 @@
+{
+    "number": 7142,
+    "title": "Fix curl command for Windows",
+    "body": "The `curl` command doesn't work properly in some Windows environments. Using `curl.exe` fixes the issue.\r\n\r\n### Proposed changelog entries\r\n- Update curl command example\r\n\r\n### Submitter checklist\r\n- [x] Changelog entries are appropriate\r\n\r\n### Maintainer checklist\r\n- [x] Approvals received\r\n- [x] Changelog entries accurate\r\n- [x] Labels set correctly\r\n\n<a href=\"https://gitpod.io/#https://github.com/jenkinsci/jenkins/pull/7142\"><img src=\"https://gitpod.io/button/open-in-gitpod.svg\"/></a>",
+    "state": "MERGED",
+    "createdAt": "2022-09-22T14:17:11Z",
+    "closedAt": "2022-09-23T15:13:12Z",
+    "mergedAt": "2022-09-23T15:13:12Z",
+    "url": "https://github.com/jenkinsci/jenkins/pull/7142",
+    "author": {
+      "login": "jjasghar",
+      "url": "https://github.com/jjasghar"
+    },
+    "comments": {
+      "totalCount": 3,
+      "nodes": [
+        {
+          "body": "Maybe mention Windows users?",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T15:04:08Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Works in some environments but not others. Needs clarification.",
+          "author": {
+            "login": "MarkEWaite",
+            "url": "https://github.com/MarkEWaite"
+          },
+          "createdAt": "2022-09-22T15:10:37Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Updated based on feedback. Should be better now.",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T17:08:16Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    }
+  }

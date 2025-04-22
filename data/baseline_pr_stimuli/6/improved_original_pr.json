@@ -1,0 +1,155 @@
+{
+    "number": 14778,
+    "title": "KAFKA-15776: Introduce remote.fetch.max.timeout.ms for Controlled Delayed Remote Fetch Handling",
+    "body": "Description:\n\nThis PR introduces the new configuration property `remote.fetch.max.timeout.ms` to precisely control the timeout for delayed remote fetch requests. In scenarios where a FETCH request involves data retrieval from both local and remote sources, this setting ensures that the server maintains predictable response times while allowing operators to mitigate potential latency issues.\n\nBackground:\n- The traditional `fetch.max.wait.ms` applies when local data is insufficient (i.e., when `fetch.min.bytes` is not met). In cases where remote data retrieval is necessary, additional latency factors must be considered.\n- This change provides a mechanism to separately control remote fetch delays without altering the expected behavior for local fetch requests.\n\nTesting:\n- Existing unit and integration tests have been executed to verify the correctness of the new configuration.\n- Manual testing confirms that the system behavior remains consistent and backward-compatible.\n\nDocumentation:\n- The configuration documentation has been updated to include details on `remote.fetch.max.timeout.ms`.\n- Note: For fine-tuning remote fetch delays, refer to the updated parameter `remote.fetch.max.wait.ms` as described in the documentation.\n\n### Committer Checklist (excluded from commit message)\n- [ ] Confirm design and implementation integrity\n- [ ] Verify comprehensive test coverage and CI build success\n- [ ] Update documentation and upgrade notes as needed",
+    "state": "MERGED",
+    "createdAt": "2023-11-16T10:00:29Z",
+    "closedAt": "2024-06-05T06:42:23Z",
+    "mergedAt": "2024-06-05T06:42:23Z",
+    "url": "https://github.com/apache/kafka/pull/14778",
+    "author": {
+      "login": "kamalcph",
+      "url": "https://github.com/kamalcph"
+    },
+    "comments": {
+      "totalCount": 8,
+      "nodes": [
+        {
+          "body": "Could you please clarify how the new configuration interacts with `fetch.max.wait.ms` from the user’s perspective? Specifically, what is the expected behavior when a FETCH request involves both local and remote data retrieval? Additionally, could you explain how this change may affect client-side timeout expectations, given that clients might have been configured to expect a response within the `fetch.max.wait.ms` interval?",
+          "author": {
+            "login": "divijvaidya",
+            "url": "https://github.com/divijvaidya"
+          },
+          "createdAt": "2023-11-18T18:43:43Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Clarification: The `fetch.max.wait.ms` timeout applies only when there is insufficient data available locally (i.e., when the `fetch.min.bytes` threshold is not met). When a FETCH request involves data from both local and remote sources, the operation may incur additional latency due to the combined read times. Moreover, the server limits remote data retrieval to one partition per request (up to `max.partition.fetch.bytes`), with subsequent partitions served in later requests. This design choice helps maintain a balanced partition rotation over successive FETCH calls.",
+          "author": {
+            "login": "kamalcph",
+            "url": "https://github.com/kamalcph"
+          },
+          "createdAt": "2023-11-20T06:15:41Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "I appreciate the detailed explanation. However, I have a concern regarding the use of the default server request timeout to manage remote fetch delays. Relying on this default may conflict with the intended behavior of `fetch.max.wait.ms`, which is designed to ensure timely responses when local data is insufficient. A dedicated configuration for remote fetch timeouts could provide clearer separation and prevent unexpected behavior for clients.",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "createdAt": "2023-11-21T09:59:58Z",
+          "reactions": {
+            "nodes": [
+              {
+                "content": "THUMBS_UP"
+              }
+            ]
+          }
+        },
+        {
+          "body": "This PR has been marked as stale due to 90 days of inactivity. If you intend to continue working on this PR, please request a review from a committer and resolve any merge conflicts by syncing with the trunk or the appropriate release branch. If this PR is no longer relevant, please consider closing it. Without further activity in the next 30 days, it will be automatically closed.",
+          "author": {
+            "login": "github-actions",
+            "url": "https://github.com/apps/github-actions"
+          },
+          "createdAt": "2024-02-20T03:33:13Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Update: Regarding the earlier comment on fetch response times, please note that even if the remote read is incomplete, the FETCH request will still return after the `fetch.max.wait.ms` period, though it may result in an empty response.",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "createdAt": "2024-04-12T10:09:56Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "The patch is now ready for further review. Please examine the updated changes. A separate PR will follow to introduce the RemoteLogReader `FetchRateAndTimeMs` metric.",
+          "author": {
+            "login": "kamalcph",
+            "url": "https://github.com/kamalcph"
+          },
+          "createdAt": "2024-06-04T10:21:51Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Suggestion: Would it be possible to separate the dynamic configuration changes into a different PR? I have additional feedback on that aspect, which appears to be distinct from the primary changes presented here.",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "createdAt": "2024-06-05T00:00:35Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Note: The failed tests appear to be unrelated to the changes introduced in this PR.",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "createdAt": "2024-06-05T06:40:54Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    },
+    "reviews": {
+      "totalCount": 2,
+      "nodes": [
+        {
+          "body": "Overall, the changes are acceptable with just a minor comment. Please address the detailed feedback provided in the review threads.",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-06-04T11:23:52Z"
+        },
+        {
+          "body": "The changes have been reviewed and are approved.",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "state": "APPROVED",
+          "createdAt": "2024-06-05T02:18:00Z"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "totalCount": 1,
+      "nodes": [
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "Suggestion: It may be beneficial to clarify in the configuration documentation that this setting is used exclusively for local log fetch operations. Additionally, consider appending a note stating: 'For tuning the remote fetch maximum wait time, please refer to the `remote.fetch.max.wait.ms` configuration.'",
+                "author": {
+                  "login": "showuon",
+                  "url": "https://github.com/showuon"
+                },
+                "createdAt": "2024-06-04T11:23:52Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "filesChanged": []
+  }
+  

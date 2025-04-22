@@ -1,0 +1,143 @@
+{
+    "number": 57375,
+    "title": "[Fix][tsserver] Some changes",
+    "body": "<!--\r\nThx 4 the PR!\r\n\r\nPlz check:\r\n* [ ] Issue link\r\n* [ ] Code matches main\r\n* [ ] Tests passed maybe\r\n-->\r\n\r\nRefactored some stuff\r\n\r\n## nodeServer.ts\r\n\r\nChanged some switch thing to object thingy. Before:\r\n\r\n<img width=\"735\" alt=\"old code\" src=\"image1.png\">\r\n\r\nNow:\r\n\r\n<img width=\"672\" alt=\"new code\" src=\"image2.png\">\r\n\r\n## server.ts\r\n\r\nMade code better by removing some repeats. Before:\r\n\r\n<img width=\"713\" alt=\"old code\" src=\"image3.png\">\r\n\r\nAfter:\r\n\r\n<img width=\"669\" alt=\"new code\" src=\"image4.png\">\r\n\r\n## nodeServer.ts again\r\n\r\nFixed lint error by changing null! to undefined. Error was here:\r\n<img width=\"1235\" alt=\"error\" src=\"image5.png\">\r\n",
+    "state": "CLOSED",
+    "createdAt": "2024-02-11T20:24:59Z",
+    "closedAt": "2024-02-12T16:23:53Z",
+    "mergedAt": null,
+    "url": "https://github.com/microsoft/TypeScript/pull/57375",
+    "author": {
+      "login": "kevinuehara",
+      "url": "https://github.com/kevinuehara"
+    },
+    "comments": {
+      "totalCount": 4,
+      "nodes": [
+        {
+          "body": "No linked issue. Make issue first plz",
+          "author": {
+            "login": "typescript-bot",
+            "url": "https://github.com/typescript-bot"
+          },
+          "createdAt": "2024-02-11T20:25:04Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "ok",
+          "author": {
+            "login": "kevinuehara",
+            "url": "https://github.com/kevinuehara"
+          },
+          "createdAt": "2024-02-11T20:26:33Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "CI is broken, help?",
+          "author": {
+            "login": "kevinuehara",
+            "url": "https://github.com/kevinuehara"
+          },
+          "createdAt": "2024-02-11T20:55:15Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "We have many real issues to fix. Formatting PRs not helpful",
+          "author": {
+            "login": "RyanCavanaugh",
+            "url": "https://github.com/RyanCavanaugh"
+          },
+          "createdAt": "2024-02-12T16:23:54Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    },
+    "reviews": {
+      "totalCount": 3,
+      "nodes": [
+        {
+          "body": "",
+          "author": {
+            "login": "RyanCavanaugh",
+            "url": "https://github.com/RyanCavanaugh"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-02-12T16:18:58Z"
+        },
+        {
+          "body": "",
+          "author": {
+            "login": "RyanCavanaugh",
+            "url": "https://github.com/RyanCavanaugh"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-02-12T16:19:42Z"
+        },
+        {
+          "body": "",
+          "author": {
+            "login": "RyanCavanaugh",
+            "url": "https://github.com/RyanCavanaugh"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-02-12T16:20:43Z"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "totalCount": 3,
+      "nodes": [
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "This is worse than before",
+                "author": {
+                  "login": "RyanCavanaugh",
+                  "url": "https://github.com/RyanCavanaugh"
+                },
+                "createdAt": "2024-02-12T16:18:59Z"
+              }
+            ]
+          }
+        },
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "We don't do it like that here",
+                "author": {
+                  "login": "RyanCavanaugh",
+                  "url": "https://github.com/RyanCavanaugh"
+                },
+                "createdAt": "2024-02-12T16:19:42Z"
+              }
+            ]
+          }
+        },
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "Not useful change",
+                "author": {
+                  "login": "RyanCavanaugh",
+                  "url": "https://github.com/RyanCavanaugh"
+                },
+                "createdAt": "2024-02-12T16:20:43Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "filesChanged": []
+  }

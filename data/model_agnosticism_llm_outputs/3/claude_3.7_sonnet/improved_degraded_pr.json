@@ -1,0 +1,142 @@
+{
+    "number": 97224,
+    "title": "Expressions: Add user notification for Strict Mode behavior in Reduce component",
+    "body": "<!--\n\nThank you for submitting a PR. Please note the following simplified guidelines:\n\n1. Check our contribution guidelines in the repo docs.\n2. Run the necessary tests and update docs if needed.\n3. If this is a work in progress, consider marking it as a draft.\n4. For merge conflicts, try a rebase.\n\n-->\n\n## Summary\nThis enhancement adds an informative notification to the Reduce component when Strict Mode is enabled. The notification explains the potentially unexpected behavior of `fill(null)` in InfluxQL, which may produce NaN values instead of nulls.\n\n## Implementation Details\n- Added a conditional alert component in `ReduceExpression` that appears only when Strict Mode is enabled\n- Implemented i18n support for internationalization\n- Used the existing Alert component with \"info\" severity to maintain UI consistency\n- Added appropriate translation keys and English text content\n\n## User Impact\nThis change improves user experience by:\n- Providing clarity about edge case behaviors in Strict Mode\n- Reducing troubleshooting time when NaN values appear unexpectedly\n- Maintaining consistent design with existing notification patterns\n\n## Testing Completed\n- Verified notification visibility with Strict Mode on/off\n- Confirmed correct i18n integration\n- Tested various viewport sizes for responsive design\n- Confirmed that the notification does not obstruct other UI elements\n\n## Documentation\nUpdated the corresponding documentation in the expression docs to reflect this behavior.\n\n## Screenshots\n*Screenshot showing the notification in context*",
+    "state": "MERGED",
+    "createdAt": "2024-12-02T03:50:27Z",
+    "closedAt": "2024-12-29T11:58:21Z",
+    "mergedAt": "2024-12-29T11:58:21Z",
+    "url": "https://github.com/grafana/grafana/pull/97224",
+    "author": {
+      "login": "shubhankarunhale",
+      "url": "https://github.com/shubhankarunhale"
+    },
+    "comments": {
+      "totalCount": 1,
+      "nodes": [
+        {
+          "body": "CLA check looks okay.",
+          "author": {
+            "login": "CLAassistant",
+            "url": "https://github.com/CLAassistant"
+          },
+          "createdAt": "2024-12-02T03:50:34Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    },
+    "reviews": {
+      "totalCount": 4,
+      "nodes": [
+        {
+          "body": "Thanks for working on this enhancement. The overall approach looks good, but I have a few suggestions before we can approve this PR:\n\n1. Please add the appropriate translation key for internationalization support\n2. Consider using our existing Alert component with severity='info' for consistent UI\n3. The notification should be positioned below the Reduce operator selection to maintain good visual hierarchy",
+          "author": {
+            "login": "itsmylife",
+            "url": "https://github.com/itsmylife"
+          },
+          "state": "CHANGES_REQUESTED",
+          "createdAt": "2024-12-23T21:54:47Z"
+        },
+        {
+          "body": "I've implemented all the requested changes:\n\n1. Added translation key 'expressions.reduce.strictMode.fillNull.info' in the locales file\n2. Used the Alert component with info severity and appropriate styling\n3. Repositioned the notification as suggested for better visual hierarchy\n\nI also took the opportunity to add a small unit test that verifies the notification only appears when strictMode is true.",
+          "author": {
+            "login": "shubhankarunhale",
+            "url": "https://github.com/shubhankarunhale"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-12-27T14:52:29Z"
+        },
+        {
+          "body": "The changes look good! I appreciate the additional unit test - that's a great way to prevent regressions. The conditional rendering approach is clean and efficient.",
+          "author": {
+            "login": "itsmylife",
+            "url": "https://github.com/itsmylife"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-12-29T11:01:29Z"
+        },
+        {
+          "body": "Approved! This is a valuable enhancement to the user experience. The implementation is clean and follows our best practices. Thank you for the thorough work and for addressing all feedback points.",
+          "author": {
+            "login": "itsmylife",
+            "url": "https://github.com/itsmylife"
+          },
+          "state": "APPROVED",
+          "createdAt": "2024-12-29T11:10:03Z"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "totalCount": 2,
+      "nodes": [
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "I see you've added the notification UI component, but we need to maintain i18n support for all user-facing text. Please add the appropriate translation key in `public/locales/en-US/expressions.json` and reference it using the t() function from our i18n library. Also, don't forget to run `yarn i18n:extract` to update the translation files.",
+                "author": {
+                  "login": "itsmylife",
+                  "url": "https://github.com/itsmylife"
+                },
+                "createdAt": "2024-12-23T21:54:48Z"
+              },
+              {
+                "body": "Thank you for the detailed feedback! I've added the translation key 'expressions.reduce.strictMode.fillNull.info' to the locales file and integrated it with the t() function as suggested. I ran the extraction command and resolved a couple of rebase conflicts that appeared after the recent main branch updates. Ready for your review.",
+                "author": {
+                  "login": "shubhankarunhale",
+                  "url": "https://github.com/shubhankarunhale"
+                },
+                "createdAt": "2024-12-27T14:52:29Z"
+              }
+            ]
+          }
+        },
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "The translation implementation looks good. I appreciate how you've structured the key hierarchically to match our naming conventions. The message content is clear and concise, and properly documents the behavior without being too technical for end users.",
+                "author": {
+                  "login": "itsmylife",
+                  "url": "https://github.com/itsmylife"
+                },
+                "createdAt": "2024-12-29T11:01:29Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "filesChanged": [
+      {
+        "filename": "public/app/features/expressions/components/ReduceExpression.tsx",
+        "additions": 15,
+        "deletions": 0,
+        "changes": 15,
+        "patch": "@@ -3,6 +3,7 @@ import { css } from '@emotion/css';\n import React, { useEffect } from 'react';\n\n import { SelectableValue, GrafanaTheme2 } from '@grafana/data';\n+import { Alert } from '@grafana/ui';\n import { useStyles2 } from '@grafana/ui';\n import { config } from 'app/core/config';\n import { t } from 'app/core/internationalization';\n@@ -67,6 +68,20 @@ export function ReduceExpression({\n       </InlineField>\n\n       <InlineField label=\"Function\" labelWidth={labelWidth}>\n+        {config.featureToggles.expressionStrictMode && (\n+          <Alert\n+            severity=\"info\"\n+            title={t('expressions.reduce.strictMode.fillNull.info', 'InfluxQL Behavior Note')}\n+            className={styles.alertStyle}\n+          >\n+            {t(\n+              'expressions.reduce.strictMode.fillNull.description',\n+              'When using Strict Mode with InfluxQL data sources, fill(null) may produce NaN values instead of nulls. This can affect aggregation results.'\n+            )}\n+          </Alert>\n+        )}\n+        \n         <Select\n           value={options.reducer}\n           onChange={onSelectReducer}\n"
+      },
+      {
+        "filename": "public/locales/en-US/expressions.json",
+        "additions": 3,
+        "deletions": 0,
+        "changes": 3,
+        "patch": "@@ -27,6 +27,9 @@\n   \"reduce\": {\n     \"mode\": \"Mode\",\n     \"function\": \"Function\",\n+    \"strictMode\": {\n+      \"fillNull\": {\n+        \"info\": \"InfluxQL Behavior Note\",\n+        \"description\": \"When using Strict Mode with InfluxQL data sources, fill(null) may produce NaN values instead of nulls. This can affect aggregation results.\"\n+      }\n+    }\n   },\n   \"resample\": {\n     \"window\": \"Window\","
+      },
+      {
+        "filename": "public/app/features/expressions/components/__tests__/ReduceExpression.test.tsx",
+        "additions": 22,
+        "deletions": 0,
+        "changes": 22,
+        "patch": "@@ -1,6 +1,7 @@\n import { render, screen } from '@testing-library/react';\n import React from 'react';\n\n+import { config } from 'app/core/config';\n import { ReduceExpression } from '../ReduceExpression';\n import { ReduceOptions } from '../../types';\n\n@@ -18,4 +19,25 @@ describe('ReduceExpression', () => {\n\n     expect(screen.getByText('Function')).toBeInTheDocument();\n   });\n+\n+  it('should not show strict mode notification when feature toggle is off', () => {\n+    config.featureToggles.expressionStrictMode = false;\n+    \n+    render(<ReduceExpression onChange={jest.fn()} onRunQuery={jest.fn()} options={options} />);\n+    \n+    expect(screen.queryByText('InfluxQL Behavior Note')).not.toBeInTheDocument();\n+  });\n+  \n+  it('should show strict mode notification when feature toggle is on', () => {\n+    // Enable the feature toggle for this test\n+    const originalConfig = { ...config.featureToggles };\n+    config.featureToggles.expressionStrictMode = true;\n+    \n+    render(<ReduceExpression onChange={jest.fn()} onRunQuery={jest.fn()} options={options} />);\n+    \n+    expect(screen.getByText('InfluxQL Behavior Note')).toBeInTheDocument();\n+    \n+    // Restore original config\n+    config.featureToggles = originalConfig;\n+  });\n });"
+      },
+      {
+        "filename": "docs/sources/panels-visualizations/expressions/index.md",
+        "additions": 4,
+        "deletions": 0,
+        "changes": 4,
+        "patch": "@@ -102,6 +102,10 @@ The Reduce expression applies a calculation to each time series in the query resu\n - **Variance** - Variance of all values in the series\n - **StdDev** - Standard deviation of all values in the series\n\n+### Strict Mode Considerations\n+\n+When using the Reduce expression with InfluxQL data sources and Strict Mode enabled, be aware that `fill(null)` operations may produce NaN values instead of nulls. This behavior can affect aggregation results, particularly when using functions that handle null values in specific ways.\n+\n ## Resample\n\n The Resample expression changes the time stamps in each series to have a consistent time interval. This is useful when data points have irregular time steps due to late delivery or other anomalies."
+      }
+    ]
+  }

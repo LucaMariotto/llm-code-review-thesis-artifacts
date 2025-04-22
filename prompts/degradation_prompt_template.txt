@@ -1,0 +1,13 @@
+Can you modify this pull request (PR) to create a degraded version of itself, specifically in terms of the quality of interaction, while adhering to the provided competencies?
+
+[[[[[[[COMPETENCIES]]]]]]]
+
+Provide the entire degraded timeline, ensuring it includes all elements in a degraded form. This degraded version should be designed so that it can later be fed back into an LLM with a prompt to improve it based on the given competencies. The goal is to produce a high-quality response and an improved PR that meets or exceeds the original.
+
+When creating the degraded version, ensure it remains as close to the original as possible, but with reduced quality. Avoid removing too much project-specific knowledge, as this could hinder the LLM's ability to reconstruct and enhance the PR effectively.
+
+Produce a degraded JSON object where every aspect of the PR (body, comments, etc.) is degraded according to the same criteria. Use the listed competencies as the basis for degradation without explicitly naming them in the output. Stay as close to the original as possible, but make it worse in quality. Retain as many project-specific technical details as possible to provide a solid foundation for the LLM to improve upon later.
+
+Respond with a JSON object structured like the one provided.
+
+[[[[[[[JSON]]]]]]]

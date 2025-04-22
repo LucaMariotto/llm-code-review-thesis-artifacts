@@ -1,0 +1,11 @@
+Architecture Impact: Evaluates architectural implications and design pattern changes
+
+Code Quality: Assesses code correctness, error handling, and technical debt
+
+Collaboration: Evaluates communication clarity and team collaboration aspects
+
+Maintainability: Analyzes documentation, modularity, and long-term viability
+
+User Impact: Assesses user-facing changes and UX considerations
+
+Technical Leadership: Measures influence on technical direction and mentoring

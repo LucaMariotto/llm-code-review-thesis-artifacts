@@ -1,0 +1,143 @@
+{
+  "number": 57375,
+  "title": "[Refactor][tsserver] Code Changes",
+  "body": "<!--\nPR update for tsserver. Details are not fully refined.\n-->\n\nRefator #\n\nUpdated some validations in the tsserver module with a simpler approach.\n\n## First: `nodeServer.ts`\n\nChanged a function from a switch statement to a basic object lookup. The images show before and after, but they are not very descriptive.\n\n## Second: `server.ts`\n\nSimplified the code by removing duplicate validations. The explanation is minimal.\n\n## Third: `nodeServer.ts`\n\nModified a line by replacing 'null!' with 'undefined' to bypass a lint warning.\n\nRelates to: https://github.com/microsoft/TypeScript/issues/57376\n",
+  "state": "CLOSED",
+  "createdAt": "2024-02-11T20:24:59Z",
+  "closedAt": "2024-02-12T16:23:53Z",
+  "mergedAt": null,
+  "url": "https://github.com/microsoft/TypeScript/pull/57375",
+  "author": {
+    "login": "kevinuehara",
+    "url": "https://github.com/kevinuehara"
+  },
+  "comments": {
+    "totalCount": 4,
+    "nodes": [
+      {
+        "body": "No linked issue was found. It would be better to attach one for discussion.",
+        "author": {
+          "login": "typescript-bot",
+          "url": "https://github.com/typescript-bot"
+        },
+        "createdAt": "2024-02-11T20:25:04Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "> @microsoft-github-policy-service agree\n\n@ms-policy agree",
+        "author": {
+          "login": "kevinuehara",
+          "url": "https://github.com/kevinuehara"
+        },
+        "createdAt": "2024-02-11T20:26:33Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "Can someone help with the CI format step?",
+        "author": {
+          "login": "kevinuehara",
+          "url": "https://github.com/kevinuehara"
+        },
+        "createdAt": "2024-02-11T20:55:15Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "There are too many open issues in the backlog. Please avoid PRs that only change formatting.",
+        "author": {
+          "login": "RyanCavanaugh",
+          "url": "https://github.com/RyanCavanaugh"
+        },
+        "createdAt": "2024-02-12T16:23:54Z",
+        "reactions": {
+          "nodes": []
+        }
+      }
+    ]
+  },
+  "reviews": {
+    "totalCount": 3,
+    "nodes": [
+      {
+        "body": "",
+        "author": {
+          "login": "RyanCavanaugh",
+          "url": "https://github.com/RyanCavanaugh"
+        },
+        "state": "COMMENTED",
+        "createdAt": "2024-02-12T16:18:58Z"
+      },
+      {
+        "body": "",
+        "author": {
+          "login": "RyanCavanaugh",
+          "url": "https://github.com/RyanCavanaugh"
+        },
+        "state": "COMMENTED",
+        "createdAt": "2024-02-12T16:19:42Z"
+      },
+      {
+        "body": "",
+        "author": {
+          "login": "RyanCavanaugh",
+          "url": "https://github.com/RyanCavanaugh"
+        },
+        "state": "COMMENTED",
+        "createdAt": "2024-02-12T16:20:43Z"
+      }
+    ]
+  },
+  "reviewThreads": {
+    "totalCount": 3,
+    "nodes": [
+      {
+        "comments": {
+          "nodes": [
+            {
+              "body": "The change might lead to extra object creation on each call. It’s not clear if this is the best approach compared to the previous method.",
+              "author": {
+                "login": "RyanCavanaugh",
+                "url": "https://github.com/RyanCavanaugh"
+              },
+              "createdAt": "2024-02-12T16:18:59Z"
+            }
+          ]
+        }
+      },
+      {
+        "comments": {
+          "nodes": [
+            {
+              "body": "The project style uses one-line short signatures.",
+              "author": {
+                "login": "RyanCavanaugh",
+                "url": "https://github.com/RyanCavanaugh"
+              },
+              "createdAt": "2024-02-12T16:19:42Z"
+            }
+          ]
+        }
+      },
+      {
+        "comments": {
+          "nodes": [
+            {
+              "body": "This change appears to be a simple style swap rather than a real fix.",
+              "author": {
+                "login": "RyanCavanaugh",
+                "url": "https://github.com/RyanCavanaugh"
+              },
+              "createdAt": "2024-02-12T16:20:43Z"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "filesChanged": []
+}

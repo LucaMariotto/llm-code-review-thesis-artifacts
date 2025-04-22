@@ -1,0 +1,73 @@
+﻿Demographic_Grouping_Type,Demographic_Category,hypothesis_label,Aligned,Contradicted,Neutral,Other,N_Aligned_Contradicted,N_Total_Valid,Percent_Aligned_of_AC
+experience_group,<5 years,H1: O > D,4,5,2,0,9,11,44.4
+experience_group,<5 years,H2: IO > O,4,4,3,0,8,11,50.0
+experience_group,<5 years,H3: ID > D,7,3,1,0,10,11,70.0
+experience_group,<5 years,H4: IO > ID,8,2,1,0,10,11,80.0
+experience_group,<5 years,H5: ID > O,6,3,2,0,9,11,66.7
+experience_group,<5 years,H6: IO > D,5,6,0,0,11,11,45.5
+experience_group,>=5 years,H1: O > D,11,11,5,0,22,27,50.0
+experience_group,>=5 years,H2: IO > O,16,7,4,0,23,27,69.6
+experience_group,>=5 years,H3: ID > D,16,8,3,0,24,27,66.7
+experience_group,>=5 years,H4: IO > ID,12,9,6,0,21,27,57.1
+experience_group,>=5 years,H5: ID > O,13,5,9,0,18,27,72.2
+experience_group,>=5 years,H6: IO > D,17,7,3,0,24,27,70.8
+role_group,Developer/Engineer,H1: O > D,12,12,6,0,24,30,50.0
+role_group,Developer/Engineer,H2: IO > O,14,10,6,0,24,30,58.3
+role_group,Developer/Engineer,H3: ID > D,18,8,4,0,26,30,69.2
+role_group,Developer/Engineer,H4: IO > ID,16,9,5,0,25,30,64.0
+role_group,Developer/Engineer,H5: ID > O,15,5,10,0,20,30,75.0
+role_group,Developer/Engineer,H6: IO > D,18,9,3,0,27,30,66.7
+role_group,Other Academic/Research,H1: O > D,0,0,1,0,0,1,
+role_group,Other Academic/Research,H2: IO > O,1,0,0,0,1,1,100.0
+role_group,Other Academic/Research,H3: ID > D,0,1,0,0,1,1,0.0
+role_group,Other Academic/Research,H4: IO > ID,0,1,0,0,1,1,0.0
+role_group,Other Academic/Research,H5: ID > O,0,1,0,0,1,1,0.0
+role_group,Other Academic/Research,H6: IO > D,0,1,0,0,1,1,0.0
+role_group,Other Tech Roles,H1: O > D,1,1,0,0,2,2,50.0
+role_group,Other Tech Roles,H2: IO > O,2,0,0,0,2,2,100.0
+role_group,Other Tech Roles,H3: ID > D,2,0,0,0,2,2,100.0
+role_group,Other Tech Roles,H4: IO > ID,1,1,0,0,2,2,50.0
+role_group,Other Tech Roles,H5: ID > O,0,2,0,0,2,2,0.0
+role_group,Other Tech Roles,H6: IO > D,1,1,0,0,2,2,50.0
+role_group,Student,H1: O > D,2,3,0,0,5,5,40.0
+role_group,Student,H2: IO > O,3,1,1,0,4,5,75.0
+role_group,Student,H3: ID > D,3,2,0,0,5,5,60.0
+role_group,Student,H4: IO > ID,3,0,2,0,3,5,100.0
+role_group,Student,H5: ID > O,4,0,1,0,4,5,100.0
+role_group,Student,H6: IO > D,3,2,0,0,5,5,60.0
+code_engagement_group,High Engagement,H1: O > D,10,11,6,0,21,27,47.6
+code_engagement_group,High Engagement,H2: IO > O,13,9,5,0,22,27,59.1
+code_engagement_group,High Engagement,H3: ID > D,19,5,3,0,24,27,79.2
+code_engagement_group,High Engagement,H4: IO > ID,13,8,6,0,21,27,61.9
+code_engagement_group,High Engagement,H5: ID > O,14,6,7,0,20,27,70.0
+code_engagement_group,High Engagement,H6: IO > D,16,9,2,0,25,27,64.0
+code_engagement_group,Low Engagement,H1: O > D,0,3,0,0,3,3,0.0
+code_engagement_group,Low Engagement,H2: IO > O,2,1,0,0,3,3,66.7
+code_engagement_group,Low Engagement,H3: ID > D,1,2,0,0,3,3,33.3
+code_engagement_group,Low Engagement,H4: IO > ID,1,2,0,0,3,3,33.3
+code_engagement_group,Low Engagement,H5: ID > O,1,1,1,0,2,3,50.0
+code_engagement_group,Low Engagement,H6: IO > D,2,1,0,0,3,3,66.7
+code_engagement_group,Medium Engagement,H1: O > D,5,2,1,0,7,8,71.4
+code_engagement_group,Medium Engagement,H2: IO > O,5,1,2,0,6,8,83.3
+code_engagement_group,Medium Engagement,H3: ID > D,3,4,1,0,7,8,42.9
+code_engagement_group,Medium Engagement,H4: IO > ID,6,1,1,0,7,8,85.7
+code_engagement_group,Medium Engagement,H5: ID > O,4,1,3,0,5,8,80.0
+code_engagement_group,Medium Engagement,H6: IO > D,4,3,1,0,7,8,57.1
+se_satisfaction_group,High Sat,H1: O > D,4,1,1,0,5,6,80.0
+se_satisfaction_group,High Sat,H2: IO > O,4,2,0,0,6,6,66.7
+se_satisfaction_group,High Sat,H3: ID > D,4,2,0,0,6,6,66.7
+se_satisfaction_group,High Sat,H4: IO > ID,3,2,1,0,5,6,60.0
+se_satisfaction_group,High Sat,H5: ID > O,4,2,0,0,6,6,66.7
+se_satisfaction_group,High Sat,H6: IO > D,3,2,1,0,5,6,60.0
+se_satisfaction_group,Med/Low Sat,H1: O > D,10,13,4,0,23,27,43.5
+se_satisfaction_group,Med/Low Sat,H2: IO > O,13,7,7,0,20,27,65.0
+se_satisfaction_group,Med/Low Sat,H3: ID > D,18,5,4,0,23,27,78.3
+se_satisfaction_group,Med/Low Sat,H4: IO > ID,15,6,6,0,21,27,71.4
+se_satisfaction_group,Med/Low Sat,H5: ID > O,14,5,8,0,19,27,73.7
+se_satisfaction_group,Med/Low Sat,H6: IO > D,16,9,2,0,25,27,64.0
+se_satisfaction_group,Non-User/Unknown,H1: O > D,1,2,2,0,3,5,33.3
+se_satisfaction_group,Non-User/Unknown,H2: IO > O,3,2,0,0,5,5,60.0
+se_satisfaction_group,Non-User/Unknown,H3: ID > D,1,4,0,0,5,5,20.0
+se_satisfaction_group,Non-User/Unknown,H4: IO > ID,2,3,0,0,5,5,40.0
+se_satisfaction_group,Non-User/Unknown,H5: ID > O,1,1,3,0,2,5,50.0
+se_satisfaction_group,Non-User/Unknown,H6: IO > D,3,2,0,0,5,5,60.0

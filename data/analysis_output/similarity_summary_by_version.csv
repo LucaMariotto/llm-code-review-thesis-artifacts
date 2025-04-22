@@ -1,0 +1,2 @@
+version_type,bleu_mean,bleu_std,bleu_count,jaccard_mean,jaccard_std,jaccard_count,edit_distance_mean,edit_distance_std,edit_distance_count,sbert_cosine_mean,sbert_cosine_std,sbert_cosine_count,bertscore_f1_mean,bertscore_f1_std,bertscore_f1_count,body_rougeL_mean,body_rougeL_std,body_rougeL_count,tfidf_cosine_mean,tfidf_cosine_std,tfidf_cosine_count
+degraded,0.0308,0.0330,60,0.1623,0.0468,60,0.7323,0.0484,60,0.7346,0.2021,60,0.8452,0.0280,60,0.2217,0.0833,60,0.5351,0.1833,60

@@ -1,0 +1,154 @@
+{
+  "number": 14778,
+  "title": "KAFKA-15776: Add remote.fetch.max.timeout.ms for delayed remote fetch",
+  "body": "Ref: KIP-1018 for remote fetch config. Basic tests executed.\n\nChecklist: Check design, run tests, update docs.",
+  "state": "MERGED",
+  "createdAt": "2023-11-16T10:00:29Z",
+  "closedAt": "2024-06-05T06:42:23Z",
+  "mergedAt": "2024-06-05T06:42:23Z",
+  "url": "https://github.com/apache/kafka/pull/14778",
+  "author": {
+    "login": "kamalcph",
+    "url": "https://github.com/kamalcph"
+  },
+  "comments": {
+    "totalCount": 8,
+    "nodes": [
+      {
+        "body": "Not clear how this change interacts with `fetch.max.wait.ms`. It seems to mix local and remote fetching, which could lead to slower client responses.",
+        "author": {
+          "login": "divijvaidya",
+          "url": "https://github.com/divijvaidya"
+        },
+        "createdAt": "2023-11-18T18:43:43Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "The timeout (`fetch.max.wait.ms`) works only when there isn’t enough data. For a mix of local and remote reads, extra delay is expected. Note that only one remote partition is read per request.",
+        "author": {
+          "login": "kamalcph",
+          "url": "https://github.com/kamalcph"
+        },
+        "createdAt": "2023-11-20T06:15:41Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "Using the default request timeout feels off. This could conflict with the intended fetch timing. Remote reading behavior remains uncertain, so a separate configuration might be necessary.",
+        "author": {
+          "login": "showuon",
+          "url": "https://github.com/showuon"
+        },
+        "createdAt": "2023-11-21T09:59:58Z",
+        "reactions": {
+          "nodes": [
+            {
+              "content": "THUMBS_UP"
+            }
+          ]
+        }
+      },
+      {
+        "body": "Marking the PR as inactive due to no recent updates. Please review or update to keep it active.",
+        "author": {
+          "login": "github-actions",
+          "url": "https://github.com/apps/github-actions"
+        },
+        "createdAt": "2024-02-20T03:33:13Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "Update: Actually, the fetch still returns in `fetch.max.wait.ms` even if remote data isn’t ready; it just returns an empty response.",
+        "author": {
+          "login": "showuon",
+          "url": "https://github.com/showuon"
+        },
+        "createdAt": "2024-04-12T10:09:56Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "Ping @showuon @clolov @jeqo: Patch appears ready. A separate PR will follow for the RemoteLogReader metric change.",
+        "author": {
+          "login": "kamalcph",
+          "url": "https://github.com/kamalcph"
+        },
+        "createdAt": "2024-06-04T10:21:51Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "Suggest moving the dynamic config change to another PR; I have some separate notes on it.",
+        "author": {
+          "login": "showuon",
+          "url": "https://github.com/showuon"
+        },
+        "createdAt": "2024-06-05T00:00:35Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "Test failures appear to be unrelated.",
+        "author": {
+          "login": "showuon",
+          "url": "https://github.com/showuon"
+        },
+        "createdAt": "2024-06-05T06:40:54Z",
+        "reactions": {
+          "nodes": []
+        }
+      }
+    ]
+  },
+  "reviews": {
+    "totalCount": 2,
+    "nodes": [
+      {
+        "body": "Okay, minor issue noted.",
+        "author": {
+          "login": "showuon",
+          "url": "https://github.com/showuon"
+        },
+        "state": "COMMENTED",
+        "createdAt": "2024-06-04T11:23:52Z"
+      },
+      {
+        "body": "Okay.",
+        "author": {
+          "login": "showuon",
+          "url": "https://github.com/showuon"
+        },
+        "state": "APPROVED",
+        "createdAt": "2024-06-05T02:18:00Z"
+      }
+    ]
+  },
+  "reviewThreads": {
+    "totalCount": 1,
+    "nodes": [
+      {
+        "comments": {
+          "nodes": [
+            {
+              "body": "Maybe add a note that this config only applies to local fetch. Also, include a brief note on how to adjust the remote fetch wait using the appropriate config.",
+              "author": {
+                "login": "showuon",
+                "url": "https://github.com/showuon"
+              },
+              "createdAt": "2024-06-04T11:23:52Z"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "filesChanged": []
+}

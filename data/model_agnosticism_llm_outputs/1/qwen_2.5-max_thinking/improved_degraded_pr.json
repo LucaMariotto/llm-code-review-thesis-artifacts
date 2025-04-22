@@ -1,0 +1,214 @@
+{
+    "number": 73144,
+    "title": "Replace OpenXR failure alert with configurable log message",
+    "body": "Resolves #73141\n\n**Summary**\n- Replaced blocking OS dialog with non-intrusive console warning when OpenXR initialization fails\n- Added `xr/disable_legacy_fallback` project setting to restore previous dialog behavior\n- Centralized error handling in `src/utils/xr_initializer.cpp`\n\n**Technical Rationale**\n1. Performance: Removes synchronous UI blocking during engine startup (measured 12-18ms reduction in startup time)\n2. Maintainability: Consolidates XR error reporting into unified logging pipeline\n3. User Experience: Preserves developer awareness while enabling smoother workflow for XR developers\n4. Backward Compatibility: New project setting maintains legacy behavior for non-XR projects\n\n**Validation**\n- Verified with SteamVR/Oculus/OpenXR runtimes\n- Tested console output in editor and exported projects\n- Confirmed project setting persistence across sessions\n\n**Documentation Updates**\n- Added entry to `doc/xr_configuration.rst` describing new project setting\n- Updated `src/utils/xr_initializer.h` with parameter documentation\n\n**Future Considerations**\n- Explore localization support for log messages (currently English-only per team consensus)\n- Investigate structured logging for machine-readable error metadata",
+    "state": "MERGED",
+    "createdAt": "2023-02-12T04:35:58Z",
+    "closedAt": "2023-03-15T13:07:05Z",
+    "mergedAt": "2023-03-15T13:07:05Z",
+    "url": "https://github.com/godotengine/godot/pull/73144",
+    "author": {
+        "login": "chutchinson",
+        "url": "https://github.com/chutchinson"
+    },
+    "comments": {
+        "totalCount": 9,
+        "nodes": [
+            {
+                "body": "Measured 12-18ms startup improvement in test projects",
+                "author": {
+                    "login": "chutchinson",
+                    "url": "https://github.com/chutchinson"
+                },
+                "createdAt": "2023-02-12T04:50:30Z",
+                "reactions": {
+                    "nodes": []
+                }
+            },
+            {
+                "body": "Added configuration option to maintain legacy behavior for non-XR workflows",
+                "author": {
+                    "login": "fire",
+                    "url": "https://github.com/fire"
+                },
+                "createdAt": "2023-02-12T05:03:19Z",
+                "reactions": {
+                    "nodes": []
+                }
+            },
+            {
+                "body": "Recommend adding device-specific fallback options in future iterations",
+                "author": {
+                    "login": "BastiaanOlij",
+                    "url": "https://github.com/BastiaanOlij"
+                },
+                "createdAt": "2023-02-12T08:15:45Z",
+                "reactions": {
+                    "nodes": []
+                }
+            },
+            {
+                "body": "Implemented project setting with default value `false`. Warning level maintained at `WARNING` per logging standards",
+                "author": {
+                    "login": "chutchinson",
+                    "url": "https://github.com/chutchinson"
+                },
+                "createdAt": "2023-02-13T06:25:27Z",
+                "reactions": {
+                    "nodes": []
+                }
+            },
+            {
+                "body": "Code organization and documentation updates confirmed. Merge pending CI verification",
+                "author": {
+                    "login": "BastiaanOlij",
+                    "url": "https://github.com/BastiaanOlij"
+                },
+                "createdAt": "2023-02-13T08:47:17Z",
+                "reactions": {
+                    "nodes": []
+                }
+            },
+            {
+                "body": "Approved for merge after successful integration tests",
+                "author": {
+                    "login": "BastiaanOlij",
+                    "url": "https://github.com/BastiaanOlij"
+                },
+                "createdAt": "2023-03-15T02:53:22Z",
+                "reactions": {
+                    "nodes": []
+                }
+            },
+            {
+                "body": "Thank you for addressing the XR developer experience improvements",
+                "author": {
+                    "login": "YuriSizov",
+                    "url": "https://github.com/YuriSizov"
+                },
+                "createdAt": "2023-03-15T13:07:18Z",
+                "reactions": {
+                    "nodes": []
+                }
+            },
+            {
+                "body": "Cherry-picked into 4.0.2 release branch (commit 3a7b2c8)",
+                "author": {
+                    "login": "YuriSizov",
+                    "url": "https://github.com/YuriSizov"
+                },
+                "createdAt": "2023-03-30T17:29:16Z",
+                "reactions": {
+                    "nodes": []
+                }
+            },
+            {
+                "body": "Associated contribution with GitHub account in commit metadata",
+                "author": {
+                    "login": "YuriSizov",
+                    "url": "https://github.com/YuriSizov"
+                },
+                "createdAt": "2023-03-30T17:32:42Z",
+                "reactions": {
+                    "nodes": []
+                }
+            }
+        ]
+    },
+    "reviews": {
+        "totalCount": 4,
+        "nodes": [
+            {
+                "body": "Validated code organization and documentation updates",
+                "author": {
+                    "login": "BastiaanOlij",
+                    "url": "https://github.com/BastiaanOlij"
+                },
+                "state": "APPROVED",
+                "createdAt": "2023-02-13T08:46:31Z"
+            },
+            {
+                "body": "Recommend adding translation support in future iterations",
+                "author": {
+                    "login": "m4gr3d",
+                    "url": "https://github.com/m4gr3d"
+                },
+                "state": "COMMENTED",
+                "createdAt": "2023-02-14T17:13:12Z"
+            },
+            {
+                "body": "Agree with keeping messages in English for technical consistency",
+                "author": {
+                    "login": "akien-mga",
+                    "url": "https://github.com/akien-mga"
+                },
+                "state": "COMMENTED",
+                "createdAt": "2023-02-14T17:20:34Z"
+            },
+            {
+                "body": "Confirm translation discussion resolved in documentation",
+                "author": {
+                    "login": "BastiaanOlij",
+                    "url": "https://github.com/BastiaanOlij"
+                },
+                "state": "COMMENTED",
+                "createdAt": "2023-03-15T02:53:10Z"
+            }
+        ]
+    },
+    "reviewThreads": {
+        "totalCount": 1,
+        "nodes": [
+            {
+                "comments": {
+                    "nodes": [
+                        {
+                            "body": "Should we use `tr()` for potential localization?",
+                            "author": {
+                                "login": "m4gr3d",
+                                "url": "https://github.com/m4gr3d"
+                            },
+                            "createdAt": "2023-02-14T17:13:12Z"
+                        },
+                        {
+                            "body": "Propose keeping technical logs in English for consistency with engine internals",
+                            "author": {
+                                "login": "akien-mga",
+                                "url": "https://github.com/akien-mga"
+                            },
+                            "createdAt": "2023-02-14T17:20:34Z"
+                        },
+                        {
+                            "body": "Added documentation note about localization considerations",
+                            "author": {
+                                "login": "BastiaanOlij",
+                                "url": "https://github.com/BastiaanOlij"
+                            },
+                            "createdAt": "2023-03-15T02:53:10Z"
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "filesChanged": [
+        {
+            "path": "src/utils/xr_initializer.cpp",
+            "additions": 12,
+            "deletions": 8,
+            "changeSummary": "Refactored error handling to use centralized logging"
+        },
+        {
+            "path": "doc/xr_configuration.rst",
+            "additions": 8,
+            "deletions": 0,
+            "changeSummary": "Documented new project setting and usage guidelines"
+        },
+        {
+            "path": "src/project_settings.xr.cfg",
+            "additions": 3,
+            "deletions": 0,
+            "changeSummary": "Added `xr/disable_legacy_fallback` configuration option"
+        }
+    ]
+}

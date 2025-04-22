@@ -1,0 +1,154 @@
+{
+  "number": 14778,
+  "title": "KAFKA-15776: Implement remote.fetch.max.timeout.ms for Optimized Remote Fetch Handling",
+  "body": "This PR implements the new configuration parameter `remote.fetch.max.timeout.ms` as defined in KIP-1018 to enhance the handling of delayed remote fetch operations. The changes integrate with the existing `fetch.max.wait.ms` setting to ensure balanced behavior between local and remote data retrieval.\n\nKey updates include:\n- Integration of the new parameter into the remote fetch logic with improved error handling and logging.\n- Refinement of the fetch mechanism to better manage scenarios with delayed remote data availability.\n- Comprehensive updates to test cases covering both local and remote fetch conditions.\n- Enhancements to the documentation, including configuration guides and operational procedures.\n\nAll tests have been executed successfully. Please review the implementation details and documentation for clarity and consistency.",
+  "state": "MERGED",
+  "createdAt": "2023-11-16T10:00:29Z",
+  "closedAt": "2024-06-05T06:42:23Z",
+  "mergedAt": "2024-06-05T06:42:23Z",
+  "url": "https://github.com/apache/kafka/pull/14778",
+  "author": {
+    "login": "kamalcph",
+    "url": "https://github.com/kamalcph"
+  },
+  "comments": {
+    "totalCount": 8,
+    "nodes": [
+      {
+        "body": "The integration of `remote.fetch.max.timeout.ms` with the existing `fetch.max.wait.ms` setting requires additional clarification. It would be beneficial to detail how mixed scenarios of local and remote fetching are managed, especially under varying load conditions.",
+        "author": {
+          "login": "divijvaidya",
+          "url": "https://github.com/divijvaidya"
+        },
+        "createdAt": "2023-11-18T18:43:43Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "It is important to note that `fetch.max.wait.ms` is designed to trigger when there is insufficient data to meet the batch requirements. In scenarios involving both local and remote reads, the additional delay is intentional, and only one remote partition is processed per request. Enhancing the documentation with these details would improve clarity.",
+        "author": {
+          "login": "kamalcph",
+          "url": "https://github.com/kamalcph"
+        },
+        "createdAt": "2023-11-20T06:15:41Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "The default request timeout may not fully address the variability in remote fetch response times. A dedicated configuration parameter could offer more precise control over remote fetch timing and enhance overall performance consistency.",
+        "author": {
+          "login": "showuon",
+          "url": "https://github.com/showuon"
+        },
+        "createdAt": "2023-11-21T09:59:58Z",
+        "reactions": {
+          "nodes": [
+            {
+              "content": "THUMBS_UP"
+            }
+          ]
+        }
+      },
+      {
+        "body": "This automated reminder indicates that there have been no recent updates on the PR. Please review the latest modifications or provide further updates to ensure continuous progress.",
+        "author": {
+          "login": "github-actions",
+          "url": "https://github.com/apps/github-actions"
+        },
+        "createdAt": "2024-02-20T03:33:13Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "Update: Testing confirms that when remote data is not available, the fetch operation adheres to `fetch.max.wait.ms` by returning an empty response rather than blocking indefinitely.",
+        "author": {
+          "login": "showuon",
+          "url": "https://github.com/showuon"
+        },
+        "createdAt": "2024-04-12T10:09:56Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "Notification: The patch is considered complete based on the latest testing and review feedback. A subsequent PR will address the adjustments required for the RemoteLogReader metrics. @showuon @clolov @jeqo, your further review is appreciated.",
+        "author": {
+          "login": "kamalcph",
+          "url": "https://github.com/kamalcph"
+        },
+        "createdAt": "2024-06-04T10:21:51Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "It is recommended to separate the dynamic configuration changes into an independent PR to allow for focused review and testing. Additional documentation on this separation can be provided if needed.",
+        "author": {
+          "login": "showuon",
+          "url": "https://github.com/showuon"
+        },
+        "createdAt": "2024-06-05T00:00:35Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "Preliminary analysis indicates that the test failures are not directly related to the changes introduced in this PR.",
+        "author": {
+          "login": "showuon",
+          "url": "https://github.com/showuon"
+        },
+        "createdAt": "2024-06-05T06:40:54Z",
+        "reactions": {
+          "nodes": []
+        }
+      }
+    ]
+  },
+  "reviews": {
+    "totalCount": 2,
+    "nodes": [
+      {
+        "body": "Overall, the changes are acceptable. Minor issues have been identified in the inline comments and documentation that should be addressed to enhance clarity and consistency.",
+        "author": {
+          "login": "showuon",
+          "url": "https://github.com/showuon"
+        },
+        "state": "COMMENTED",
+        "createdAt": "2024-06-04T11:23:52Z"
+      },
+      {
+        "body": "The PR is approved as the changes meet the required standards.",
+        "author": {
+          "login": "showuon",
+          "url": "https://github.com/showuon"
+        },
+        "state": "APPROVED",
+        "createdAt": "2024-06-05T02:18:00Z"
+      }
+    ]
+  },
+  "reviewThreads": {
+    "totalCount": 1,
+    "nodes": [
+      {
+        "comments": {
+          "nodes": [
+            {
+              "body": "It is advisable to add a clarification in the documentation that this configuration parameter applies exclusively to local fetch operations. Additionally, please include guidance on adjusting the remote fetch wait using the appropriate configuration setting.",
+              "author": {
+                "login": "showuon",
+                "url": "https://github.com/showuon"
+              },
+              "createdAt": "2024-06-04T11:23:52Z"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "filesChanged": []
+}

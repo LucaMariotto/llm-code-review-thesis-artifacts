@@ -1,0 +1,3 @@
+can you now lay me down the raw pr timeline here in chat with everything from the json included, how it would also be shown in a github pull request including body, title, comments, everything
+here in chat easy to read and how it would be shown on github
+do not alter the content in any way, show me the original file's contents

@@ -1,0 +1,85 @@
+{
+    "number": 7142,
+    "title": "Fix PowerShell curl command examples for inbound agent installation",
+    "body": "## Issue\nThe current `curl` command examples for inbound agent installation fail when executed in PowerShell environments. This occurs because PowerShell uses its own built-in `curl` cmdlet (an alias for `Invoke-WebRequest`), which has different flag syntax from the standard curl utility, causing the `-sO` flags to fail.\n\n## Solution\nThis PR modifies documentation to explicitly use `curl.exe` in PowerShell environments, ensuring users can properly download and configure inbound agents without encountering command syntax errors.\n\n## Technical Details\n- In PowerShell, `curl` is an alias for `Invoke-WebRequest` which has incompatible syntax with standard curl\n- Using `curl.exe` bypasses the alias and calls the actual curl executable\n- `curl.exe` is available by default on Windows 10 (1803+) and Windows Server 2019+\n- CMD environments don't have this issue and can continue using `curl` normally\n\nReference: https://curl.se/windows/microsoft.html\n\n## Testing\nVerified that the updated command successfully downloads the agent file in:\n- PowerShell 5.1 (Windows 10)\n- PowerShell 7.2 (Windows 11)\n- Windows CMD environment (unchanged behavior)\n\n### Update Log\n\n- Added clarification for PowerShell users to use `curl.exe` instead of `curl`\n- Added environment-specific command examples to prevent confusion\n- Added version information for Windows platforms with `curl.exe` available by default\n\n### Basic Checklist\n\n- [x] Update log entry added\n- [x] At least 2 reviews obtained\n- [x] Discussion considered complete or non-blocking\n- [x] Changelog information updated\n- [x] Appropriate labels set for any upgrade notes\n- [x] User experience validated on multiple Windows environments\n\n[Open in Gitpod](https://gitpod.io/#https://github.com/jenkinsci/jenkins/pull/7142)\n",
+    "state": "MERGED",
+    "createdAt": "2022-09-22T14:17:11Z",
+    "closedAt": "2022-09-23T15:13:12Z",
+    "mergedAt": "2022-09-23T15:13:12Z",
+    "url": "https://github.com/jenkinsci/jenkins/pull/7142",
+    "author": {
+      "login": "jjasghar",
+      "url": "https://github.com/jjasghar"
+    },
+    "comments": {
+      "totalCount": 6,
+      "nodes": [
+        {
+          "body": "I suggest we enhance this documentation further by adding a note that `curl.exe` is available by default on Windows 10 (version 1803 and newer) and Windows Server 2019+. This would help users understand when they need to install curl separately versus when they can rely on the built-in executable.",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T15:04:08Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Good idea. Let's also clarify that this change is specific to PowerShell environments only. Using `curl` in a CMD terminal works without any issues since it doesn't have the cmdlet alias conflict. This would prevent users from unnecessarily modifying their commands in environments where the standard syntax works fine.",
+          "author": {
+            "login": "MarkEWaite",
+            "url": "https://github.com/MarkEWaite"
+          },
+          "createdAt": "2022-09-22T15:10:37Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "I think we should provide explicit environment-specific examples for clarity. Something like:\n\n```\n# In PowerShell\ncurl.exe -sO http://jenkins-server:port/jnlpJars/agent.jar\n\n# In CMD\ncurl -sO http://jenkins-server:port/jnlpJars/agent.jar\n```\n\nThis way users can immediately see which command variant to use based on their environment, reducing confusion and troubleshooting time.",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T15:59:39Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "That's an excellent suggestion. Environment-specific examples would significantly improve user experience. Could you update the PR to include these examples and also refine the Windows version information? The external documentation link is helpful for reference, but our own documentation should be clear and complete enough that users don't need to visit external sources to understand basic usage patterns.",
+          "author": {
+            "login": "MarkEWaite",
+            "url": "https://github.com/MarkEWaite"
+          },
+          "createdAt": "2022-09-22T16:20:24Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "I've added the environment-specific examples as suggested and included detailed information about Windows versions that have `curl.exe` available by default. I've also added a troubleshooting tip for older Windows versions that explains how to install curl if needed.",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T16:31:48Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "I've verified the updated commands work across multiple Windows environments (PowerShell 5.1, PowerShell 7.2, and CMD) and have restructured the documentation to make the environment-specific instructions more prominent. This should help users select the correct command syntax based on their specific environment without having to troubleshoot. The PR is ready for final review.",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T17:08:16Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    }
+  }

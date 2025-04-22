@@ -1,0 +1,85 @@
+{
+    "number": 7142,
+    "title": "Update curl example for inbound agent to address PowerShell compatibility",
+    "body": "The `curl` command behaves differently in PowerShell compared to the standard `curl.exe` on Windows. Specifically, the `-sO` flags might not function as expected with the PowerShell alias for `Invoke-WebRequest`. To ensure the provided example works consistently across environments, this PR updates the documentation to recommend using `curl.exe` when executing the command in PowerShell.\r\n\r\nThis change will prevent potential confusion and save time for users who might encounter issues when using the default `curl` alias in PowerShell.\r\n\r\nReference: https://curl.se/windows/microsoft.html\r\n\r\n### Proposed changelog entries\r\n\r\n- Updated the documentation to recommend using `curl.exe` instead of `curl` when running the inbound agent command in PowerShell environments.\r\n\r\n### Submitter checklist\r\n\r\n- [x] Changelog entries and upgrade guidelines are appropriate for the audience affected by the change (users or developer, depending on the change) and are in the imperative mood. [Examples](https://github.com/jenkins-infra/jenkins.io/blob/master/content/_data/changelogs/weekly.yml)\r\n\r\n### Maintainer checklist\r\n\r\nBefore the changes are marked as `ready-for-merge`:\r\n\r\n- [x] There are at least 2 approvals for the pull request and no outstanding requests for change\r\n- [x] Conversations in the pull request are over OR it is explicit that a reviewer does not block the change\r\n- [x] Changelog entries in the PR title and/or `Proposed changelog entries` are accurate, human-readable, and in the imperative mood\r\n- [x] Proper changelog labels are set so that the changelog can be generated automatically\r\n- [x] If the change needs additional upgrade steps from users, `upgrade-guide-needed` label is set and there is a `Proposed upgrade guidelines` section in the PR title. ([example](https://github.com/jenkinsci/jenkins/pull/4387))\r\n- [x] If it would make sense to backport the change to LTS, a Jira issue must exist, be a _Bug_ or _Improvement_, and be labeled as `lts-candidate` to be considered (see [query](https://issues.jenkins.io/issues/?filter=12146)).\r\n\n\n<a href=\"https://gitpod.io/#https://github.com/jenkinsci/jenkins/pull/7142\"><img src=\"https://gitpod.io/button/open-in-gitpod.svg\"/></a>\n\n**Note:** If you are using PowerShell to run your remote agent command, please use `curl.exe` instead of `curl` due to the default `cmd-let` alias in PowerShell. This ensures the command functions as expected, as the `curl` alias in PowerShell maps to `Invoke-WebRequest` which may not support the same flags.\n",
+    "state": "MERGED",
+    "createdAt": "2022-09-22T14:17:11Z",
+    "closedAt": "2022-09-23T15:13:12Z",
+    "mergedAt": "2022-09-23T15:13:12Z",
+    "url": "https://github.com/jenkinsci/jenkins/pull/7142",
+    "author": {
+      "login": "jjasghar",
+      "url": "https://github.com/jjasghar"
+    },
+    "comments": {
+      "totalCount": 6,
+      "nodes": [
+        {
+          "body": "Consider adding a clarifying note about using `curl.exe` specifically in Windows-based PowerShell environments. This distinction can be helpful as `curl` might work as expected in other Windows command-line interpreters.",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T15:04:08Z",
+          "reactions": {
+            "nodes":[]
+          }
+        },
+        {
+          "body": "> Consider adding a clarifying note about using `curl.exe` specifically in Windows-based PowerShell environments. This distinction can be helpful as `curl` might work as expected in other Windows command-line interpreters.\r\n\r\nThat's a good point. It's primarily an issue within PowerShell, not the standard Windows command processor. If a user is in `cmd`, the original command should work fine.",
+          "author": {
+            "login": "MarkEWaite",
+            "url": "https://github.com/MarkEWaite"
+          },
+          "createdAt": "2022-09-22T15:10:37Z",
+          "reactions": {
+            "nodes":[]
+          }
+        },
+        {
+          "body": "Perhaps we could phrase the note like this: \"If you are using PowerShell to run your remote agent, use `curl.exe` instead of `curl` due to the default `cmd-let` alias.\" This directly addresses the PowerShell context and the reason for the change. It would have saved me a significant amount of troubleshooting time when I first encountered this!",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T15:59:39Z",
+          "reactions": {
+            "nodes":[]
+          }
+        },
+        {
+          "body": "> Perhaps we could phrase the note like this: \"If you are using PowerShell to run your remote agent, use `curl.exe` instead of `curl` due to the default `cmd-let` alias.\" This directly addresses the PowerShell context and the reason for the change. It would have saved me a significant amount of troubleshooting time when I first encountered this!\r\n\r\nThat phrasing is excellent and clearly explains the situation. Would you be able to incorporate that suggestion into the pull request body? The linked documentation from curl.se also highlights this exact issue with the PowerShell alias, which reinforces the need for this clarification.",
+          "author": {
+            "login": "MarkEWaite",
+            "url": "https://github.com/MarkEWaite"
+          },
+          "createdAt": "2022-09-22T16:20:24Z",
+          "reactions": {
+            "nodes":[]
+          }
+        },
+        {
+          "body": "Understood. I've added the suggested note to the pull request body. I believe the formatting is correct, placing it as a \"Note\" block for better visibility.",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T16:31:48Z",
+          "reactions": {
+            "nodes":[]
+          }
+        },
+        {
+          "body": "Thank you for incorporating that feedback! This clarification will be very helpful for users in PowerShell environments.",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T17:08:16Z",
+          "reactions": {
+            "nodes":[]
+          }
+        }
+      ]
+    }
+  }

@@ -1,0 +1,218 @@
+{
+    "number": 73144,
+    "title": "Modify OpenXR Initialization to Log Warnings Instead of Showing Alerts",
+    "body": "This PR updates the handling of OpenXR initialization failures. Previously, when OpenXR failed to initialize—due to scenarios like SteamVR not running or the headset being disconnected—an alert dialog would interrupt the workflow, requiring manual dismissal. This was particularly disruptive for developers toggling between VR and non-VR environments.\n\n### Changes\n- **New Behavior:** Initialization failures now log a warning message to the console rather than displaying an alert dialog.\n- **New Setting:** Introduced a **Startup Alert** option, which, when enabled, reverts to the previous behavior of showing an alert dialog. This setting is configurable via the project settings under `xr/openxr/startup_alert`.\n\n### Benefits\n- Streamlines development by reducing interruptions from frequent dialog prompts.\n- Ensures visibility of initialization issues through console logs, preserving diagnostic capability.\n- Provides flexibility for users, such as those on XR-only devices, who may prefer immediate feedback.\n\n### Implementation Details\n- The warning message is logged in English, aligning with the system's existing error messaging conventions. Future updates could explore translation if broader accessibility becomes a priority.\n- Updated documentation in `doc/user_guide.md` reflects the new setting and its usage.\n\n### Screenshots\n- [Console Warning Output](https://example.com/screenshots/console-warning.png)\n- [Startup Alert Setting](https://example.com/screenshots/startup-alert-setting.png)\n\nThis change aims to enhance the development experience while maintaining configurability for diverse use cases.",
+    "state": "MERGED",
+    "createdAt": "2023-02-12T04:35:58Z",
+    "closedAt": "2023-03-15T13:07:05Z",
+    "mergedAt": "2023-03-15T13:07:05Z",
+    "url": "https://github.com/godotengine/godot/pull/73144",
+    "author": {
+      "login": "chutchinson",
+      "url": "https://github.com/chutchinson"
+    },
+    "comments": {
+      "totalCount": 9,
+      "nodes": [
+        {
+          "body": "With this update, the project launches more smoothly without the alert dialog, significantly improving the development workflow.",
+          "author": {
+            "login": "chutchinson",
+            "url": "https://github.com/chutchinson"
+          },
+          "createdAt": "2023-02-12T04:50:30Z",
+          "reactions": {
+            "nodes": [
+              {
+                "content": "THUMBS_UP"
+              }
+            ]
+          }
+        },
+        {
+          "body": "This adjustment makes XR initialization failures less intrusive, which is a practical improvement for developers managing multiple environments.",
+          "author": {
+            "login": "fire",
+            "url": "https://github.com/fire"
+          },
+          "createdAt": "2023-02-12T05:03:19Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "For XR-only devices, the lack of an immediate alert might delay issue detection. How does this change support those setups?",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "createdAt": "2023-02-12T08:15:45Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "I've added a **Startup Alert** setting to address this. When enabled, it restores the alert dialog for users who need immediate feedback, such as on XR-only devices. The default is off for a less disruptive experience.",
+          "author": {
+            "login": "chutchinson",
+            "url": "https://github.com/chutchinson"
+          },
+          "createdAt": "2023-02-13T06:25:27Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "The **Startup Alert** setting resolves my concern effectively. It offers a configurable solution that accommodates both XR-only and mixed development scenarios.",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "createdAt": "2023-02-13T08:47:17Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "After addressing feedback and verifying the changes, this PR is ready to merge. It delivers a balanced improvement to the initialization process.",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "createdAt": "2023-03-15T02:53:22Z",
+          "reactions": {
+            "nodes": [
+              {
+                "content": "LAUGH"
+              }
+            ]
+          }
+        },
+        {
+          "body": "Thanks for the collaboration and detailed input. This tweak makes the XR workflow noticeably smoother.",
+          "author": {
+            "login": "YuriSizov",
+            "url": "https://github.com/YuriSizov"
+          },
+          "createdAt": "2023-03-15T13:07:18Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "This change has been incorporated into version 4.0.2.",
+          "author": {
+            "login": "YuriSizov",
+            "url": "https://github.com/YuriSizov"
+          },
+          "createdAt": "2023-03-30T17:29:16Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "A quick note: please link your email to your GitHub account to ensure proper commit attribution in the project history.",
+          "author": {
+            "login": "YuriSizov",
+            "url": "https://github.com/YuriSizov"
+          },
+          "createdAt": "2023-03-30T17:32:42Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    },
+    "reviews": {
+      "totalCount": 4,
+      "nodes": [
+        {
+          "body": "A few items to address:\n- Ensure the warning message is concise yet descriptive for easy debugging.\n- Document the **Startup Alert** setting in the user guide.\n- Test the setting toggle to confirm it works as expected across platforms.",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "state": "CHANGES_REQUESTED",
+          "createdAt": "2023-02-13T08:46:31Z"
+        },
+        {
+          "body": "The implementation is straightforward, and the **Startup Alert** setting adds valuable flexibility. The console logging works well for non-intrusive feedback. I’m good with merging this.",
+          "author": {
+            "login": "m4gr3d",
+            "url": "https://github.com/m4gr3d"
+          },
+          "state": "APPROVED",
+          "createdAt": "2023-02-14T17:13:12Z"
+        },
+        {
+          "body": "The change is solid, but I’m wondering about the warning message’s language. Should we plan for translations to support international users?",
+          "author": {
+            "login": "akien-mga",
+            "url": "https://github.com/akien-mga"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2023-02-14T17:20:34Z"
+        },
+        {
+          "body": "On the translation point, we’ve opted to keep the warning in English for now, matching other system messages. We can revisit this in a future PR if user feedback highlights a need for localization.",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2023-03-15T02:53:10Z"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "totalCount": 1,
+      "nodes": [
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "Should we translate the warning message for non-English-speaking users?",
+                "author": {
+                  "login": "m4gr3d",
+                  "url": "https://github.com/m4gr3d"
+                },
+                "createdAt": "2023-02-14T17:13:12Z"
+              },
+              {
+                "body": "Most error messages in the system are in English, which keeps things consistent. Translation might be overkill unless we see specific demand.",
+                "author": {
+                  "login": "akien-mga",
+                  "url": "https://github.com/akien-mga"
+                },
+                "createdAt": "2023-02-14T17:20:34Z"
+              },
+              {
+                "body": "Agreed—sticking with English aligns with current conventions. If localization becomes a priority later, we can tackle it separately.",
+                "author": {
+                  "login": "BastiaanOlij",
+                  "url": "https://github.com/BastiaanOlij"
+                },
+                "createdAt": "2023-03-15T02:53:10Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "filesChanged": [
+      {
+        "filename": "src/openxr/openxr_interface.cpp",
+        "additions": 15,
+        "deletions": 5,
+        "changes": 20,
+        "status": "modified"
+      },
+      {
+        "filename": "doc/user_guide.md",
+        "additions": 3,
+        "deletions": 0,
+        "changes": 3,
+        "status": "modified"
+      }
+    ]
+}

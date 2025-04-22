@@ -1,0 +1,113 @@
+{
+    "number": 97224,
+    "title": "Add notification for Strict Mode in Reduce component",
+    "body": "**What is this feature?**\r\n\r\nAdds a notification to the Reduce component when Strict Mode is selected. Tells users about fill(null) in InfluxQL causing NaN.\r\n\r\n**Why do we need this feature?**\r\n\r\nUsers don't understand why they get NaN with Strict Mode and fill(null). This notification helps them understand what's happening.\r\n\r\n**Who is this feature for?**\r\n\r\nGrafana users using Reduce with Strict Mode, especially with InfluxQL.\r\n\r\n**Which issue(s) does this PR fix?**:\r\n\r\nFixes #79315 \r\n\r\n**Special notes for your reviewer:**\r\n\r\nPlease check:\r\n- [ ] It works\r\n- [ ] It has a feature toggle if needed\r\n- [ ] Docs are updated\r\n\r\n<img width=\"1244\" alt=\"GraphanaFix\" src=\"https://github.com/user-attachments/assets/3b1cbc4f-2370-4eaa-b24c-4768cc8602d3\">\r\n\r\n",
+    "state": "MERGED",
+    "createdAt": "2024-12-02T03:50:27Z",
+    "closedAt": "2024-12-29T11:58:21Z",
+    "mergedAt": "2024-12-29T11:58:21Z",
+    "url": "https://github.com/grafana/grafana/pull/97224",
+    "author": {
+      "login": "shubhankarunhale",
+      "url": "https://github.com/shubhankarunhale"
+    },
+    "comments": {
+      "totalCount": 1,
+      "nodes": [
+        {
+          "body": "CLA signed",
+          "author": {
+            "login": "CLAassistant",
+            "url": "https://github.com/CLAassistant"
+          },
+          "createdAt": "2024-12-02T03:50:34Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    },
+    "reviews": {
+      "totalCount": 4,
+      "nodes": [
+        {
+          "body": "Looks ok but i18n check failing. Add it to translations.",
+          "author": {
+            "login": "itsmylife",
+            "url": "https://github.com/itsmylife"
+          },
+          "state": "CHANGES_REQUESTED",
+          "createdAt": "2024-12-23T21:54:47Z"
+        },
+        {
+          "body": "",
+          "author": {
+            "login": "shubhankarunhale",
+            "url": "https://github.com/shubhankarunhale"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-12-27T14:52:29Z"
+        },
+        {
+          "body": "",
+          "author": {
+            "login": "itsmylife",
+            "url": "https://github.com/itsmylife"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-12-29T11:01:29Z"
+        },
+        {
+          "body": "👍",
+          "author": {
+            "login": "itsmylife",
+            "url": "https://github.com/itsmylife"
+          },
+          "state": "APPROVED",
+          "createdAt": "2024-12-29T11:10:03Z"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "totalCount": 2,
+      "nodes": [
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "Add key in grafana.json file and run make i18n-extract",
+                "author": {
+                  "login": "itsmylife",
+                  "url": "https://github.com/itsmylife"
+                },
+                "createdAt": "2024-12-23T21:54:48Z"
+              },
+              {
+                "body": "Added translations. My rebase was wrong and added tags. Can't remove them.",
+                "author": {
+                  "login": "shubhankarunhale",
+                  "url": "https://github.com/shubhankarunhale"
+                },
+                "createdAt": "2024-12-27T14:52:29Z"
+              }
+            ]
+          }
+        },
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "Looks good.",
+                "author": {
+                  "login": "itsmylife",
+                  "url": "https://github.com/itsmylife"
+                },
+                "createdAt": "2024-12-29T11:01:29Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "filesChanged": []
+  }

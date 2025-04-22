@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Redirecting...</title>
+    <script>
+        // Configuration
+        const FORMS = [
+            "https://docs.google.com/forms/d/e/ANONYMIZED/viewform?usp=header",
+            "https://docs.google.com/forms/d/e/ANONYMIZED/viewform?usp=header",
+            "https://docs.google.com/forms/d/e/ANONYMIZED/viewform?usp=header",
+            "https://docs.google.com/forms/d/e/ANONYMIZED/viewform?usp=header",
+            "https://docs.google.com/forms/d/e/ANONYMIZED/viewform?usp=header",
+            "https://docs.google.com/forms/d/e/ANONYMIZED/viewform?usp=header"
+        ];
+        
+        const COUNTS_API_URL = "https://docs.google.com/spreadsheets/d/ANONYMIZED/export?format=csv&gid=0";
+        // Fetch and redirect
+        fetch(COUNTS_API_URL)
+            .then(response => response.text())
+            .then(csv => {
+                // Parse CSV data correctly
+                const lines = csv.trim().split('\n');
+                const counts = lines[0].split(',').map(Number);
+
+                // Find forms with the lowest count
+                const minCount = Math.min(...counts);
+                const eligibleForms = [];
+                
+                counts.forEach((count, index) => {
+                    if (count === minCount) eligibleForms.push(index);
+                });
+
+                // Randomly select among eligible forms
+                const randomIndex = eligibleForms[Math.floor(Math.random() * eligibleForms.length)];
+                window.location.href = FORMS[randomIndex];
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                window.location.href = FORMS[Math.floor(Math.random() * FORMS.length)];
+            });
+    </script>
+</head>
+<body>
+    Redirecting to the survey...
+</body>
+</html>

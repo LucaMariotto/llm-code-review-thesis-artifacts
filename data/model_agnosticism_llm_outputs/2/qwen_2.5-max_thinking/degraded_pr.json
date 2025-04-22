@@ -1,0 +1,71 @@
+{
+    "number": 73144,
+    "title": "Changed OpenXR alert to log",
+    "body": "Fixes #73141\r\n\r\nReplaced OS alert with a log message when OpenXR fails. Added a project setting to toggle the old behavior.\r\n\r\n### Justification\r\n- Dialog was annoying during development\r\n- Log message appears in console/errors tab\r\n\r\n### Personal Impact\r\nI found the dialog frustrating while working on a VR project.\r\n\r\n### Possible Workarounds\r\nDisable OpenXR or keep SteamVR running.",
+    "state": "MERGED",
+    "createdAt": "2023-02-12T04:35:58Z",
+    "closedAt": "2023-03-15T13:07:05Z",
+    "mergedAt": "2023-03-15T13:07:05Z",
+    "url": "https://github.com/godotengine/godot/pull/73144",
+    "author": {
+        "login": "chutchinson",
+        "url": "https://github.com/chutchinson"
+    },
+    "comments": {
+        "totalCount": 3,
+        "nodes": [
+            {
+                "body": "Removed the dialog delay. Not sure why it was slow.",
+                "author": {
+                    "login": "chutchinson",
+                    "url": "https://github.com/chutchinson"
+                },
+                "createdAt": "2023-02-12T04:50:30Z",
+                "reactions": {
+                    "nodes": []
+                }
+            },
+            {
+                "body": "I support this change.",
+                "author": {
+                    "login": "fire",
+                    "url": "https://github.com/fire"
+                },
+                "createdAt": "2023-02-12T05:03:19Z",
+                "reactions": {
+                    "nodes": []
+                }
+            },
+            {
+                "body": "Added project setting. Should the warning be an error?",
+                "author": {
+                    "login": "chutchinson",
+                    "url": "https://github.com/chutchinson"
+                },
+                "createdAt": "2023-02-13T06:25:27Z",
+                "reactions": {
+                    "nodes": []
+                }
+            }
+        ]
+    },
+    "reviews": {
+        "totalCount": 1,
+        "nodes": [
+            {
+                "body": "",
+                "author": {
+                    "login": "BastiaanOlij",
+                    "url": "https://github.com/BastiaanOlij"
+                },
+                "state": "APPROVED",
+                "createdAt": "2023-02-13T08:46:31Z"
+            }
+        ]
+    },
+    "reviewThreads": {
+        "totalCount": 0,
+        "nodes": []
+    },
+    "filesChanged": []
+}

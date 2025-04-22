@@ -1,0 +1,7 @@
+type,overall_word_count_mean,overall_word_count_std,overall_word_count_min,overall_word_count_max,overall_word_count_count,body_readability_flesch_reading_ease_mean,body_readability_flesch_reading_ease_std,body_readability_flesch_reading_ease_min,body_readability_flesch_reading_ease_max,body_readability_flesch_reading_ease_count,body_readability_flesch_kincaid_grade_mean,body_readability_flesch_kincaid_grade_std,body_readability_flesch_kincaid_grade_min,body_readability_flesch_kincaid_grade_max,body_readability_flesch_kincaid_grade_count,overall_sentiment_compound_mean,overall_sentiment_compound_std,overall_sentiment_compound_min,overall_sentiment_compound_max,overall_sentiment_compound_count
+baseline,639.917,340.553,227,1808,24,27.729,28.767,-59.490,74.900,24,13.200,4.874,5.400,28.800,24,0.720,0.592,-0.978,0.996,24
+claude 3.7 sonnet,812.867,388.733,233,1744,15,16.957,25.791,-24.360,63.700,15,16.507,5.605,7.000,27.700,15,0.659,0.676,-0.818,0.999,15
+deepseek deepthink r1,401.667,165.282,179,690,15,12.537,42.290,-36.130,87.720,15,15.593,7.920,3.300,32.200,15,0.273,0.897,-0.973,0.992,15
+gemini 2.0 flash thinking,698.467,365.632,94,1289,15,30.565,22.693,-1.390,79.460,15,12.793,3.587,4.400,15.800,15,0.774,0.523,-0.956,0.999,15
+grok 3 (thinking),550.533,298.433,75,1159,15,30.958,20.312,8.030,73.240,15,11.813,3.465,4.700,15.700,15,0.804,0.440,-0.714,0.996,15
+qwen2.5-max (thinking QwQ),392.333,209.798,116,800,15,13.194,33.443,-33.130,64.980,15,15.207,6.047,5.800,24.100,15,0.560,0.612,-0.788,0.986,15

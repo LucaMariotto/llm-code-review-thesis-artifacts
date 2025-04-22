@@ -1,0 +1,115 @@
+{
+    "number": 69259,
+    "title": "Use UID for Data Source Template Variables in Dashboards",
+    "body": "**What does this change do?**\n\nThis update modifies dashboard behavior to select data sources using their unique identifier (UID) rather than their name. This ensures consistency, especially in provisioned environments where data source names may vary across instances. Existing dashboards should remain functional, though some adjustments may be required for variable interpolations.\n\n**Why is this change needed?**\n\nIn provisioned environments, data source names can differ between instances, leading to inconsistent behavior when selecting data sources alphabetically. By using the UID, we ensure that the intended data source is selected reliably, improving dashboard portability and reducing configuration errors.\n\n**Who might use this change?**\n\nThis change benefits users managing multiple data sources, particularly in cloud or provisioned setups, by ensuring the correct data source is selected by default. It also aids in maintaining consistency across different environments.\n\n**Extra notes:**\n\n- **Documentation Update:** A detailed documentation update is pending and will be provided in a future release to guide users through any necessary adjustments.\n- **User Action Required:** Users may need to update their dashboards if they rely on data source names in variable interpolations. See the breaking change notice below for details.\n\n**Breaking Change Notice**\n\nData source template variables now use the UID as their value instead of the name. This affects variable interpolations in dashboards. For example:\n- To display the data source name, use `${dsVar:text}` instead of `${dsVar}`.\n- The default interpolation `${dsVar}` now returns the UID.\n\nUsers should review and update their dashboards, particularly in text panels or queries where the data source name was previously used. The data source picker remains unchanged.",
+    "state": "MERGED",
+    "createdAt": "2023-05-30T15:24:59Z",
+    "closedAt": "2023-06-12T08:05:51Z",
+    "mergedAt": "2023-06-12T08:05:51Z",
+    "url": "https://github.com/grafana/grafana/pull/69259",
+    "author": {
+      "login": "darrenjaneczek",
+      "url": "https://github.com/darrenjaneczek"
+    },
+    "comments": {
+      "totalCount": 7,
+      "nodes": [
+        {
+          "body": "@darrenjaneczek This change makes sense for improving consistency across environments, but it introduces a breaking change in how variables are interpolated. We should ensure users are aware of this and provide clear guidance on updating their dashboards.",
+          "author": {
+            "login": "dprokop",
+            "url": "https://github.com/dprokop"
+          },
+          "createdAt": "2023-05-31T08:43:09Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "@dprokop Agreed. The change is beneficial, but it could impact users who rely on the variable in non-standard ways. We should highlight this as a breaking change in the release notes and provide examples of how to adjust dashboards.",
+          "author": {
+            "login": "torkelo",
+            "url": "https://github.com/torkelo"
+          },
+          "createdAt": "2023-05-31T08:46:15Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "@darrenjaneczek I noticed the milestone is set to 9.5.x. Given the breaking nature of this change, it might be more appropriate for a major release like 10.0. Should we consider adjusting the milestone?",
+          "author": {
+            "login": "dprokop",
+            "url": "https://github.com/dprokop"
+          },
+          "createdAt": "2023-05-31T10:19:49Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "@dprokop Unfortunately, it's too late to include this in an earlier release. I've updated the milestone to 10.1.x to ensure we have ample time to communicate the breaking change and provide necessary documentation.",
+          "author": {
+            "login": "darrenjaneczek",
+            "url": "https://github.com/darrenjaneczek"
+          },
+          "createdAt": "2023-05-31T13:56:00Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "@dprokop Thanks for the reminder. I've added tests to cover the new behavior of variable interpolation, including the use of `${dsVar:text}` for backward compatibility. I've also made necessary code adjustments to minimize disruption.",
+          "author": {
+            "login": "darrenjaneczek",
+            "url": "https://github.com/darrenjaneczek"
+          },
+          "createdAt": "2023-05-31T14:07:02Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "@darrenjaneczek Regarding the milestone, since it's too late for an earlier release, moving it to 10.1.x is a good call. We should ensure the breaking change is well-documented in the release notes, highlighting that text panels and queries using `${dsVar}` will now display the UID instead of the name.",
+          "author": {
+            "login": "ivanortegaalba",
+            "url": "https://github.com/ivanortegaalba"
+          },
+          "createdAt": "2023-05-31T16:05:31Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "I've adjusted the milestone to 10.1.x and updated the PR description with a clear breaking change notice. This should give users sufficient time to prepare for the update and make any necessary adjustments to their dashboards.",
+          "author": {
+            "login": "darrenjaneczek",
+            "url": "https://github.com/darrenjaneczek"
+          },
+          "createdAt": "2023-05-31T16:16:35Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    },
+    "reviews": {
+      "totalCount": 1,
+      "nodes": [
+        {
+          "body": "I've reviewed the changes, and while there is a breaking change, it's necessary for improving consistency across environments. The added tests and upcoming documentation updates should help mitigate the impact on users. I recommend merging this PR once the documentation is in place.",
+          "author": {
+            "login": "dprokop",
+            "url": "https://github.com/dprokop"
+          },
+          "state": "APPROVED",
+          "createdAt": "2023-06-02T07:55:24Z"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "totalCount": 0,
+      "nodes": []
+    },
+    "filesChanged": []
+  }

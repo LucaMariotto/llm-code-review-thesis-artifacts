@@ -1,0 +1,154 @@
+{
+  "number": 14778,
+  "title": "KAFKA-15776: Introduce remote.fetch.max.timeout.ms to configure DelayedRemoteFetch timeout",
+  "body": "[KIP-1018](https://cwiki.apache.org/confluence/display/KAFKA/KIP-1018%3A+Introduce+max+remote+fetch+timeout+config+for+DelayedRemoteFetch+requests)\r\n\r\nTest: Existing unit and integration tests\r\n\r\n### Committer Checklist (excluded from commit message)\r\n- [ ] Verify design and implementation \r\n- [ ] Verify test coverage and CI build status\r\n- [ ] Verify documentation (including upgrade notes)\r\n",
+  "state": "MERGED",
+  "createdAt": "2023-11-16T10:00:29Z",
+  "closedAt": "2024-06-05T06:42:23Z",
+  "mergedAt": "2024-06-05T06:42:23Z",
+  "url": "https://github.com/apache/kafka/pull/14778",
+  "author": {
+    "login": "kamalcph",
+    "url": "https://github.com/kamalcph"
+  },
+  "comments": {
+    "totalCount": 8,
+    "nodes": [
+      {
+        "body": "Could you please help me understand how this change works with `fetch.max.wait.ms` from a user perspective i.e. what happens when we are retrieving data from both local & remote in a single fetch call?\r\n\r\nAlso, wouldn't this change user clients? Asking because prior to this change users were expecting a guaranteed response within `fetch.max.wait.ms` = 500ms but now they might not receive a response until 40s `request.timeout.ms`. If the user has configured their application timeouts to according to `fetch.max.wait.ms`, this change will break my application. ",
+        "author": {
+          "login": "divijvaidya",
+          "url": "https://github.com/divijvaidya"
+        },
+        "createdAt": "2023-11-18T18:43:43Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "> Could you please help me understand how this change works with fetch.max.wait.ms from a user perspective i.e. what happens when we are retrieving data from both local & remote in a single fetch call?\r\n\r\n`fetch.max.wait.ms` timeout is applicable only when there is no enough data (`fetch.min.bytes`) to respond back to the client. This is a special case where we are reading the data from both local and remote, the FETCH request has to wait for the tail latency which is a combined latency of reading from both local and remote storage. \r\n\r\nNote that we always read from only one remote partition up-to `max.partition.fetch.bytes` even-though there is bandwidth available in the FETCH response (`fetch.max.bytes`) and the client rotates the partition order in the next FETCH request so that next partitions are served.\r\n\r\n> Also, wouldn't this change user clients? Asking because prior to this change users were expecting a guaranteed response within fetch.max.wait.ms = 500ms but now they might not receive a response until 40s request.timeout.ms. If the user has configured their application timeouts to according to fetch.max.wait.ms, this change will break my application.\r\n\r\n`fetch.max.wait.ms` doesn't guarantee a response within this timeout. The client expires the request only when it exceeds the `request.timeout.ms` of 30 seconds (default). The time taken to serve the FETCH request can be higher than the `fetch.max.wait.ms` due to slow hard-disk, sector errors in disk and so on.\r\n\r\nThe [FetchRequest.json](https://sourcegraph.com/github.com/apache/kafka/-/blob/clients/src/main/resources/common/message/FetchRequest.json) doesn't expose the client configured request timeout, so we are using the default server request timeout of 30 seconds. Otherwise, we can introduce one more config `fetch.remote.max.wait.ms` to define the delay timeout for DelayedRemoteFetch requests. We need to decide whether to keep this config in the client/server since the server operator may need to tune this config for all the clients if the remote storage degrades and latency to serve the remote FETCH requests is high.",
+        "author": {
+          "login": "kamalcph",
+          "url": "https://github.com/kamalcph"
+        },
+        "createdAt": "2023-11-20T06:15:41Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "I understand the problem you're trying to solve, but using the server default request timeout doesn't make sense to me. It will break the contract of fetch protocol that `fetch.max.wait.ms` will not be exceeded if no sufficient data in \"local\" log. I understand the remote read is some kind of grey area about if \"data is existed or not\", but we have to admit, some users might feel surprised when their fetch doesn't respond in `fetch.max.wait.ms` time. Ideally, we should introduce another config for this remote read waiting purpose, instead of re-using request timeout. ",
+        "author": {
+          "login": "showuon",
+          "url": "https://github.com/showuon"
+        },
+        "createdAt": "2023-11-21T09:59:58Z",
+        "reactions": {
+          "nodes": [
+            {
+              "content": "THUMBS_UP"
+            }
+          ]
+        }
+      },
+      {
+        "body": "This PR is being marked as stale since it has not had any activity in 90 days. If you would like to keep this PR alive, please ask a committer for review. If the PR has  merge conflicts, please update it with the latest from trunk (or appropriate release branch) <p> If this PR is no longer valid or desired, please feel free to close it. If no activity occurs in the next 30 days, it will be automatically closed.",
+        "author": {
+          "login": "github-actions",
+          "url": "https://github.com/apps/github-actions"
+        },
+        "createdAt": "2024-02-20T03:33:13Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "Correction: For this:\r\n> some users might feel surprised when their fetch doesn't respond in fetch.max.wait.ms time.\r\n\r\nThis is wrong. Even if the remote reading is not completed, yet, the fetch request will still return in `fetch.max.wait.ms`. It's just an empty response.",
+        "author": {
+          "login": "showuon",
+          "url": "https://github.com/showuon"
+        },
+        "createdAt": "2024-04-12T10:09:56Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "@showuon @clolov @jeqo \r\n\r\nThe patch is ready for review. PTAL. \r\n\r\nWill open a separate PR to emit the RemoteLogReader `FetchRateAndTimeMs` metric.",
+        "author": {
+          "login": "kamalcph",
+          "url": "https://github.com/kamalcph"
+        },
+        "createdAt": "2024-06-04T10:21:51Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "@kamalcph , could we move the dynamic config change into another PR? I have some comments to it, but that is separate from the original changes.",
+        "author": {
+          "login": "showuon",
+          "url": "https://github.com/showuon"
+        },
+        "createdAt": "2024-06-05T00:00:35Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "Failed tests are unrelated.",
+        "author": {
+          "login": "showuon",
+          "url": "https://github.com/showuon"
+        },
+        "createdAt": "2024-06-05T06:40:54Z",
+        "reactions": {
+          "nodes": []
+        }
+      }
+    ]
+  },
+  "reviews": {
+    "totalCount": 2,
+    "nodes": [
+      {
+        "body": "LGTM! Just a minor comment.",
+        "author": {
+          "login": "showuon",
+          "url": "https://github.com/showuon"
+        },
+        "state": "COMMENTED",
+        "createdAt": "2024-06-04T11:23:52Z"
+      },
+      {
+        "body": "LGTM!",
+        "author": {
+          "login": "showuon",
+          "url": "https://github.com/showuon"
+        },
+        "state": "APPROVED",
+        "createdAt": "2024-06-05T02:18:00Z"
+      }
+    ]
+  },
+  "reviewThreads": {
+    "totalCount": 1,
+    "nodes": [
+      {
+        "comments": {
+          "nodes": [
+            {
+              "body": "Should we mention this config is only used for local log fetch? \r\nAlso, we should mention this in the end:\r\n`To tune the remote fetch maximum time wait, please refer to \"remote.fetch.max.wait.ms\" config.`. WDYT?",
+              "author": {
+                "login": "showuon",
+                "url": "https://github.com/showuon"
+              },
+              "createdAt": "2024-06-04T11:23:52Z"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "filesChanged": []
+}

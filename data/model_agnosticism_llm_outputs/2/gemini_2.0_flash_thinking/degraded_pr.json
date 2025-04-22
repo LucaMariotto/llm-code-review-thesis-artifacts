@@ -1,0 +1,203 @@
+{
+    "number": 73144,
+    "title": "OpenXR thingy alert change",
+    "body": "Fixed issue #73141 maybe\r\n\r\nThis PR changes the alert when OpenXR doesn't work to just a log. There's a new setting called **Startup Alert** (defaults to on) to control this for people who only use XR.\r\n\r\n### Why\r\n\r\n- The pop-up is annoying for me when I'm working\r\n    - It takes forever to go away when starting (like, a few seconds)\r\n    - I have to click it every time, which is bad when I'm trying stuff\r\n- The log shows up in the Errors tab (in the editor) and in the Console, like other OpenXR problems\r\n- It was a small change (one line of code or something)\r\n\r\n### My Feelings\r\n\r\nThis was a problem for me. Godot is great and I wanted to make a VR game. This alert made it hard because I like to test things outside of VR first. I only use the headset when I have something new to try.\r\n\r\n### Other Ways\r\n\r\nYou could turn off OpenXR in the settings, but you have to restart the editor. If you want to test in VR again, you have to change it back and restart. \r\n\r\nAlso, you could make sure SteamVR is running and the headset is plugged in. But sometimes the headset is off, or SteamVR is closed, or I just want to open Godot without doing all that.\r\n\r\nI think these other ways are not good for users\r\n\r\n### Pictures\r\n\r\nHere are some pictures of the log in the console and Errors tab.\r\n\r\n![log_example](https://user-images.githubusercontent.com/2136005/218293226-52fc619c-b0c1-4436-99a9-3d86a8455571.png)\r\n![openxr_errors_tab_example](https://user-images.githubusercontent.com/2136005/218293237-d8533245-1b0b-4343-9946-c538d8b82938.png)\r\n\r\n![image](https://user-images.githubusercontent.com/2136005/218386058-c4ad31ad-5b7d-410b-a65e-d6f352d92ed2.png)\r\n\r\n",
+    "state": "MERGED",
+    "createdAt": "2023-02-12T04:35:58Z",
+    "closedAt": "2023-03-15T13:07:05Z",
+    "mergedAt": "2023-03-15T13:07:05Z",
+    "url": "https://github.com/godotengine/godot/pull/73144",
+    "author": {
+        "login": "chutchinson",
+        "url": "https://github.com/chutchinson"
+    },
+    "comments": {
+        "totalCount": 9,
+        "nodes": [
+            {
+                "body": "It also makes starting faster. It used to take a while for the pop-up to show up on my computer.\r\n\r\nNot sure why, but maybe it's a Windows thing.",
+                "author": {
+                    "login": "chutchinson",
+                    "url": "https://github.com/chutchinson"
+                },
+                "createdAt": "2023-02-12T04:50:30Z",
+                "reactions": {
+                    "nodes": [
+                        {
+                            "content": "THUMBS_UP"
+                        }
+                    ]
+                }
+            },
+            {
+                "body": "Sounds good to me, from the usability side. If it's not a big deal, the engine can keep going.",
+                "author": {
+                    "login": "fire",
+                    "url": "https://github.com/fire"
+                },
+                "createdAt": "2023-02-12T05:03:19Z",
+                "reactions": {
+                    "nodes":[]
+                }
+            },
+            {
+                "body": "> Sounds good to me, from the usability side. If it's not a big deal, the engine can keep going.\r\n\r\nBut what if someone only uses VR? Then the screen will just be black and they won't know why. Maybe it should still pop up for them?\r\n\r\nMaybe it should be a setting, or different when you're just running it vs. working on it.\r\n\r\nBut yeah, it's annoying when you're just trying to work.",
+                "author": {
+                    "login": "BastiaanOlij",
+                    "url": "https://github.com/BastiaanOlij"
+                },
+                "createdAt": "2023-02-12T08:15:45Z",
+                "reactions": {
+                    "nodes":[]
+                }
+            },
+            {
+                "body": "@BastiaanOlij I added a setting for the pop-up on start (it's on by default). The log still shows up no matter what. Should the log be an error instead? It does say \"failure\".\r\n\r\nLet me know if the name or description for the setting is bad.",
+                "author": {
+                    "login": "chutchinson",
+                    "url": "https://github.com/chutchinson"
+                },
+                "createdAt": "2023-02-13T06:25:27Z",
+                "reactions": {
+                    "nodes":[]
+                }
+            },
+            {
+                "body": "Looks fine!",
+                "author": {
+                    "login": "BastiaanOlij",
+                    "url": "https://github.com/BastiaanOlij"
+                },
+                "createdAt": "2023-02-13T08:47:17Z",
+                "reactions": {
+                    "nodes":[]
+                }
+            },
+            {
+                "body": "Merge this maybe?",
+                "author": {
+                    "login": "BastiaanOlij",
+                    "url": "https://github.com/BastiaanOlij"
+                },
+                "createdAt": "2023-03-15T02:53:22Z",
+                "reactions": {
+                    "nodes": [
+                        {
+                            "content": "LAUGH"
+                        }
+                    ]
+                }
+            },
+            {
+                "body": "Cool!",
+                "author": {
+                    "login": "YuriSizov",
+                    "url": "https://github.com/YuriSizov"
+                },
+                "createdAt": "2023-03-15T13:07:18Z",
+                "reactions": {
+                    "nodes":[]
+                }
+            },
+            {
+                "body": "Put this in the next version.",
+                "author": {
+                    "login": "YuriSizov",
+                    "url": "https://github.com/YuriSizov"
+                },
+                "createdAt": "2023-03-30T17:29:16Z",
+                "reactions": {
+                    "nodes":[]
+                }
+            },
+            {
+                "body": "By the way, the email you used for this PR isn't linked to your GitHub. Just so you know.\r\n\r\n```\r\nChris Hutchinson <chutchinson@dynics.com>\r\n```",
+                "author": {
+                    "login": "YuriSizov",
+                    "url": "https://github.com/YuriSizov"
+                },
+                "createdAt": "2023-03-30T17:32:42Z",
+                "reactions": {
+                    "nodes":[]
+                }
+            }
+        ]
+    },
+    "reviews": {
+        "totalCount": 4,
+        "nodes": [
+            {
+                "body": "",
+                "author": {
+                    "login": "BastiaanOlij",
+                    "url": "https://github.com/BastiaanOlij"
+                },
+                "state": "APPROVED",
+                "createdAt": "2023-02-13T08:46:31Z"
+            },
+            {
+                "body": "",
+                "author": {
+                    "login": "m4gr3d",
+                    "url": "https://github.com/m4gr3d"
+                },
+                "state": "COMMENTED",
+                "createdAt": "2023-02-14T17:13:12Z"
+            },
+            {
+                "body": "",
+                "author": {
+                    "login": "akien-mga",
+                    "url": "https://github.com/akien-mga"
+                },
+                "state": "COMMENTED",
+                "createdAt": "2023-02-14T17:20:34Z"
+            },
+            {
+                "body": "",
+                "author": {
+                    "login": "BastiaanOlij",
+                    "url": "https://github.com/BastiaanOlij"
+                },
+                "state": "COMMENTED",
+                "createdAt": "2023-03-15T02:53:10Z"
+            }
+        ]
+    },
+    "reviewThreads": {
+        "totalCount": 1,
+        "nodes": [
+            {
+                "comments": {
+                    "nodes": [
+                        {
+                            "body": "The message should be translated.",
+                            "author": {
+                                "login": "m4gr3d",
+                                "url": "https://github.com/m4gr3d"
+                            },
+                            "createdAt": "2023-02-14T17:13:12Z"
+                        },
+                        {
+                            "body": "Actually, maybe not. It's an error message, so people might want to search for it online.",
+                            "author": {
+                                "login": "akien-mga",
+                                "url": "https://github.com/akien-mga"
+                            },
+                            "createdAt": "2023-02-14T17:20:34Z"
+                        },
+                        {
+                            "body": "Yeah, makes sense.",
+                            "author": {
+                                "login": "BastiaanOlij",
+                                "url": "https://github.com/BastiaanOlij"
+                            },
+                            "createdAt": "2023-03-15T02:53:10Z"
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "filesChanged":[]
+}

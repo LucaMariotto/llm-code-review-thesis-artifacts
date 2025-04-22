@@ -1,0 +1,154 @@
+{
+    "number": 14778,
+    "title": "KAFKA-15776: Add 'remote.fetch.max.timeout.ms' configuration for remote storage fetch operations",
+    "body": "Implements KIP-1018 to provide better control over remote fetch timeouts while maintaining backward compatibility.\r\n\r\n**Key Changes:**\r\n- Introduces `remote.fetch.max.timeout.ms` config with 30s default (matches default `request.timeout.ms`)\r\n- Separates timeout handling for remote fetches from existing local fetch parameters\r\n- Maintains existing `fetch.max.wait.ms` behavior for local log operations\r\n- Updates configuration documentation with clear guidance for hybrid storage deployments\r\n\r\n**Testing Verification:**\r\n- Extended `DelayedRemoteFetchTest` with timeout boundary cases\r\n- Validated through existing fetch protocol integration tests\r\n- Confirmed backward compatibility with existing client configurations\r\n\r\n[KIP-1018 Design Documentation](https://cwiki.apache.org/confluence/display/KAFKA/KIP-1018%3A+Introduce+max+remote+fetch+timeout+config+for+DelayedRemoteFetch+requests)\r\n\r\n**Committer Checklist:**\r\n- [ ] Verify timeout hierarchy: `remote.fetch.max.timeout.ms` ≤ `request.timeout.ms`\r\n- [ ] Confirm updated configuration documentation in docs/operations.md\r\n- [ ] Validate metric emission for remote fetch timeouts in monitoring suite",
+    "state": "MERGED",
+    "createdAt": "2023-11-16T10:00:29Z",
+    "closedAt": "2024-06-05T06:42:23Z",
+    "mergedAt": "2024-06-05T06:42:23Z",
+    "url": "https://github.com/apache/kafka/pull/14778",
+    "author": {
+      "login": "kamalcph",
+      "url": "https://github.com/kamalcph"
+    },
+    "comments": {
+      "totalCount": 8,
+      "nodes": [
+        {
+          "body": "Could we clarify how this configuration interacts with existing client-side timeouts? Specifically:\r\n1. How client applications expecting responses within `fetch.max.wait.ms` will handle potential extended wait times for remote fetches\r\n2. Whether client libraries need updates to support the new timeout hierarchy",
+          "author": {
+            "login": "divijvaidya",
+            "url": "https://github.com/divijvaidya"
+          },
+          "createdAt": "2023-11-18T18:43:43Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Thank you for raising these important considerations:\r\n\r\n1. The `fetch.max.wait.ms` continues to govern local log availability checks, while `remote.fetch.max.timeout.ms` specifically controls remote storage access. Clients will receive available local data immediately and get remote data through subsequent fetches.\r\n\r\n2. No client changes are required - the timeout enforcement happens server-side. We maintain backward compatibility by:\r\n   - Using existing `request.timeout.ms` as upper bound\r\n   - Falling back to default 30s if new config isn't set\r\n   \r\nI'll add documentation clarifying this interaction in the config reference.",
+          "author": {
+            "login": "kamalcph",
+            "url": "https://github.com/kamalcph"
+          },
+          "createdAt": "2023-11-20T06:15:41Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "To preserve the fetch protocol contract, we should ensure:\r\n1. `remote.fetch.max.timeout.ms` defaults to match `request.timeout.ms`\r\n2. Document clear upgrade notes about potential extended wait times when enabling remote storage\r\n3. Add metric tracking for remote fetch timeouts to help operators monitor effects",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "createdAt": "2023-11-21T09:59:58Z",
+          "reactions": {
+            "nodes": [
+              {
+                "content": "THUMBS_UP"
+              }
+            ]
+          }
+        },
+        {
+          "body": "This PR is being marked as stale since it has not had any activity in 90 days. If you would like to keep this PR alive, please ask a committer for review. If the PR has  merge conflicts, please update it with the latest from trunk (or appropriate release branch) <p> If this PR is no longer valid or desired, please feel free to close it. If no activity occurs in the next 30 days, it will be automatically closed.",
+          "author": {
+            "login": "github-actions",
+            "url": "https://github.com/apps/github-actions"
+          },
+          "createdAt": "2024-02-20T03:33:13Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Clarification: The fetch request will return immediately with available local data while remote fetches proceed asynchronously. Empty responses only occur when neither local nor remote data is immediately available.",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "createdAt": "2024-04-12T10:09:56Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "@showuon @clolov @jeqo \r\n\r\nUpdates based on feedback:\r\n- Added configuration validation to ensure `remote.fetch.max.timeout.ms ≤ request.timeout.ms`\r\n- Documented timeout hierarchy in both Javadoc and operations guide\r\n- Created [KAFKA-15891] to track metrics implementation\r\n\r\nReady for final review.",
+          "author": {
+            "login": "kamalcph",
+            "url": "https://github.com/kamalcph"
+          },
+          "createdAt": "2024-06-04T10:21:51Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "The dynamic config changes could be split out to streamline review. Would you prefer to:\r\n1. Merge this with static config first\r\n2. Create follow-up PR for dynamic support\r\n3. Coordinate with config team on validation tools?",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "createdAt": "2024-06-05T00:00:35Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Test failures confirmed unrelated - tracked under KAFKA-15892",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "createdAt": "2024-06-05T06:40:54Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    },
+    "reviews": {
+      "totalCount": 2,
+      "nodes": [
+        {
+          "body": "Approved with one documentation suggestion: Let's explicitly call out that this config only affects remote storage fetches in the parameter description.",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-06-04T11:23:52Z"
+        },
+        {
+          "body": "Approved after verifying:\r\n- Clear separation of local/remote timeout handling\r\n- Backward compatibility tests passing\r\n- Documentation updates in place\r\n\r\nGood candidate for 3.7.0 release notes.",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "state": "APPROVED",
+          "createdAt": "2024-06-05T02:18:00Z"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "totalCount": 1,
+      "nodes": [
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "For configuration clarity:\r\n1. Update parameter description to specify 'remote storage operations'\r\n2. Cross-reference with `fetch.max.wait.ms` in docs\r\n3. Add example configuration scenario for hybrid deployments",
+                "author": {
+                  "login": "showuon",
+                  "url": "https://github.com/showuon"
+                },
+                "createdAt": "2024-06-04T11:23:52Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "filesChanged": []
+  }

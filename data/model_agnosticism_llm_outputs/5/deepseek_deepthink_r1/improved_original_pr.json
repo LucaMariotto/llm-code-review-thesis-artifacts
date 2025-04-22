@@ -1,0 +1,85 @@
+{
+    "number": 7142,
+    "title": "Update Windows PowerShell curl examples to use curl.exe for compatibility",
+    "body": "## Context\r\nIn PowerShell environments, the native `curl` alias conflicts with the curl executable, causing failures with standard command-line flags. This change:\r\n- Replaces `curl` with `curl.exe` in Windows examples\r\n- Adds environment-specific guidance for different shells\r\n\r\n## Technical Details\r\nPowerShell's `curl` alias maps to `Invoke-WebRequest` which doesn't support standard curl flags. Using `curl.exe` ensures proper CLI behavior while maintaining cross-shell compatibility.\r\n\r\n### Changelog Entries\r\n- Update Windows agent documentation to use `curl.exe` in PowerShell environments\r\n- Add troubleshooting note about PowerShell alias conflicts\r\n\r\n### Verification Checklist\r\n- [x] Verified behavior in PowerShell 5.1 and 7.x\r\n- [x] Confirmed cmd.exe compatibility remains unaffected\r\n- [x] Tested on Windows 10 and Server 2022\r\n\r\n### Submitter Checklist\r\n- [x] Changelog entries use imperative mood and target user perspective\r\n- [x] Cross-platform implications considered (POSIX environments unaffected)\r\n- [x] Documentation references official curl Windows guidance\r\n\r\n### Maintenance Considerations\r\n- Clear separation of shell-specific instructions improves long-term maintainability\r\n- Added troubleshooting note helps future diagnosis of similar issues\r\n\r\nReference: [curl Windows documentation](https://curl.se/windows/microsoft.html)\r\n\r\n<a href=\"https://gitpod.io/#https://github.com/jenkinsci/jenkins/pull/7142\"><img src=\"https://gitpod.io/button/open-in-gitpod.svg\"/></a>",
+    "state": "MERGED",
+    "createdAt": "2022-09-22T14:17:11Z",
+    "closedAt": "2022-09-23T15:13:12Z",
+    "mergedAt": "2022-09-23T15:13:12Z",
+    "url": "https://github.com/jenkinsci/jenkins/pull/7142",
+    "author": {
+      "login": "jjasghar",
+      "url": "https://github.com/jjasghar"
+    },
+    "comments": {
+      "totalCount": 6,
+      "nodes": [
+        {
+          "body": "Proposing to enhance Windows documentation with explicit PowerShell guidance:\r\n- Note about `curl.exe` requirement in PowerShell contexts\r\n- Cross-reference common shell environments",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T15:04:08Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Important distinction:\r\n- cmd.exe: Native `curl` works as expected\r\n- PowerShell: Requires `curl.exe` to bypass alias\r\n\r\nLet's ensure documentation clearly differentiates between shell environments.",
+          "author": {
+            "login": "MarkEWaite",
+            "url": "https://github.com/MarkEWaite"
+          },
+          "createdAt": "2022-09-22T15:10:37Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Revised proposal based on troubleshooting experience:\r\n```\r\nNote for PowerShell users:\r\nWhen using PowerShell to configure remote agents, execute `curl.exe` instead of `curl`\r\nto avoid conflicts with the native Invoke-WebRequest alias.\r\n```\r\n\r\nThis explicit guidance could prevent hours of debugging for new users.",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T15:59:39Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "The curl documentation highlights this PowerShell pitfall:\r\n> \"A work-around is to invoke curl as 'curl.exe' to prevent PowerShell from treating it as an alias.\"\r\n\r\nIncorporating this warning as a documented note would align with upstream guidance.",
+          "author": {
+            "login": "MarkEWaite",
+            "url": "https://github.com/MarkEWaite"
+          },
+          "createdAt": "2022-09-22T16:20:24Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Implemented as formatted note block:\r\n\r\n```markdown\r\n:::note PowerShell Users\r\nUse `curl.exe` instead of `curl` to bypass the native alias:\r\n```\r\n\r\nVerification:\r\n- Rendered documentation shows proper warning formatting\r\n- Command syntax highlights executable distinction",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T16:31:48Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Updates completed per review feedback:\r\n- Added environment-specific troubleshooting section\r\n- Linked to curl's official Windows documentation\r\n- Verified rendering in documentation preview",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T17:08:16Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    }
+  }

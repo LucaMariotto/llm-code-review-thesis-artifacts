@@ -1,0 +1,154 @@
+{
+    "number": 14778,
+    "title": "KAFKA-15776: Add remote.fetch.max.timeout.ms configuration for tiered storage remote fetch operations",
+    "body": "## Overview\nThis PR implements KIP-1018 by adding a new configuration parameter `remote.fetch.max.timeout.ms` to control timeout behavior specifically for remote fetch operations in tiered storage scenarios.\n\n## Problem Statement\nCurrently, when fetching data that includes remote segments in tiered storage, the system uses the default request timeout which may not be optimal for remote fetch operations. This can lead to premature timeouts or inefficient waiting periods depending on network conditions and remote storage response times.\n\n## Solution\nA new configuration parameter `remote.fetch.max.timeout.ms` has been introduced that allows administrators to set an appropriate timeout specifically for remote fetch operations. This decouples the remote fetch timeout from the local fetch timeout (`fetch.max.wait.ms`), enabling fine-tuned performance optimization for hybrid storage deployments.\n\n## Implementation Details\n- Added new configuration parameter with appropriate validation and documentation\n- Updated the RemoteLogManager to utilize this configuration \n- Ensured backward compatibility with existing deployments\n- Implemented clear error handling for timeout scenarios\n\n## Testing\n- Unit tests for configuration validation\n- Integration tests with simulated remote storage delays\n- Performance benchmarking comparing default behavior vs. optimized timeout settings\n- Verified behavior with mixed local and remote partition reading scenarios\n\n## Documentation\n- Added JavaDocs for all new methods and parameters\n- Updated the configuration documentation with explanations and examples\n- Added a section in the tiered storage documentation explaining the interaction between local and remote fetch timeouts\n\n## Checklist\n- [x] Design aligns with KIP-1018 requirements\n- [x] All tests pass (unit, integration, system)\n- [x] Documentation updated \n- [x] Configuration parameters properly documented with defaults and examples\n- [x] Backwards compatibility maintained\n- [x] Error handling implemented for timeout scenarios",
+    "state": "MERGED",
+    "createdAt": "2023-11-16T10:00:29Z",
+    "closedAt": "2024-06-05T06:42:23Z",
+    "mergedAt": "2024-06-05T06:42:23Z",
+    "url": "https://github.com/apache/kafka/pull/14778",
+    "author": {
+      "login": "kamalcph",
+      "url": "https://github.com/kamalcph"
+    },
+    "comments": {
+      "totalCount": 8,
+      "nodes": [
+        {
+          "body": "I have a concern about how this change interacts with the existing `fetch.max.wait.ms` configuration. Could you clarify how the system behaves when handling mixed local and remote fetching? In particular:\n\n1. Will clients experience increased latency when some partitions are in remote storage?\n2. Is there a fallback mechanism if remote fetches timeout?\n3. What's the expected behavior if a fetch request contains both local and remote partitions?",
+          "author": {
+            "login": "divijvaidya",
+            "url": "https://github.com/divijvaidya"
+          },
+          "createdAt": "2023-11-18T18:43:43Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Thanks for the great questions @divijvaidya. Let me clarify the behavior:\n\n1. The `fetch.max.wait.ms` parameter continues to control the maximum wait time for accumulating enough bytes before a fetch returns. This applies when there isn't enough data available locally.\n\n2. For mixed local and remote reads, we do expect some additional latency, but this is optimized by our approach:\n   - Only one remote partition is read per request to minimize blocking\n   - The new `remote.fetch.max.timeout.ms` specifically controls how long we're willing to wait for remote data\n   - If remote data isn't available within the timeout, we'll return the local data that is available\n\n3. When a fetch contains both local and remote partitions, we prioritize user experience by:\n   - First serving all local partitions\n   - Then attempting to fetch remote partitions within the new timeout limit\n   - Finally returning whatever data we have when either all partitions are read or the timeout occurs\n\nI'll update the documentation to make these interaction patterns clear.",
+          "author": {
+            "login": "kamalcph",
+            "url": "https://github.com/kamalcph"
+          },
+          "createdAt": "2023-11-20T06:15:41Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "After reviewing the implementation, I have a concern about using the default request timeout for remote fetch operations. Remote storage access patterns can differ significantly from local fetch patterns, which is why I think a separate configuration makes sense.\n\nHave you considered the following scenarios?\n1. Network partitions affecting only the remote storage\n2. Temporary slowdowns in the remote storage system\n3. The exponential backoff pattern that might be more appropriate for remote retries\n\nI'm in favor of the separate configuration, but I think we need more clarity on edge cases.",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "createdAt": "2023-11-21T09:59:58Z",
+          "reactions": {
+            "nodes": [
+              {
+                "content": "THUMBS_UP"
+              }
+            ]
+          }
+        },
+        {
+          "body": "Marking the PR as inactive due to no recent updates. Please review or update to keep it active.",
+          "author": {
+            "login": "github-actions",
+            "url": "https://github.com/apps/github-actions"
+          },
+          "createdAt": "2024-02-20T03:33:13Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Important clarification from additional testing: The fetch operation will still return within the `fetch.max.wait.ms` timeframe even if remote data isn't available yet. In this case, it returns the local data along with appropriate error codes for the remote partitions that couldn't be fetched within the time limit. This ensures that clients don't experience unbounded wait times while still allowing for remote fetch operations to complete when possible.\n\nThe new `remote.fetch.max.timeout.ms` controls how long we'll wait specifically for a remote fetch operation before giving up on that particular remote fetch. This doesn't extend the overall `fetch.max.wait.ms` time.",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "createdAt": "2024-04-12T10:09:56Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Thank you all for the valuable feedback. I've implemented the changes we discussed:\n\n1. Added comprehensive documentation on timeout behavior\n2. Improved error handling for remote fetch timeout scenarios\n3. Added additional logging to help diagnose remote fetch issues\n4. Updated the configuration validation with appropriate bounds\n\n@showuon @clolov @jeqo: The patch appears ready for final review. As discussed, I'll address the RemoteLogReader metric improvements in a separate follow-up PR to keep this change focused and easier to review.",
+          "author": {
+            "login": "kamalcph",
+            "url": "https://github.com/kamalcph"
+          },
+          "createdAt": "2024-06-04T10:21:51Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "The implementation looks good overall. One suggestion: could we move the dynamic configuration change to a separate PR? I have some additional thoughts on how we might want to approach dynamic reconfiguration of timeout parameters that I'd like to discuss in more depth without delaying this important feature.",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "createdAt": "2024-06-05T00:00:35Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Regarding the test failures in CI, I've done a deep dive and they appear to be unrelated to this change. They're stemming from some recent changes to the core metadata handling that this PR doesn't touch. The specific tests failing are `TestMetadataVersionValidator` and `TestTopicIdManager`, which are in a different subsystem altogether. I've verified that our test coverage for the remote fetch timeout is working as expected.",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "createdAt": "2024-06-05T06:40:54Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    },
+    "reviews": {
+      "totalCount": 2,
+      "nodes": [
+        {
+          "body": "I've done an initial review of the PR. The implementation approach looks sound, and the code quality is good. I've left one comment about improving the documentation to clarify the relationship between local and remote fetch timeouts.",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-06-04T11:23:52Z"
+        },
+        {
+          "body": "The PR looks excellent after the documentation updates. The implementation is clean, well-tested, and the documentation now clearly explains the interaction between `fetch.max.wait.ms` and the new `remote.fetch.max.timeout.ms` parameter. The error handling is robust, and I appreciate the additional logging that will help with troubleshooting.\n\nThis is an important improvement for users with tiered storage deployments.",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "state": "APPROVED",
+          "createdAt": "2024-06-05T02:18:00Z"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "totalCount": 1,
+      "nodes": [
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "In the configuration documentation, please add a note clarifying that `fetch.max.wait.ms` applies to the local fetch operation, while `remote.fetch.max.timeout.ms` specifically controls remote fetch behavior. It would be helpful to include a concrete example showing how administrators should adjust these parameters based on their deployment characteristics (e.g., network latency to remote storage, expected remote read patterns, etc.).\n\nAdditionally, consider adding a troubleshooting section that explains common timeout-related issues and how to diagnose them using the new logging you've added.",
+                "author": {
+                  "login": "showuon",
+                  "url": "https://github.com/showuon"
+                },
+                "createdAt": "2024-06-04T11:23:52Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "filesChanged": []
+  }

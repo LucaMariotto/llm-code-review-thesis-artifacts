@@ -1,0 +1,113 @@
+{
+    "number": 97224,
+    "title": "Expressions: Add Strict Mode notification to Reduce component",
+    "body": "## Summary\nThis enhancement improves user understanding of Strict Mode behavior in the Reduce component by adding contextual guidance when fill(null) produces NaN values in InfluxQL queries.\n\n**Problem Statement**\nUsers working with InfluxQL queries in Strict Mode were encountering unexpected NaN results without clear explanation, leading to confusion and support requests (Issue #79315).\n\n**Implementation Details**\n- Added conditional notification component when Strict Mode is enabled\n- Integrated with existing alert system in public/app/plugins/datasource/influxdb/components/VisualInfluxQLEditor.tsx\n- Linked to updated documentation at docs/sources/panels-visualizations/query-transform-data/strict-mode.md\n\n**Verification Checklist**\n- [x] Manual testing confirms notification appears only in Strict Mode\n- [x] Notification text matches approved copy from UX team\n- [x] Documentation links resolve correctly to latest version\n- [x] Added i18n keys for all user-facing text\n\n**Screenshot**\n![Strict Mode Notification](https://grafana.com/static/img/docs/transformations/strict-mode-notification-9.4.png)\n\n**Documentation**\nCorresponding docs PR: grafana/grafana-docs#1234",
+    "state": "MERGED",
+    "createdAt": "2024-12-02T03:50:27Z",
+    "closedAt": "2024-12-29T11:58:21Z",
+    "mergedAt": "2024-12-29T11:58:21Z",
+    "url": "https://github.com/grafana/grafana/pull/97224",
+    "author": {
+      "login": "shubhankarunhale",
+      "url": "https://github.com/shubhankarunhale"
+    },
+    "comments": {
+      "totalCount": 1,
+      "nodes": [
+        {
+          "body": "[![CLA assistant check](https://cla-assistant.io/pull/badge/signed)](https://cla-assistant.io/grafana/grafana?pullRequest=97224) <br/>All committers have signed the CLA.",
+          "author": {
+            "login": "CLAassistant",
+            "url": "https://github.com/CLAassistant"
+          },
+          "createdAt": "2024-12-02T03:50:34Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    },
+    "reviews": {
+      "totalCount": 4,
+      "nodes": [
+        {
+          "body": "The implementation looks solid, but we need to ensure the i18n key 'reduce.strict-mode-notification' is added to our translation files. Could you:\n1. Add the key to public/locales/en-US/grafana.json\n2. Run `make i18n-extract`\n3. Commit the generated locale files?",
+          "author": {
+            "login": "itsmylife",
+            "url": "https://github.com/itsmylife"
+          },
+          "state": "CHANGES_REQUESTED",
+          "createdAt": "2024-12-23T21:54:47Z"
+        },
+        {
+          "body": "I've completed the localization steps:\n- Added entry to grafana.json\n- Generated updated locale files\n- Verified notification text appears in translation system",
+          "author": {
+            "login": "shubhankarunhale",
+            "url": "https://github.com/shubhankarunhale"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-12-27T14:52:29Z"
+        },
+        {
+          "body": "Localization changes look complete. Let's confirm the notification positioning matches our UI guidelines for alert placement.",
+          "author": {
+            "login": "itsmylife",
+            "url": "https://github.com/itsmylife"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-12-29T11:01:29Z"
+        },
+        {
+          "body": "Approved after verifying:\n- Consistent styling with other system notifications\n- Proper null coalescing in Strict Mode check\n- Documentation links include versioning",
+          "author": {
+            "login": "itsmylife",
+            "url": "https://github.com/itsmylife"
+          },
+          "state": "APPROVED",
+          "createdAt": "2024-12-29T11:10:03Z"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "totalCount": 2,
+      "nodes": [
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "For localization completeness:\n1. Add 'reduce.strict-mode-notification' to public/locales/en-US/grafana.json\n2. Run localization update script\n3. Include updated locale files in commit\n\nThis ensures translations exist for all supported languages.",
+                "author": {
+                  "login": "itsmylife",
+                  "url": "https://github.com/itsmylife"
+                },
+                "createdAt": "2024-12-23T21:54:48Z"
+              },
+              {
+                "body": "Localization updates completed:\n- Added translation key with context comments\n- Generated updated locale files\n- Verified through local testing\n\nCould you review the updated changes?",
+                "author": {
+                  "login": "shubhankarunhale",
+                  "url": "https://github.com/shubhankarunhale"
+                },
+                "createdAt": "2024-12-27T14:52:29Z"
+              }
+            ]
+          }
+        },
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "Verified notification positioning and responsive behavior across breakpoints. Meets our UI standards.",
+                "author": {
+                  "login": "itsmylife",
+                  "url": "https://github.com/itsmylife"
+                },
+                "createdAt": "2024-12-29T11:01:29Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "filesChanged": []
+  }

@@ -1,0 +1,128 @@
+{
+  "number": 69259,
+  "title": "Feature: Use UID for Data Source Template Variable Default Selection",
+  "body": "### Summary\nThis pull request refines the data source template variable functionality for dashboards. The update now assigns the unique identifier (UID) as the default value for template variables instead of the data source name. This change enhances the consistency of variable resolution, especially in environments where dashboards and data sources are provisioned independently and naming conventions may vary.\n\n### Motivation\nHistorically, dashboards have relied on the data source name for variable interpolation. However, in setups where names differ between environments, this approach can lead to unpredictable behavior. By using the UID, the system ensures that the intended data source is selected reliably, thereby reducing misconfigurations.\n\n### Changes Implemented\n- **Variable Interpolation:** Modified the option structure so that the 'value' field now contains the UID. Legacy dashboards that depend on the data source name will continue to operate as expected.\n- **Backward Compatibility:** Introduced a dual mechanism that distinguishes between display text and raw UID values. Users can explicitly access the original text representation via `${dsVar:text}`.\n- **Testing Enhancements:** Added comprehensive tests covering both the legacy and new behaviors to ensure robust functionality under varied scenarios.\n- **Documentation Updates:** Revised the inline comments and updated the documentation in `docs/data_source_variables.md` with detailed migration instructions and examples.\n\n### Impact and Migration Considerations\n- **Breaking Change:** The default interpolation now returns the UID for both `${dsVar}` and `${dsVar:raw}`. To preserve the previous behavior, users must now use `${dsVar:text}` explicitly. This adjustment affects certain dashboard panels (e.g., markdown panels) and query configurations.\n- **User Guidance:** Users are encouraged to review their existing dashboard setups and update their queries accordingly. Detailed migration instructions have been added to the documentation to assist with the transition.\n\n### Testing and Validation\n- New tests in `test/templateVar.test.js` validate that both the new and legacy interpolation methods function correctly.\n- Manual testing has been performed to verify that the data source picker remains unaffected by these changes.\n\n### Additional Notes\n- This update is primarily targeted at deployments with multiple data sources, ensuring that the default selection is robust against naming discrepancies.\n- Minor code corrections and additional inline documentation have been included to improve clarity and long-term maintainability.\n\nPlease refer to the updated documentation for further details on how to migrate and adjust existing configurations.",
+  "state": "MERGED",
+  "createdAt": "2023-05-30T15:24:59Z",
+  "closedAt": "2023-06-12T08:05:51Z",
+  "mergedAt": "2023-06-12T08:05:51Z",
+  "url": "https://github.com/grafana/grafana/pull/69259",
+  "author": {
+    "login": "darrenjaneczek",
+    "url": "https://github.com/darrenjaneczek"
+  },
+  "comments": {
+    "totalCount": 7,
+    "nodes": [
+      {
+        "body": "Thank you for the contribution. The updated approach now utilizes the data source UID instead of the name for variable interpolation. This modification may require users to update their existing dashboards. Further review to assess all edge cases would be beneficial.",
+        "author": {
+          "login": "dprokop",
+          "url": "https://github.com/dprokop"
+        },
+        "createdAt": "2023-05-31T08:43:09Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "I concur with the observations regarding the updated interpolation mechanism. It would be advisable to clearly document this change as a breaking update in the release notes, ensuring that users are aware of the required adjustments.",
+        "author": {
+          "login": "torkelo",
+          "url": "https://github.com/torkelo"
+        },
+        "createdAt": "2023-05-31T08:46:15Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "I have noted that the current milestone is set to 9.5.x. Given the potential impact on legacy dashboard configurations, it might be more appropriate to target this update for a subsequent release to allow sufficient time for migration.",
+        "author": {
+          "login": "dprokop",
+          "url": "https://github.com/dprokop"
+        },
+        "createdAt": "2023-05-31T10:19:49Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "Considering the current release schedule, would it be feasible to include this change in the earlier release cycle?",
+        "author": {
+          "login": "darrenjaneczek",
+          "url": "https://github.com/darrenjaneczek"
+        },
+        "createdAt": "2023-05-31T13:56:00Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "I have incorporated additional tests to cover the alternative variable form and implemented further code refinements in response to the earlier feedback.",
+        "author": {
+          "login": "darrenjaneczek",
+          "url": "https://github.com/darrenjaneczek"
+        },
+        "createdAt": "2023-05-31T14:07:02Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "It appears that the timeline for an earlier release has passed. The update is acceptable; however, the breaking change notice should explicitly state that configurations such as markdown panels and query setups might be impacted.",
+        "author": {
+          "login": "ivanortegaalba",
+          "url": "https://github.com/ivanortegaalba"
+        },
+        "createdAt": "2023-05-31T16:05:31Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "Acknowledging the missed opportunity for an earlier release, I have updated the milestone to 10.1.x and revised the breaking change notice to provide comprehensive guidance for migration.",
+        "author": {
+          "login": "darrenjaneczek",
+          "url": "https://github.com/darrenjaneczek"
+        },
+        "createdAt": "2023-05-31T16:16:35Z",
+        "reactions": {
+          "nodes": []
+        }
+      }
+    ]
+  },
+  "reviews": {
+    "totalCount": 1,
+    "nodes": [
+      {
+        "body": "The modifications have been thoroughly reviewed and are approved for integration. The changes have been validated for both functionality and long-term maintainability.",
+        "author": {
+          "login": "dprokop",
+          "url": "https://github.com/dprokop"
+        },
+        "state": "APPROVED",
+        "createdAt": "2023-06-02T07:55:24Z"
+      }
+    ]
+  },
+  "reviewThreads": {
+    "totalCount": 0,
+    "nodes": []
+  },
+  "filesChanged": [
+    {
+      "filename": "src/datasource/templateVar.js",
+      "changes": "Refactored the interpolation logic to assign UID as the default value. Enhanced inline documentation for clarity and future maintenance."
+    },
+    {
+      "filename": "docs/data_source_variables.md",
+      "changes": "Updated documentation to include detailed migration instructions, examples of new interpolation syntax, and guidance on handling legacy setups."
+    },
+    {
+      "filename": "test/templateVar.test.js",
+      "changes": "Added tests to validate both the legacy and new interpolation behaviors, ensuring comprehensive coverage of edge cases."
+    }
+  ]
+}

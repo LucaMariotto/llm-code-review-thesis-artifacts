@@ -1,0 +1,161 @@
+{
+    "number": 97224,
+    "title": "Add Notification for Strict Mode Behavior in Reduce Component Regarding fill(null)",
+    "body": "This PR enhances user guidance in the Reduce component by introducing a notification that appears when Strict Mode is enabled. The notification addresses the behavior of `fill(null)` in InfluxQL, which can produce NaN values, a potential source of confusion for users. This update improves the user experience by delivering clear, contextual information at the right time, aligning with our goal of reducing friction in the data processing workflow.\n\n### Motivation\nUser feedback has highlighted confusion around `fill(null)` resulting in NaN values under Strict Mode. This notification proactively clarifies this behavior, helping users avoid errors and better understand their data transformations.\n\n### Changes\n- Implemented a notification in `src/components/Reduce.js` that triggers when `strictModeEnabled` is true.\n- Added a dismissible notification with a clear message and a link to relevant documentation.\n- Updated `src/utils/notifications.js` to support this feature with a reusable utility function.\n- Included translation keys in `src/locales/en.json` for multi-language support.\n\n### Testing\n- Confirmed the notification displays only in Strict Mode.\n- Validated that the message is concise, accurate, and includes a functional doc link.\n- Ensured no interference with existing Reduce component functionality via unit tests in `src/components/Reduce.test.js`.\n\n### Documentation\n- Added inline comments in `src/components/Reduce.js` explaining the notification logic.\n- Updated `docs/user-guide/strict-mode.md` with a section on this behavior and notification.\n- Noted the translation key addition in `src/locales/README.md`.\n\n### Future Considerations\n- Explore adding similar notifications for other InfluxQL quirks in the Reduce component.\n- Collect user feedback via telemetry (e.g., `trackEvent('strictModeNotificationDisplayed')`) to evaluate effectiveness.\n- Consider a user preference to toggle such notifications, tracked in a follow-up issue.\n\nFeedback is welcome to refine this feature further!",
+    "state": "MERGED",
+    "createdAt": "2024-12-02T03:50:27Z",
+    "closedAt": "2024-12-29T11:58:21Z",
+    "mergedAt": "2024-12-29T11:58:21Z",
+    "url": "https://github.com/grafana/grafana/pull/97224",
+    "author": {
+      "login": "shubhankarunhale",
+      "url": "https://github.com/shubhankarunhale"
+    },
+    "comments": {
+      "totalCount": 3,
+      "nodes": [
+        {
+          "body": "CLA check looks okay.",
+          "author": {
+            "login": "CLAassistant",
+            "url": "https://github.com/CLAassistant"
+          },
+          "createdAt": "2024-12-02T03:50:34Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Great initiative! Have we considered supporting multiple languages for the notification? It could benefit our international users.",
+          "author": {
+            "login": "localizationExpert",
+            "url": "https://github.com/localizationExpert"
+          },
+          "createdAt": "2024-12-25T09:00:00Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Thanks for the suggestion! I’ve added a translation key in `src/locales/en.json` and run the extraction command, so it’s ready for localization. Let me know if there’s a specific process I should follow for other languages!",
+          "author": {
+            "login": "shubhankarunhale",
+            "url": "https://github.com/shubhankarunhale"
+          },
+          "createdAt": "2024-12-25T10:00:00Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    },
+    "reviews": {
+      "totalCount": 4,
+      "nodes": [
+        {
+          "body": "Thanks for submitting this PR! The idea is solid, but I noticed the notification lacks a translation key. Could you add it to `src/locales/en.json` and run `npm run extract-translations` to update the language files? Check `docs/developer-guide/i18n.md` for details if needed.",
+          "author": {
+            "login": "itsmylife",
+            "url": "https://github.com/itsmylife"
+          },
+          "state": "CHANGES_REQUESTED",
+          "createdAt": "2024-12-23T21:54:47Z"
+        },
+        {
+          "body": "Addressed your feedback—added the translation key and ran the extraction command. Also fixed some minor rebase conflicts by syncing with the latest main branch. Please take another look!",
+          "author": {
+            "login": "shubhankarunhale",
+            "url": "https://github.com/shubhankarunhale"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-12-27T14:52:29Z"
+        },
+        {
+          "body": "This is a helpful addition! Could we make the notification more noticeable or add an option to disable it for power users? Curious about your thoughts.",
+          "author": {
+            "login": "anotherReviewer",
+            "url": "https://github.com/anotherReviewer"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-12-28T10:00:00Z"
+        },
+        {
+          "body": "Looks solid now—the translation key is in place, and the rebase is clean. I like how it fits with our notification patterns in `src/utils/notifications.js`. The message is clear and unobtrusive. Great work! 🚀",
+          "author": {
+            "login": "itsmylife",
+            "url": "https://github.com/itsmylife"
+          },
+          "state": "APPROVED",
+          "createdAt": "2024-12-29T11:10:03Z"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "totalCount": 2,
+      "nodes": [
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "Please add the notification message to `src/locales/en.json` and run `npm run extract-translations` to keep our i18n consistent.",
+                "author": {
+                  "login": "itsmylife",
+                  "url": "https://github.com/itsmylife"
+                },
+                "createdAt": "2024-12-23T21:54:48Z"
+              },
+              {
+                "body": "Done! Added the key `reduce.strictMode.fillNullWarning` and ran the command. Also resolved a small rebase conflict in `Reduce.js`. Ready for review.",
+                "author": {
+                  "login": "shubhankarunhale",
+                  "url": "https://github.com/shubhankarunhale"
+                },
+                "createdAt": "2024-12-27T14:52:29Z"
+              }
+            ]
+          }
+        },
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "The notification logic here integrates nicely with our existing utils. It’s clear and should help users without cluttering the UI. No issues from me!",
+                "author": {
+                  "login": "itsmylife",
+                  "url": "https://github.com/itsmylife"
+                },
+                "createdAt": "2024-12-29T11:01:29Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "filesChanged": [
+      {
+        "filename": "src/components/Reduce.js",
+        "additions": 8,
+        "deletions": 0
+      },
+      {
+        "filename": "src/utils/notifications.js",
+        "additions": 4,
+        "deletions": 0
+      },
+      {
+        "filename": "src/locales/en.json",
+        "additions": 1,
+        "deletions": 0
+      },
+      {
+        "filename": "docs/user-guide/strict-mode.md",
+        "additions": 3,
+        "deletions": 0
+      },
+      {
+        "filename": "src/components/Reduce.test.js",
+        "additions": 6,
+        "deletions": 0
+      }
+    ]
+  }

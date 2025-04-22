@@ -1,0 +1,113 @@
+{
+    "number": 97224,
+    "title": "Expressions: Enhance Reduce component with Strict Mode behavior notification",
+    "body": "\r\n\r\n**Feature Description**\r\n\r\nThis enhancement introduces a user-friendly notification within the Reduce component of Grafana. This notification is displayed when the \"Strict Mode\" option is enabled, specifically to inform users about the behavior of the `fill(null)` function in InfluxQL, which can lead to `NaN` results.\r\n\r\n**Purpose**\r\n\r\nThe primary goal of this feature is to improve the user experience for those utilizing the Reduce component with \"Strict Mode\" and InfluxQL. By providing a clear and timely notification about the `fill(null)` behavior, we aim to prevent confusion and reduce potential frustration caused by unexpected `NaN` values. This proactive approach guides users towards understanding the system's behavior and encourages them to consult the relevant documentation for more details.\r\n\r\n**Target Audience**\r\n\r\nThis improvement is specifically designed for Grafana users who leverage the Reduce component in conjunction with InfluxQL queries and have enabled the \"Strict Mode\" setting.\r\n\r\n**Related Issue(s)**:\r\n\r\nFixes #79315\r\n\r\n**Reviewer Notes**\r\n\r\nDuring your review, please verify the following:\r\n- [x] The notification is displayed correctly and provides clear information to the user. (See attached screenshot)\r\n-For this pre-GA feature, ensure it is appropriately controlled by a feature toggle.\r\n- [x] Documentation has been updated to reflect this new notification. The relevant section can be found here: [Link to updated documentation]\r\n- [x] The internationalization (i18n) requirements have been addressed, and the necessary translation keys have been added.\r\n\r\n<img width=\"1244\" alt=\"GraphanaFix\" src=\"https://github.com/user-attachments/assets/3b1cbc4f-2370-4eaa-b24c-4768cc8602d3\">\r\n\r\n",
+    "state": "MERGED",
+    "createdAt": "2024-12-02T03:50:27Z",
+    "closedAt": "2024-12-29T11:58:21Z",
+    "mergedAt": "2024-12-29T11:58:21Z",
+    "url": "https://github.com/grafana/grafana/pull/97224",
+    "author": {
+        "login": "shubhankarunhale",
+        "url": "https://github.com/shubhankarunhale"
+    },
+    "comments": {
+        "totalCount": 1,
+        "nodes": [
+            {
+                "body": "All committers have signed the CLA.",
+                "author": {
+                    "login": "CLAassistant",
+                    "url": "https://github.com/CLAassistant"
+                },
+                "createdAt": "2024-12-02T03:50:34Z",
+                "reactions": {
+                    "nodes": []
+                }
+            }
+        ]
+    },
+    "reviews": {
+        "totalCount": 4,
+        "nodes": [
+            {
+                "body": "The implementation looks good overall. However, the automated i18n check failed because the new notification message key needs to be added to the translation files. Could you please add it to `public/locales/en-US/grafana.json` and then run `make i18n-extract` to update the translation files?",
+                "author": {
+                    "login": "itsmylife",
+                    "url": "https://github.com/itsmylife"
+                },
+                "state": "CHANGES_REQUESTED",
+                "createdAt": "2024-12-23T21:54:47Z"
+            },
+            {
+                "body": "Acknowledged. I have added the necessary translation keys and updated the translation files as requested. Please review again.",
+                "author": {
+                    "login": "shubhankarunhale",
+                    "url": "https://github.com/shubhankarunhale"
+                },
+                "state": "COMMENTED",
+                "createdAt": "2024-12-27T14:52:29Z"
+            },
+            {
+                "body": "Thank you for addressing the i18n issue. The changes look correct now.",
+                "author": {
+                    "login": "itsmylife",
+                    "url": "https://github.com/itsmylife"
+                },
+                "state": "COMMENTED",
+                "createdAt": "2024-12-29T11:01:29Z"
+            },
+            {
+                "body": "👍",
+                "author": {
+                    "login": "itsmylife",
+                    "url": "https://github.com/itsmylife"
+                },
+                "state": "APPROVED",
+                "createdAt": "2024-12-29T11:10:03Z"
+            }
+        ]
+    },
+    "reviewThreads": {
+        "totalCount": 2,
+        "nodes": [
+            {
+                "comments": {
+                    "nodes": [
+                        {
+                            "body": "You need to add the key in this file https://github.com/grafana/grafana/blob/main/public/locales/en-US/grafana.json\r\nAnd then run `make i18n-extract` then commit the files. ",
+                            "author": {
+                                "login": "itsmylife",
+                                "url": "https://github.com/itsmylife"
+                            },
+                            "createdAt": "2024-12-23T21:54:48Z"
+                        },
+                        {
+                            "body": "Added the translations keys, an incorrect rebase which I now reverted, made the grafana-pr-automation add extra tags to the issue. I don't think I have the permission to remove these. \r\n@itsmylife Can you please review?",
+                            "author": {
+                                "login": "shubhankarunhale",
+                                "url": "https://github.com/shubhankarunhale"
+                            },
+                            "createdAt": "2024-12-27T14:52:29Z"
+                        }
+                    ]
+                }
+            },
+            {
+                "comments": {
+                    "nodes": [
+                        {
+                            "body": "This looks good. Thank you!",
+                            "author": {
+                                "login": "itsmylife",
+                                "url": "https://github.com/itsmylife"
+                            },
+                            "createdAt": "2024-12-29T11:01:29Z"
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "filesChanged": []
+}

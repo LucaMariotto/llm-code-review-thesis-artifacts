@@ -1,0 +1,203 @@
+{
+  "number": 73144,
+  "title": "Replace Intrusive OpenXR Alert Dialog with Non-Intrusive Log Warning",
+  "body": "Fixes #73141\n\nThis update addresses issue #73141 by removing the blocking alert dialog that appears when OpenXR initialization fails and replacing it with a non-intrusive log warning. Failure conditions include scenarios where StreamVR is not active or when the HMD is turned off or in standby mode. A new configurable project setting, 'Display Startup Alert' (default: true), has been introduced to allow users to control alert behavior at startup.\n\nKey Enhancements:\n- Eliminates startup delays caused by modal dialogs.\n- Provides a consistent logging mechanism for OpenXR failures that aligns with existing error log practices.\n- Offers user flexibility through a configurable setting, accommodating diverse workflows.\n\nAlternative Approaches Considered:\nWhile disabling OpenXR entirely would prevent the alert, this approach requires a restart and is less optimal for users relying on XR functionality.\n\nVisual Evidence:\nAttached screenshots demonstrate the updated warning in both the console and the error log panel.",
+  "state": "MERGED",
+  "createdAt": "2023-02-12T04:35:58Z",
+  "closedAt": "2023-03-15T13:07:05Z",
+  "mergedAt": "2023-03-15T13:07:05Z",
+  "url": "https://github.com/godotengine/godot/pull/73144",
+  "author": {
+    "login": "chutchinson",
+    "url": "https://github.com/chutchinson"
+  },
+  "comments": {
+    "totalCount": 9,
+    "nodes": [
+      {
+        "body": "The update appears to reduce startup delays by removing the blocking dialog. It would be beneficial to document any underlying system-level factors that contributed to the original delay for future reference.",
+        "author": {
+          "login": "chutchinson",
+          "url": "https://github.com/chutchinson"
+        },
+        "createdAt": "2023-02-12T04:50:30Z",
+        "reactions": {
+          "nodes": [
+            {
+              "content": "THUMBS_UP"
+            }
+          ]
+        }
+      },
+      {
+        "body": "The implementation is acceptable since the engine continues to run despite an OpenXR initialization failure. Further testing across diverse environments is recommended.",
+        "author": {
+          "login": "fire",
+          "url": "https://github.com/fire"
+        },
+        "createdAt": "2023-02-12T05:03:19Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "It is important to note that on devices relying exclusively on XR, a failure may result in a blank screen. The inclusion of a configurable alert setting is a practical solution. Please ensure that this edge case is documented in the release notes.",
+        "author": {
+          "login": "BastiaanOlij",
+          "url": "https://github.com/BastiaanOlij"
+        },
+        "createdAt": "2023-02-12T08:15:45Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "I have implemented the 'Display Startup Alert' project setting (default: true) to allow users control over the alert behavior. The log warning currently retains its standard level; feedback on whether an adjustment to its severity is warranted would be appreciated.",
+        "author": {
+          "login": "chutchinson",
+          "url": "https://github.com/chutchinson"
+        },
+        "createdAt": "2023-02-13T06:25:27Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "The changes are well implemented and effectively address the issue. Thank you for the improvements.",
+        "author": {
+          "login": "BastiaanOlij",
+          "url": "https://github.com/BastiaanOlij"
+        },
+        "createdAt": "2023-02-13T08:47:17Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "I support merging this change as it resolves the issue effectively.",
+        "author": {
+          "login": "BastiaanOlij",
+          "url": "https://github.com/BastiaanOlij"
+        },
+        "createdAt": "2023-03-15T02:53:22Z",
+        "reactions": {
+          "nodes": [
+            {
+              "content": "LAUGH"
+            }
+          ]
+        }
+      },
+      {
+        "body": "Thank you for the contributions.",
+        "author": {
+          "login": "YuriSizov",
+          "url": "https://github.com/YuriSizov"
+        },
+        "createdAt": "2023-03-15T13:07:18Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "This change has been cherry-picked for the 4.0.2 release branch.",
+        "author": {
+          "login": "YuriSizov",
+          "url": "https://github.com/YuriSizov"
+        },
+        "createdAt": "2023-03-30T17:29:16Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "Note: The identity used for this PR submission (Chris Hutchinson <chutchinson@dynics.com>) does not match the GitHub account, and therefore, may not be reflected in contribution statistics.",
+        "author": {
+          "login": "YuriSizov",
+          "url": "https://github.com/YuriSizov"
+        },
+        "createdAt": "2023-03-30T17:32:42Z",
+        "reactions": {
+          "nodes": []
+        }
+      }
+    ]
+  },
+  "reviews": {
+    "totalCount": 4,
+    "nodes": [
+      {
+        "body": "The changes meet the technical requirements and align with current best practices. Approved.",
+        "author": {
+          "login": "BastiaanOlij",
+          "url": "https://github.com/BastiaanOlij"
+        },
+        "state": "APPROVED",
+        "createdAt": "2023-02-13T08:46:31Z"
+      },
+      {
+        "body": "Ensure that all log messages adhere to translation guidelines, if applicable.",
+        "author": {
+          "login": "m4gr3d",
+          "url": "https://github.com/m4gr3d"
+        },
+        "state": "COMMENTED",
+        "createdAt": "2023-02-14T17:13:12Z"
+      },
+      {
+        "body": "If using the translation utility, confirm that the log message remains on a single line. Consider whether translation is necessary for troubleshooting clarity.",
+        "author": {
+          "login": "akien-mga",
+          "url": "https://github.com/akien-mga"
+        },
+        "state": "COMMENTED",
+        "createdAt": "2023-02-14T17:20:34Z"
+      },
+      {
+        "body": "The proposed changes have been reviewed, and the adjustments are in line with our standards.",
+        "author": {
+          "login": "BastiaanOlij",
+          "url": "https://github.com/BastiaanOlij"
+        },
+        "state": "COMMENTED",
+        "createdAt": "2023-03-15T02:53:10Z"
+      }
+    ]
+  },
+  "reviewThreads": {
+    "totalCount": 1,
+    "nodes": [
+      {
+        "comments": {
+          "nodes": [
+            {
+              "body": "Consider wrapping the log message with the translation utility to ensure consistency across locales.",
+              "author": {
+                "login": "m4gr3d",
+                "url": "https://github.com/m4gr3d"
+              },
+              "createdAt": "2023-02-14T17:13:12Z"
+            },
+            {
+              "body": "If the translation function is used, ensure that the log message remains on one line for consistency. Evaluate whether translation is required, given that English may facilitate easier issue tracking.",
+              "author": {
+                "login": "akien-mga",
+                "url": "https://github.com/akien-mga"
+              },
+              "createdAt": "2023-02-14T17:20:34Z"
+            },
+            {
+              "body": "Agreed. Retaining the log message in English may be preferable for debugging purposes.",
+              "author": {
+                "login": "BastiaanOlij",
+                "url": "https://github.com/BastiaanOlij"
+              },
+              "createdAt": "2023-03-15T02:53:10Z"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "filesChanged": []
+}

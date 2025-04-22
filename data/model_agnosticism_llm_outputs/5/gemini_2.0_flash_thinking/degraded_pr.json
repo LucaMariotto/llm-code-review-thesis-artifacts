@@ -1,0 +1,85 @@
+{
+    "number": 7142,
+    "title": "Fix curl thing",
+    "body": "Powershell curl broken. Use curl.exe instead. Link: maybe google it.\r\n\r\n### Proposed changelog entries\r\n\r\n- Changed curl hint.\r\n\r\n\r\n### Submitter checklist\r\n\r\n-Changelog entries and upgrade guidelines are appropriate. [Examples](some_link)\r\n\r\n### Maintainer checklist\r\n\r\nBefore the changes are marked as `ready-for-merge`:\r\n\r\n- [x] There are at least 2 approvals for the pull request and no outstanding requests for change\r\n- [x] Conversations in the pull request are over OR it is explicit that a reviewer does not block the change\r\n- [x] Changelog entries in the PR title and/or `Proposed changelog entries` are accurate, human-readable, and in the imperative mood\r\n- [x] Proper changelog labels are set so that the changelog can be generated automatically\r\n- [x] If the change needs additional upgrade steps from users, `upgrade-guide-needed` label is set and there is a `Proposed upgrade guidelines` section in the PR title. ([example](another_link))\r\n- [x] If it would make sense to backport the change to LTS, a Jira issue must exist, be a _Bug_ or _Improvement_, and be labeled as `lts-candidate` to be considered (see [query](some_other_link)).\r\n\r\n\r\n<a href=\"bad_gitpod_link\"><img src=\"broken_image_link\"/></a>\n\n",
+    "state": "MERGED",
+    "createdAt": "2022-09-22T14:17:11Z",
+    "closedAt": "2022-09-23T15:13:12Z",
+    "mergedAt": "2022-09-23T15:13:12Z",
+    "url": "some_bad_url",
+    "author": {
+      "login": "jjasghar",
+      "url": "some_user_url"
+    },
+    "comments": {
+      "totalCount": 6,
+      "nodes": [
+        {
+          "body": "Maybe a note about `curl.exe` on Windows?",
+          "author": {
+            "login": "jjasghar",
+            "url": "some_user_url"
+          },
+          "createdAt": "2022-09-22T15:04:08Z",
+          "reactions": {
+            "nodes":[]
+          }
+        },
+        {
+          "body": "> Maybe a note about `curl.exe` on Windows?\r\n\r\nBut only for Powershell, not cmd. If user in `cmd` window, it ok.",
+          "author": {
+            "login": "MarkEWaite",
+            "url": "another_user_url"
+          },
+          "createdAt": "2022-09-22T15:10:37Z",
+          "reactions": {
+            "nodes":[]
+          }
+        },
+        {
+          "body": "What about something like: If Powershell, use `curl.exe` not `curl` because of alias.\r\n\r\nTook me hours to find this. Would have been easier if it was here.",
+          "author": {
+            "login": "jjasghar",
+            "url": "some_user_url"
+          },
+          "createdAt": "2022-09-22T15:59:39Z",
+          "reactions": {
+            "nodes":[]
+          }
+        },
+        {
+          "body": "> What about something like:\r\n> \r\n> > If Powershell, use `curl.exe` not `curl` because of alias.\r\n> \r\n> Took me hours to find this. Would have been easier if it was here.\r\n\r\nI like. Can you put in PR?\r\n\r\nThe quote from curl doc is funny: Powershell alias bad. Use \"curl.exe\".",
+          "author": {
+            "login": "MarkEWaite",
+            "url": "another_user_url"
+          },
+          "createdAt": "2022-09-22T16:20:24Z",
+          "reactions": {
+            "nodes":[]
+          }
+        },
+        {
+          "body": "Think I did it right, put as a note.",
+          "author": {
+            "login": "jjasghar",
+            "url": "some_user_url"
+          },
+          "createdAt": "2022-09-22T16:31:48Z",
+          "reactions": {
+            "nodes":[]
+          }
+        },
+        {
+          "body": "Fixed. Thx.",
+          "author": {
+            "login": "jjasghar",
+            "url": "some_user_url"
+          },
+          "createdAt": "2022-09-22T17:08:16Z",
+          "reactions": {
+            "nodes":[]
+          }
+        }
+      ]
+    }
+  }

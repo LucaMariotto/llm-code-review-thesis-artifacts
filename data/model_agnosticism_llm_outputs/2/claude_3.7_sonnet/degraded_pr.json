@@ -1,0 +1,203 @@
+{
+    "number": 73144,
+    "title": "Removed OpenXR alert and used a log message instead",
+    "body": "Fixes #73141\r\n\r\nThis PR removes the alert when OpenXR fails and just shows a warning in logs. I added a setting called Startup Alert (default=true) to toggle this. This helps users with XR-only devices.\r\n\r\n### Why I did this\r\n\r\n- Alert dialog is annoying\r\n    - It makes starting slow\r\n    - You have to click it every time\r\n- Warning shows in Errors tab and Console\r\n- It's a small change\r\n\r\n### My experience\r\n\r\nI got annoyed by this. I was making a VR project in Godot which is cool software. The popup slowed me down because I like to test stuff without VR first for speed, then test in VR later when things are ready.\r\n\r\n### Other ways to fix\r\n\r\nYou can disable OpenXR in settings but then you have to restart the editor. Or you can make sure SteamVR is running but that's annoying too.\r\n\r\nThese aren't good solutions\r\n\r\n### Screenshots\r\n\r\nHere are some pictures of the warning.\r\n\r\n![log_example](https://user-images.githubusercontent.com/2136005/218293226-52fc619c-b0c1-4436-99a9-3d86a8455571.png)\r\n![openxr_errors_tab_example](https://user-images.githubusercontent.com/2136005/218293237-d8533245-1b0b-4343-9946-c538d8b82938.png)\r\n\r\n![image](https://user-images.githubusercontent.com/2136005/218386058-c4ad31ad-5b7d-410b-a65e-d6f352d92ed2.png)\r\n\r\n",
+    "state": "MERGED",
+    "createdAt": "2023-02-12T04:35:58Z",
+    "closedAt": "2023-03-15T13:07:05Z",
+    "mergedAt": "2023-03-15T13:07:05Z",
+    "url": "https://github.com/godotengine/godot/pull/73144",
+    "author": {
+      "login": "chutchinson",
+      "url": "https://github.com/chutchinson"
+    },
+    "comments": {
+      "totalCount": 9,
+      "nodes": [
+        {
+          "body": "It's also faster now when running projects. Before there was a delay on my Windows 11 computer before the alert showed up. \r\n\r\nNot sure why that happened since OS_Windows::alert calls MessageBoxW directly.",
+          "author": {
+            "login": "chutchinson",
+            "url": "https://github.com/chutchinson"
+          },
+          "createdAt": "2023-02-12T04:50:30Z",
+          "reactions": {
+            "nodes": [
+              {
+                "content": "THUMBS_UP"
+              }
+            ]
+          }
+        },
+        {
+          "body": "I like this change. The error isn't that important.",
+          "author": {
+            "login": "fire",
+            "url": "https://github.com/fire"
+          },
+          "createdAt": "2023-02-12T05:03:19Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "> I like this change. The error isn't that important.\r\n\r\nActually that's not true. On XR devices the screen will be black and users won't know what's happening. The alert is needed in that case.\r\n\r\nThis should be a setting with alert as default, or maybe different in debug vs release.\r\n\r\nBut I agree the option to turn it off is good for development.",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "createdAt": "2023-02-12T08:15:45Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "@BastiaanOlij I added a setting for the alert (default = true). The warning still prints regardless. Should it be an error message instead? The message does say \"failure\" so maybe that makes sense.\r\n\r\nAny thoughts on the name/description for the setting?",
+          "author": {
+            "login": "chutchinson",
+            "url": "https://github.com/chutchinson"
+          },
+          "createdAt": "2023-02-13T06:25:27Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Looks good now!",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "createdAt": "2023-02-13T08:47:17Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "We should merge this",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "createdAt": "2023-03-15T02:53:22Z",
+          "reactions": {
+            "nodes": [
+              {
+                "content": "LAUGH"
+              }
+            ]
+          }
+        },
+        {
+          "body": "Thanks!",
+          "author": {
+            "login": "YuriSizov",
+            "url": "https://github.com/YuriSizov"
+          },
+          "createdAt": "2023-03-15T13:07:18Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Added to 4.0.2.",
+          "author": {
+            "login": "YuriSizov",
+            "url": "https://github.com/YuriSizov"
+          },
+          "createdAt": "2023-03-30T17:29:16Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Your PR email isn't linked to your GitHub account so it doesn't count for contributions.\r\n\r\n```\r\nChris Hutchinson <chutchinson@dynics.com>\r\n```",
+          "author": {
+            "login": "YuriSizov",
+            "url": "https://github.com/YuriSizov"
+          },
+          "createdAt": "2023-03-30T17:32:42Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    },
+    "reviews": {
+      "totalCount": 4,
+      "nodes": [
+        {
+          "body": "",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "state": "APPROVED",
+          "createdAt": "2023-02-13T08:46:31Z"
+        },
+        {
+          "body": "",
+          "author": {
+            "login": "m4gr3d",
+            "url": "https://github.com/m4gr3d"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2023-02-14T17:13:12Z"
+        },
+        {
+          "body": "",
+          "author": {
+            "login": "akien-mga",
+            "url": "https://github.com/akien-mga"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2023-02-14T17:20:34Z"
+        },
+        {
+          "body": "",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2023-03-15T02:53:10Z"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "totalCount": 1,
+      "nodes": [
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "Put the message in TTR(\"...\") for translation.",
+                "author": {
+                  "login": "m4gr3d",
+                  "url": "https://github.com/m4gr3d"
+                },
+                "createdAt": "2023-02-14T17:13:12Z"
+              },
+              {
+                "body": "For TTR() it needs to be on one line because translation extraction works line by line.\r\n\r\nBut I don't think we usually translate error messages like this. Better to keep it in English so people can search for it.",
+                "author": {
+                  "login": "akien-mga",
+                  "url": "https://github.com/akien-mga"
+                },
+                "createdAt": "2023-02-14T17:20:34Z"
+              },
+              {
+                "body": "yeah don't translate it",
+                "author": {
+                  "login": "BastiaanOlij",
+                  "url": "https://github.com/BastiaanOlij"
+                },
+                "createdAt": "2023-03-15T02:53:10Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "filesChanged": []
+  }

@@ -1,0 +1,203 @@
+{
+  "number": 73144,
+  "title": "Improve OpenXR Initialization Failure Handling: Replace Alert with Log and Setting",
+  "body": "Fixes #73141\r\n\r\nThis pull request introduces a more streamlined approach to handling OpenXR initialization failures. Instead of displaying an intrusive operating system alert dialog, a **WARN** log message is now generated. To accommodate users with XR-only devices, a new project setting, **Display Startup Alert on XR Failure**, has been added (defaulting to true) to control whether an alert dialog is shown in that specific scenario.\r\n\r\n### Rationale\r\n\r\nThe previous alert dialog presented several drawbacks for the development workflow:\r\n\r\n- It interrupted the startup process, causing delays.\r\n- Requiring user interaction on every run, even when not actively developing for VR, hindered iteration.\r\n- It lacked consistency with other non-critical OpenXR failure modes, which typically log warnings.\r\n\r\nThe new approach offers the following benefits:\r\n\r\n- Provides immediate feedback through the editor's Errors tab and Console output, consistent with existing engine behavior.\r\n- Reduces startup delays for developers not actively working with VR.\r\n- Offers a project-level configuration to retain the alert for XR-only devices where the failure might be more critical for the user experience.\r\n- The code changes are localized and utilize existing engine functionalities.\r\n\r\n### Considerations for XR-Only Devices\r\n\r\nWhile the alert can be disabled via the new project setting, it remains enabled by default to inform users on XR-only setups if OpenXR fails to initialize. This ensures they are aware of potential issues preventing the application from functioning as expected.\r\n\r\n### Alternatives Considered\r\n\r\n- Disabling OpenXR in project settings: This requires a restart, which is not ideal for quick testing. Additionally, re-enabling for VR testing also necessitates a restart.\r\n- Ensuring an OpenXR runtime is always running: This is not always practical during development, as developers might frequently switch between VR and non-VR workflows, or the HMD might enter standby.\r\n\r\nThe implemented solution aims to provide a better balance between developer convenience and user awareness.\r\n\r\n### Visual Evidence\r\n\r\nThe following screenshots illustrate the warning message in the console and the Errors tab.\r\n\r\n![log_example](https://user-images.githubusercontent.com/2136005/218293226-52fc619c-b0c1-4436-99a9-3d86a8455571.png)\r\n![openxr_errors_tab_example](https://user-images.githubusercontent.com/2136005/218293237-d8533245-1b0b-4343-9946-c538d8b82938.png)\r\n\r\n![image](https://user-images.githubusercontent.com/2136005/218386058-c4ad31ad-5b7d-410b-a65e-d6f352d92ed2.png)\r\n",
+  "state": "MERGED",
+  "createdAt": "2023-02-12T04:35:58Z",
+  "closedAt": "2023-03-15T13:07:05Z",
+  "mergedAt": "2023-03-15T13:07:05Z",
+  "url": "https://github.com/godotengine/godot/pull/73144",
+  "author": {
+    "login": "chutchinson",
+    "url": "https://github.com/chutchinson"
+  },
+  "comments": {
+    "totalCount": 9,
+    "nodes": [
+      {
+        "body": "An unexpected benefit of this change is a noticeable reduction in project startup time on some systems. While the exact cause is unclear, it seems the previous alert dialog introduced a delay, possibly related to the underlying operating system's window management.",
+        "author": {
+          "login": "chutchinson",
+          "url": "https://github.com/chutchinson"
+        },
+        "createdAt": "2023-02-12T04:50:30Z",
+        "reactions": {
+          "nodes": [
+            {
+              "content": "THUMBS_UP"
+            }
+          ]
+        }
+      },
+      {
+        "body": "From a user experience perspective, this change improves the engine's usability by reducing intrusive alerts for non-critical issues. The OpenXR failure, while important, doesn't necessarily prevent the editor from functioning for non-XR development.",
+        "author": {
+          "login": "fire",
+          "url": "https://github.com/fire"
+        },
+        "createdAt": "2023-02-12T05:03:19Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "> I support this as part of the usability team. The xr failure is not a critical error that the engine can't continue.\r\n\r\nWhile the engine might continue, it's important to consider the user experience on dedicated XR devices. If OpenXR fails, the screen might remain black, leaving the user unaware of the problem. Therefore, providing feedback in such cases is crucial.\r\n\r\nImplementing a project setting, defaulting to showing an alert, seems like a reasonable compromise. This allows developers to streamline their workflow while ensuring users on XR-only devices are informed about initialization failures. This approach also aligns with providing options for different development and deployment scenarios.",
+        "author": {
+          "login": "BastiaanOlij",
+          "url": "https://github.com/BastiaanOlij"
+        },
+        "createdAt": "2023-02-12T08:15:45Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "@BastiaanOlij I've addressed your feedback by adding a project setting named **Display Startup Alert on XR Failure** (defaulting to true). This will show the alert dialog on startup if OpenXR fails, but only if this setting is enabled. Regardless of this setting, a warning message will always be printed to the console and Errors tab.\r\n\r\nCould you please provide feedback on the clarity and suitability of the name and description (tooltip/help text) for this new project setting?",
+        "author": {
+          "login": "chutchinson",
+          "url": "https://github.com/chutchinson"
+        },
+        "createdAt": "2023-02-13T06:25:27Z",
+        "reactions": {
+          "nodes":[]
+        }
+      },
+      {
+        "body": "I think the current implementation with the project setting is well-balanced and addresses the different use cases effectively. Thanks for implementing this!",
+        "author": {
+          "login": "BastiaanOlij",
+          "url": "https://github.com/BastiaanOlij"
+        },
+        "createdAt": "2023-02-13T08:47:17Z",
+        "reactions": {
+          "nodes":[]
+        }
+      },
+      {
+        "body": "I support merging this change as it improves the development experience without negatively impacting the user experience on XR-only devices due to the added configuration option.",
+        "author": {
+          "login": "BastiaanOlij",
+          "url": "https://github.com/BastiaanOlij"
+        },
+        "createdAt": "2023-03-15T02:53:22Z",
+        "reactions": {
+          "nodes": [
+            {
+              "content": "LAUGH"
+            }
+          ]
+        }
+      },
+      {
+        "body": "Thank you for your contribution!",
+        "author": {
+          "login": "YuriSizov",
+          "url": "https://github.com/YuriSizov"
+        },
+        "createdAt": "2023-03-15T13:07:18Z",
+        "reactions": {
+          "nodes":[]
+        }
+      },
+      {
+        "body": "This has been included in the 4.0.2 release.",
+        "author": {
+          "login": "YuriSizov",
+          "url": "https://github.com/YuriSizov"
+        },
+        "createdAt": "2023-03-30T17:29:16Z",
+        "reactions": {
+          "nodes":[]
+        }
+      },
+      {
+        "body": "It appears the email address associated with your commits is not linked to your GitHub account. To ensure your contributions are properly credited, please consider adding it to your GitHub settings.\r\n\r\n```\r\nChris Hutchinson <chutchinson@dynics.com>\r\n```",
+        "author": {
+          "login": "YuriSizov",
+          "url": "https://github.com/YuriSizov"
+        },
+        "createdAt": "2023-03-30T17:32:42Z",
+        "reactions": {
+          "nodes":[]
+        }
+      }
+    ]
+  },
+  "reviews": {
+    "totalCount": 4,
+    "nodes": [
+      {
+        "body": "",
+        "author": {
+          "login": "BastiaanOlij",
+          "url": "https://github.com/BastiaanOlij"
+        },
+        "state": "APPROVED",
+        "createdAt": "2023-02-13T08:46:31Z"
+      },
+      {
+        "body": "",
+        "author": {
+          "login": "m4gr3d",
+          "url": "https://github.com/m4gr3d"
+        },
+        "state": "COMMENTED",
+        "createdAt": "2023-02-14T17:13:12Z"
+      },
+      {
+        "body": "",
+        "author": {
+          "login": "akien-mga",
+          "url": "https://github.com/akien-mga"
+        },
+        "state": "COMMENTED",
+        "createdAt": "2023-02-14T17:20:34Z"
+      },
+      {
+        "body": "",
+        "author": {
+          "login": "BastiaanOlij",
+          "url": "https://github.com/BastiaanOlij"
+        },
+        "state": "COMMENTED",
+        "createdAt": "2023-03-15T02:53:10Z"
+      }
+    ]
+  },
+  "reviewThreads": {
+    "totalCount": 1,
+    "nodes": [
+      {
+        "comments": {
+          "nodes": [
+            {
+              "body": "Consider wrapping the log message within the engine's localization system (e.g., using `TTR(\"...\")`) to allow for translations.",
+              "author": {
+                "login": "m4gr3d",
+                "url": "https://github.com/m4gr3d"
+              },
+              "createdAt": "2023-02-14T17:13:12Z"
+            },
+            {
+              "body": "Regarding the `TTR()` suggestion, while it's good practice for user-facing text, for error messages like this, which are often used for debugging and searching online resources, keeping them in English might be beneficial. This facilitates easier searching in documentation, forums, and bug reports.",
+              "author": {
+                "login": "akien-mga",
+                "url": "https://github.com/akien-mga"
+              },
+              "createdAt": "2023-02-14T17:20:34Z"
+            },
+            {
+              "body": "I agree with the reasoning that keeping this specific message in English will likely be more helpful for debugging and finding relevant information.",
+              "author": {
+                "login": "BastiaanOlij",
+                "url": "https://github.com/BastiaanOlij"
+              },
+              "createdAt": "2023-03-15T02:53:10Z"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "filesChanged":[]
+}

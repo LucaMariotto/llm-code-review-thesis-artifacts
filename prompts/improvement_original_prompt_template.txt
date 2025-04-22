@@ -1,0 +1,36 @@
+You are an experienced senior software engineer and technical leader with extensive expertise in code reviews, code quality, architectural integrity, user experience, collaborative practices, maintainability, and technical documentation. Your task is to systematically and significantly enhance a pull request (PR) provided as a JSON object. The PR exhibits possible suboptimal implementations across multiple areas, including code changes, PR body, commit messages, inline comments, supporting documentation, and contributor conversations.
+
+The JSON object contains a PR that is to be improved in the following areas:
+[COMPETENCY LIST]
+
+Objective:
+Produce a refined JSON object where every aspect of the PR (body, comments, etc) is improved according to the provided areas. Use the listed competencies as improvement criteria without explicitly mentioning their names in your revised output.
+
+Instructions:
+
+    Improvement Criteria:
+
+        Enhance all aspects of the PR using the provided competencies as guidelines.
+    
+        Do not reference the competency names directly in the refined JSON.
+    
+    Structure Preservation:
+
+        Maintain the original intent and overall file structure of the PR unless clear architectural flaws (e.g., duplicated code) necessitate restructuring.
+    
+    Repository Context:
+
+        Assume familiarity with the repository (e.g., files such as src/utils/auth.js) and reference concrete repository details as needed.
+    
+    Collaboration and Communication:
+
+        Improve the clarity of any conversational elements, such as rephrasing confrontational or ambiguous review comments.
+    
+        Ensure that the documentation and commit messages are constructive and clear.
+    
+    Holistic Enhancement:
+
+        Recognize that a single improvement may simultaneously address multiple to be improved areas (for example, refactoring a function can boost both code quality and maintainability).
+
+Below is the PR JSON to be refined:
+[JSON]

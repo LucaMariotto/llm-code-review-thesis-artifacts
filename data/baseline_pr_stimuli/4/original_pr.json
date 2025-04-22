@@ -1,0 +1,143 @@
+{
+"number": 57375,
+"title": "[Refactor][tsserver] Coding Quality Improvements",
+"body": "<!--\r\nThank you for submitting a pull request!\r\n\r\nPlease verify that:\r\n* [ ] There is an associated issue in the `Backlog` milestone (**required**)\r\n* [ ] Code is up-to-date with the `main` branch\r\n* [ ] You've successfully run `hereby runtests` locally\r\n* [ ] There are new or updated unit tests validating the change\r\n\r\nRefer to CONTRIBUTING.MD for more details.\r\n  https://github.com/Microsoft/TypeScript/blob/main/CONTRIBUTING.md\r\n\r\n** Please don't send typo fixes! **\r\nPlease don't send a PR solely for the purpose of fixing a typo, unless that\r\ntypo truly hurts understanding of the text. Each PR represents work for the\r\nmaintainers, and that work should provide commensurate value.\r\n\r\nIf you're interested in sending a PR, the issue tracker has many issues marked `help wanted`.\r\n-->\r\n\r\nRefator #\r\n\r\nI'm updating some validations and improvements the code of tsserver module.\r\n\r\n## First: `nodeServer.ts`\r\n\r\nI change this function here, which was using switch and update to use the get object pattern\r\n\r\n<img width=\"735\" alt=\"image\" src=\"https://github.com/microsoft/TypeScript/assets/20498649/af13fa8d-c538-4bf6-b8db-13aa6da0729c\">\r\n\r\nTO:\r\n\r\n<img width=\"672\" alt=\"image\" src=\"https://github.com/microsoft/TypeScript/assets/20498649/f9374809-9b43-4322-b3f7-955f9e8ee59d\">\r\n\r\n## Second: `server.ts`\r\n\r\nI made some code improvements and avoid the repetition of same validation:\r\n\r\n\r\n<img width=\"713\" alt=\"image\" src=\"https://github.com/microsoft/TypeScript/assets/20498649/a4f733de-3de9-4b00-afae-2897f73e8ef2\">\r\n\r\n<img width=\"869\" alt=\"image\" src=\"https://github.com/microsoft/TypeScript/assets/20498649/cbe7b2d6-7d7c-4483-a50b-2adfced63aea\">\r\n\r\nTO:\r\n\r\n<img width=\"669\" alt=\"image\" src=\"https://github.com/microsoft/TypeScript/assets/20498649/25886b5b-1f27-42fc-b10e-d0074f075472\">\r\n<img width=\"679\" alt=\"image\" src=\"https://github.com/microsoft/TypeScript/assets/20498649/a1711207-c76d-4d2e-baad-fd153bf65260\">\r\n\r\n## Third: `nodeServer.ts`\r\n\r\nI adjust this line, because when the tests was running this error of lint appears:\r\n<img width=\"1235\" alt=\"image\" src=\"https://github.com/microsoft/TypeScript/assets/20498649/adb9a72c-897a-459b-bb5a-d5502be65e78\">\r\n\r\nTo adjust I', simple change the `null!` to `undefined`\r\n\r\nThis PR is related to the Issue that I opened: https://github.com/microsoft/TypeScript/issues/57376\r\n",
+"state": "CLOSED",
+"createdAt": "2024-02-11T20:24:59Z",
+"closedAt": "2024-02-12T16:23:53Z",
+"mergedAt": null,
+"url": "https://github.com/microsoft/TypeScript/pull/57375",
+"author": {
+  "login": "kevinuehara",
+  "url": "https://github.com/kevinuehara"
+},
+"comments": {
+  "totalCount": 4,
+  "nodes": [
+    {
+      "body": "This PR doesn't have any linked issues. Please open an issue that references this PR. From there we can discuss and prioritise.",
+      "author": {
+        "login": "typescript-bot",
+        "url": "https://github.com/typescript-bot"
+      },
+      "createdAt": "2024-02-11T20:25:04Z",
+      "reactions": {
+        "nodes": []
+      }
+    },
+    {
+      "body": "> @microsoft-github-policy-service agree\r\n\r\n@microsoft-github-policy-service agree",
+      "author": {
+        "login": "kevinuehara",
+        "url": "https://github.com/kevinuehara"
+      },
+      "createdAt": "2024-02-11T20:26:33Z",
+      "reactions": {
+        "nodes": []
+      }
+    },
+    {
+      "body": "Somenone can help me on step `CI / format (pull_request)`?",
+      "author": {
+        "login": "kevinuehara",
+        "url": "https://github.com/kevinuehara"
+      },
+      "createdAt": "2024-02-11T20:55:15Z",
+      "reactions": {
+        "nodes": []
+      }
+    },
+    {
+      "body": "There are over [2,000 issues](https://github.com/microsoft/TypeScript/issues?q=is%3Aissue+is%3Aopen+milestone%3ABacklog) in our Backlog that we're accepting PRs for. Please don't send stylistic/formatting/\"cleanup\" PRs that don't address an identified issue. Of all the things we could use help with, reformatting our code isn't one of them \ud83d\ude05",
+      "author": {
+        "login": "RyanCavanaugh",
+        "url": "https://github.com/RyanCavanaugh"
+      },
+      "createdAt": "2024-02-12T16:23:54Z",
+      "reactions": {
+        "nodes": []
+      }
+    }
+  ]
+},
+"reviews": {
+  "totalCount": 3,
+  "nodes": [
+    {
+      "body": "",
+      "author": {
+        "login": "RyanCavanaugh",
+        "url": "https://github.com/RyanCavanaugh"
+      },
+      "state": "COMMENTED",
+      "createdAt": "2024-02-12T16:18:58Z"
+    },
+    {
+      "body": "",
+      "author": {
+        "login": "RyanCavanaugh",
+        "url": "https://github.com/RyanCavanaugh"
+      },
+      "state": "COMMENTED",
+      "createdAt": "2024-02-12T16:19:42Z"
+    },
+    {
+      "body": "",
+      "author": {
+        "login": "RyanCavanaugh",
+        "url": "https://github.com/RyanCavanaugh"
+      },
+      "state": "COMMENTED",
+      "createdAt": "2024-02-12T16:20:43Z"
+    }
+  ]
+},
+"reviewThreads": {
+  "totalCount": 3,
+  "nodes": [
+    {
+      "comments": {
+        "nodes": [
+          {
+            "body": "This incurs an object allocation on every call, and the object gets bigger every time we add more stuff. I get that this looks \"cleaner\" but there are reasons to use `switch` as well.",
+            "author": {
+              "login": "RyanCavanaugh",
+              "url": "https://github.com/RyanCavanaugh"
+            },
+            "createdAt": "2024-02-12T16:18:59Z"
+          }
+        ]
+      }
+    },
+    {
+      "comments": {
+        "nodes": [
+          {
+            "body": "Short signatures on one line is the project style",
+            "author": {
+              "login": "RyanCavanaugh",
+              "url": "https://github.com/RyanCavanaugh"
+            },
+            "createdAt": "2024-02-12T16:19:42Z"
+          }
+        ]
+      }
+    },
+    {
+      "comments": {
+        "nodes": [
+          {
+            "body": "There's nothing being fixed here, you're just changing from one style to another",
+            "author": {
+              "login": "RyanCavanaugh",
+              "url": "https://github.com/RyanCavanaugh"
+            },
+            "createdAt": "2024-02-12T16:20:43Z"
+          }
+        ]
+      }
+    }
+  ]
+},
+"filesChanged": []
+}

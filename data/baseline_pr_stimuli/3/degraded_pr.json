@@ -1,0 +1,113 @@
+{
+  "number": 97224,
+  "title": "Expressions: Add basic notification for Strict Mode in Reduce comp.",
+  "body": "<!--\n\nThank you for submitting a PR. Please note the following simplified guidelines:\n\n1. Check our contribution guidelines in the repo docs.\n2. Run the necessary tests and update docs if needed.\n3. If this is a work in progress, consider marking it as a draft.\n4. For merge conflicts, try a rebase.\n\n-->\n\nThis update adds a simple notification to the Reduce component when Strict Mode is enabled. It shows a short message about the behavior of fill(null) in InfluxQL, which may yield NaN. The intention is to help users who might be unclear about this behavior. The documentation and merge instructions are mentioned, although details are kept minimal. Some areas might need further refinement in later iterations.",
+  "state": "MERGED",
+  "createdAt": "2024-12-02T03:50:27Z",
+  "closedAt": "2024-12-29T11:58:21Z",
+  "mergedAt": "2024-12-29T11:58:21Z",
+  "url": "https://github.com/grafana/grafana/pull/97224",
+  "author": {
+    "login": "shubhankarunhale",
+    "url": "https://github.com/shubhankarunhale"
+  },
+  "comments": {
+    "totalCount": 1,
+    "nodes": [
+      {
+        "body": "CLA check looks okay.",
+        "author": {
+          "login": "CLAassistant",
+          "url": "https://github.com/CLAassistant"
+        },
+        "createdAt": "2024-12-02T03:50:34Z",
+        "reactions": {
+          "nodes": []
+        }
+      }
+    ]
+  },
+  "reviews": {
+    "totalCount": 4,
+    "nodes": [
+      {
+        "body": "The change seems acceptable, though the translation key is missing. Please add it.",
+        "author": {
+          "login": "itsmylife",
+          "url": "https://github.com/itsmylife"
+        },
+        "state": "CHANGES_REQUESTED",
+        "createdAt": "2024-12-23T21:54:47Z"
+      },
+      {
+        "body": "",
+        "author": {
+          "login": "shubhankarunhale",
+          "url": "https://github.com/shubhankarunhale"
+        },
+        "state": "COMMENTED",
+        "createdAt": "2024-12-27T14:52:29Z"
+      },
+      {
+        "body": "",
+        "author": {
+          "login": "itsmylife",
+          "url": "https://github.com/itsmylife"
+        },
+        "state": "COMMENTED",
+        "createdAt": "2024-12-29T11:01:29Z"
+      },
+      {
+        "body": "🚀",
+        "author": {
+          "login": "itsmylife",
+          "url": "https://github.com/itsmylife"
+        },
+        "state": "APPROVED",
+        "createdAt": "2024-12-29T11:10:03Z"
+      }
+    ]
+  },
+  "reviewThreads": {
+    "totalCount": 2,
+    "nodes": [
+      {
+        "comments": {
+          "nodes": [
+            {
+              "body": "Update the translation file at the given path and run the extraction command.",
+              "author": {
+                "login": "itsmylife",
+                "url": "https://github.com/itsmylife"
+              },
+              "createdAt": "2024-12-23T21:54:48Z"
+            },
+            {
+              "body": "Translation key added; minor rebase issues handled. Please review.",
+              "author": {
+                "login": "shubhankarunhale",
+                "url": "https://github.com/shubhankarunhale"
+              },
+              "createdAt": "2024-12-27T14:52:29Z"
+            }
+          ]
+        }
+      },
+      {
+        "comments": {
+          "nodes": [
+            {
+              "body": "This is fine.",
+              "author": {
+                "login": "itsmylife",
+                "url": "https://github.com/itsmylife"
+              },
+              "createdAt": "2024-12-29T11:01:29Z"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "filesChanged": []
+}

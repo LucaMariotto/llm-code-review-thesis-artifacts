@@ -1,0 +1,115 @@
+{
+  "number": 69259,
+  "title": "Dashboards: Data source template var options now use uid for current value",
+  "body": "<!--\n\nThanks for the PR. Here are some basic pointers:\n1. Please check our basic guidelines in the repo.\n2. Run tests if you can.\n3. A doc update might be needed in some cases.\n4. Mark as draft if not finished.\n5. Rebase if there are merge conflicts.\n6. Use a simple title like 'Feature: Short description'.\n\n-->\n\n**What does this change do?**\n\nThis update tries to let dashboards set a data source as the current option by using its uid rather than its name. The code now uses the 'value' part from the option structure, which was not really used before. Although it now picks the uid for data source template vars, older dashboards that use the data source name should still work.\n\n**Why is this change needed?**\n\nWhen dashboards and datasources are provisioned, names might differ between instances. Using the uid can help select a specific datasource first instead of just following alphabetical order. This might be useful when the naming is not consistent.\n\n**Who might use this change?**\n\nIt is mainly aimed at cloud users with dashboards that have multiple datasources. The idea is that the intended datasource will be picked by default, even though the change in variable interpolation could affect some setups.\n\n**Extra notes:**\n\n- No detailed doc update was done here.\n- Changing the variable so that text and value differ means that some users might need to adjust their dashboards.\n\n# Notice of a breaking change\n\nData source template vars now use the uid for the value instead of the name. This means that in some places where you expect the name, you will have to change your query to explicitly ask for the text version. For example:\n\n```\n${dsVar}\nName: ${dsVar:text}\nUID: ${dsVar:raw}\n```\n\nNow, the default interpolation will show the uid for both ${dsVar} and ${dsVar:raw}, so users might need to update their dashboards if they want the previous behavior.\n\nAffected cases include using ${dsVar} in text panels or in queries, while using the data source picker remains unchanged.",
+  "state": "MERGED",
+  "createdAt": "2023-05-30T15:24:59Z",
+  "closedAt": "2023-06-12T08:05:51Z",
+  "mergedAt": "2023-06-12T08:05:51Z",
+  "url": "https://github.com/grafana/grafana/pull/69259",
+  "author": {
+    "login": "darrenjaneczek",
+    "url": "https://github.com/darrenjaneczek"
+  },
+  "comments": {
+    "totalCount": 7,
+    "nodes": [
+      {
+        "body": "@darrenjaneczek I see the point behind this change, though it might break the old interpolation method. The new approach uses uid in place of name, which means users need to update their dashboards accordingly. Further review from the team might be useful.",
+        "author": {
+          "login": "dprokop",
+          "url": "https://github.com/dprokop"
+        },
+        "createdAt": "2023-05-31T08:43:09Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "@dprokop\n\nThe change seems to make sense on a basic level, but it could cause issues for those who use the variable in non-standard ways. It would be good to note this as a breaking change in the release notes.",
+        "author": {
+          "login": "torkelo",
+          "url": "https://github.com/torkelo"
+        },
+        "createdAt": "2023-05-31T08:46:15Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "@darrenjaneczek I noticed that the milestone is set to 9.5.x. Given the change might break existing behavior, it may be better suited for a later release version.",
+        "author": {
+          "login": "dprokop",
+          "url": "https://github.com/dprokop"
+        },
+        "createdAt": "2023-05-31T10:19:49Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "> Noticed milestone is 9.5.x. With the breaking change, perhaps it should be moved.\n\n@darrenjaneczek\nIs it too late to change it for an earlier release?",
+        "author": {
+          "login": "darrenjaneczek",
+          "url": "https://github.com/darrenjaneczek"
+        },
+        "createdAt": "2023-05-31T13:56:00Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "> Reminder: users need to update ${dsVar:text} for the previous behavior.\n\nThanks @dprokop. I've added a basic test for this alternative variable form and made some code corrections accordingly.",
+        "author": {
+          "login": "darrenjaneczek",
+          "url": "https://github.com/darrenjaneczek"
+        },
+        "createdAt": "2023-05-31T14:07:02Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "> About milestone adjustments and potential impact on certain cases.\n\nYes, it seems too late for an earlier release. The change is acceptable, but the breaking change note should mention that some setups—like markdown panels and queries—might be affected.",
+        "author": {
+          "login": "ivanortegaalba",
+          "url": "https://github.com/ivanortegaalba"
+        },
+        "createdAt": "2023-05-31T16:05:31Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "Too bad I missed the earlier release.\n- Changed milestone to 10.1.x\n- Updated the breaking change notice in a brief way.",
+        "author": {
+          "login": "darrenjaneczek",
+          "url": "https://github.com/darrenjaneczek"
+        },
+        "createdAt": "2023-05-31T16:16:35Z",
+        "reactions": {
+          "nodes": []
+        }
+      }
+    ]
+  },
+  "reviews": {
+    "totalCount": 1,
+    "nodes": [
+      {
+        "body": "",
+        "author": {
+          "login": "dprokop",
+          "url": "https://github.com/dprokop"
+        },
+        "state": "APPROVED",
+        "createdAt": "2023-06-02T07:55:24Z"
+      }
+    ]
+  },
+  "reviewThreads": {
+    "totalCount": 0,
+    "nodes": []
+  },
+  "filesChanged": []
+}

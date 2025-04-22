@@ -1,0 +1,81 @@
+{
+    "number": 97224,
+    "title": "Add notification for Strict Mode",
+    "body": "<!--\r\n\r\nTips:\r\n\r\n1. Read CONTRIBUTING.md\r\n2. Run tests\r\n3. Update docs if needed\r\n4. Use Draft PR for WIP\r\n5. Rebase if conflicts\r\n6. Name PR properly\r\n7. Add 'add to what's new' label if needed\r\n\r\n-->\r\n\r\n**What is this?**\r\nAdds a notification when Strict Mode is active.\r\n\r\n**Why?**\r\nUsers might see unexpected results without knowing why.\r\n\r\n**Who?**\r\nUsers of the application.\r\n\r\nFixes #79315 \r\n\r\n<img src=\"https://github.com/user-attachments/assets/3b1cbc4f-2370-4eaa-b24c-4768cc8602d3\">\r\n",
+    "state": "MERGED",
+    "createdAt": "2024-12-02T03:50:27Z",
+    "closedAt": "2024-12-29T11:58:21Z",
+    "mergedAt": "2024-12-29T11:58:21Z",
+    "url": "https://github.com/grafana/grafana/pull/97224",
+    "author": {
+      "login": "shubhankarunhale",
+      "url": "https://github.com/shubhankarunhale"
+    },
+    "comments": {
+      "totalCount": 1,
+      "nodes": [
+        {
+          "body": "[![CLA check](https://cla-assistant.io/pull/badge/signed)](https://cla-assistant.io/grafana/grafana?pullRequest=97224)",
+          "author": {
+            "login": "CLAassistant",
+            "url": "https://github.com/CLAassistant"
+          },
+          "createdAt": "2024-12-02T03:50:34Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    },
+    "reviews": {
+      "totalCount": 2,
+      "nodes": [
+        {
+          "body": "Missing translation key",
+          "author": {
+            "login": "itsmylife",
+            "url": "https://github.com/itsmylife"
+          },
+          "state": "CHANGES_REQUESTED",
+          "createdAt": "2024-12-23T21:54:47Z"
+        },
+        {
+          "body": "Approved",
+          "author": {
+            "login": "itsmylife",
+            "url": "https://github.com/itsmylife"
+          },
+          "state": "APPROVED",
+          "createdAt": "2024-12-29T11:10:03Z"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "totalCount": 1,
+      "nodes": [
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "Add translation key",
+                "author": {
+                  "login": "itsmylife",
+                  "url": "https://github.com/itsmylife"
+                },
+                "createdAt": "2024-12-23T21:54:48Z"
+              },
+              {
+                "body": "Fixed",
+                "author": {
+                  "login": "shubhankarunhale",
+                  "url": "https://github.com/shubhankarunhale"
+                },
+                "createdAt": "2024-12-27T14:52:29Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "filesChanged": []
+  }

@@ -1,0 +1,246 @@
+{
+    "number": 97224,
+    "title": "Expressions: Add contextual notification for Strict Mode behavior in Reduce component",
+    "body": "## Overview\r\n\r\nThis PR adds a contextual notification in the Reduce component when \"Strict Mode\" is enabled. The notification explains how the `fill(null)` function behaves with InfluxQL queries, resulting in NaN values, and provides links to relevant documentation.\r\n\r\n## Motivation\r\n\r\nUsers working with InfluxQL queries and the Reduce component may encounter unexpected NaN results when using `fill(null)` with Strict Mode enabled. This notification:\r\n\r\n- Provides immediate context about this behavior\r\n- Reduces confusion and support requests\r\n- Guides users to appropriate documentation\r\n- Improves the overall experience for users transitioning from other query languages\r\n\r\n## Implementation Details\r\n\r\n- Added a conditional notification component that appears only when Strict Mode is enabled\r\n- Ensured proper i18n support for all notification text\r\n- Used existing notification styles to maintain UI consistency\r\n- Added appropriate unit tests for the conditional rendering logic\r\n\r\n## Related Documentation\r\n\r\n- Added translation keys to the localization files\r\n- Updated component documentation to reference this behavior\r\n\r\n## Screenshots\r\n\r\n<img width=\"1244\" alt=\"Strict Mode Notification in Reduce Component\" src=\"https://github.com/user-attachments/assets/3b1cbc4f-2370-4eaa-b24c-4768cc8602d3\">\r\n\r\n## Testing Performed\r\n\r\n- [x] Verified notification appears only when Strict Mode is enabled\r\n- [x] Confirmed notification text is clear and properly translated\r\n- [x] Tested with various InfluxQL queries to confirm behavior\r\n- [x] Validated that the notification doesn't interfere with other component functionality\r\n\r\n**Fixes #79315**\r\n\r\n## Reviewer Checklist\r\n\r\n- [ ] Notification renders correctly in all supported themes\r\n- [ ] Text is clear and provides appropriate guidance\r\n- [ ] Implementation follows established design patterns\r\n- [ ] Internationalization is properly implemented\r\n",
+    "state": "MERGED",
+    "createdAt": "2024-12-02T03:50:27Z",
+    "closedAt": "2024-12-29T11:58:21Z",
+    "mergedAt": "2024-12-29T11:58:21Z",
+    "url": "https://github.com/grafana/grafana/pull/97224",
+    "author": {
+      "login": "shubhankarunhale",
+      "url": "https://github.com/shubhankarunhale"
+    },
+    "comments": {
+      "totalCount": 1,
+      "nodes": [
+        {
+          "body": "[![CLA assistant check](https://cla-assistant.io/pull/badge/signed)](https://cla-assistant.io/grafana/grafana?pullRequest=97224) <br/>All committers have signed the CLA.",
+          "author": {
+            "login": "CLAassistant",
+            "url": "https://github.com/CLAassistant"
+          },
+          "createdAt": "2024-12-02T03:50:34Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    },
+    "reviews": {
+      "totalCount": 4,
+      "nodes": [
+        {
+          "body": "Thanks for this contribution! The implementation looks good, but I noticed the i18n check is failing. Could you please add the translation key to the `public/locales/en-US/grafana.json` file and run `make i18n-extract` to generate the necessary files?",
+          "author": {
+            "login": "itsmylife",
+            "url": "https://github.com/itsmylife"
+          },
+          "state": "CHANGES_REQUESTED",
+          "createdAt": "2024-12-23T21:54:47Z"
+        },
+        {
+          "body": "I've added the translation keys as requested and ran the extraction command. Also fixed some minor issues with the notification styling to ensure consistency with the design system.",
+          "author": {
+            "login": "shubhankarunhale",
+            "url": "https://github.com/shubhankarunhale"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-12-27T14:52:29Z"
+        },
+        {
+          "body": "The translation implementation looks great now. I've tested the notification with different languages and it works as expected. The styling also matches our design system guidelines perfectly.",
+          "author": {
+            "login": "itsmylife",
+            "url": "https://github.com/itsmylife"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-12-29T11:01:29Z"
+        },
+        {
+          "body": "Excellent work! This will be a great improvement for users working with InfluxQL in Strict Mode. Approved and ready to merge. 🚀",
+          "author": {
+            "login": "itsmylife",
+            "url": "https://github.com/itsmylife"
+          },
+          "state": "APPROVED",
+          "createdAt": "2024-12-29T11:10:03Z"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "totalCount": 2,
+      "nodes": [
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "You need to add the translation key in `public/locales/en-US/grafana.json` and then run `make i18n-extract` to generate the necessary files. This ensures our internationalization system can properly translate the new notification text across all supported languages.",
+                "author": {
+                  "login": "itsmylife",
+                  "url": "https://github.com/itsmylife"
+                },
+                "createdAt": "2024-12-23T21:54:48Z"
+              },
+              {
+                "body": "I've added the translation keys and run the extraction command. There was an issue with my rebase that caused some extra tags to be added to the PR. I don't have permission to remove these tags, but the translation files are now properly updated with the new keys.",
+                "author": {
+                  "login": "shubhankarunhale",
+                  "url": "https://github.com/shubhankarunhale"
+                },
+                "createdAt": "2024-12-27T14:52:29Z"
+              }
+            ]
+          }
+        },
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "The implementation looks great! I especially like how you've made the notification contextual and only display when relevant. The translations are working correctly across all our supported languages. Thank you for the thorough implementation.",
+                "author": {
+                  "login": "itsmylife",
+                  "url": "https://github.com/itsmylife"
+                },
+                "createdAt": "2024-12-29T11:01:29Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "filesChanged": [
+      {
+        "filename": "public/app/plugins/panel/expressions/components/Reduce.tsx",
+        "additions": [
+          {
+            "lineNumber": 89,
+            "content": "import { Alert } from '@grafana/ui';"
+          },
+          {
+            "lineNumber": 156,
+            "content": "  // Display notification when strict mode is enabled to explain the behavior with InfluxQL"
+          },
+          {
+            "lineNumber": 157,
+            "content": "  const showStrictModeNotification = values.mode === 'strict';"
+          },
+          {
+            "lineNumber": 204,
+            "content": "      {showStrictModeNotification && ("
+          },
+          {
+            "lineNumber": 205,
+            "content": "        <Alert severity=\"info\" title={t('expressions.reduce.strictmode-notification.title', 'InfluxQL Strict Mode Behavior')}>"
+          },
+          {
+            "lineNumber": 206,
+            "content": "          {t('expressions.reduce.strictmode-notification.message', 'When using Strict Mode with InfluxQL queries, fill(null) will result in NaN values. See the documentation for more details.')}"
+          },
+          {
+            "lineNumber": 207,
+            "content": "          <a href=\"https://grafana.com/docs/grafana/latest/fundamentals/query-expressions/#reduce-expression\" target=\"_blank\" rel=\"noopener noreferrer\">"
+          },
+          {
+            "lineNumber": 208,
+            "content": "            {t('common.documentation', 'Documentation')}"
+          },
+          {
+            "lineNumber": 209,
+            "content": "          </a>"
+          },
+          {
+            "lineNumber": 210,
+            "content": "        </Alert>"
+          },
+          {
+            "lineNumber": 211,
+            "content": "      )}"
+          }
+        ]
+      },
+      {
+        "filename": "public/locales/en-US/grafana.json",
+        "additions": [
+          {
+            "lineNumber": 1254,
+            "content": "  \"expressions.reduce.strictmode-notification.title\": \"InfluxQL Strict Mode Behavior\","
+          },
+          {
+            "lineNumber": 1255,
+            "content": "  \"expressions.reduce.strictmode-notification.message\": \"When using Strict Mode with InfluxQL queries, fill(null) will result in NaN values. See the documentation for more details.\","
+          }
+        ]
+      },
+      {
+        "filename": "public/app/plugins/panel/expressions/components/__tests__/Reduce.test.tsx",
+        "additions": [
+          {
+            "lineNumber": 87,
+            "content": "  describe('Strict Mode notification', () => {"
+          },
+          {
+            "lineNumber": 88,
+            "content": "    it('should display notification when strict mode is enabled', () => {"
+          },
+          {
+            "lineNumber": 89,
+            "content": "      const wrapper = setup({ initialValues: { mode: 'strict' } });"
+          },
+          {
+            "lineNumber": 90,
+            "content": "      expect(wrapper.find('Alert').exists()).toBe(true);"
+          },
+          {
+            "lineNumber": 91,
+            "content": "      expect(wrapper.find('Alert').prop('severity')).toBe('info');"
+          },
+          {
+            "lineNumber": 92,
+            "content": "    });"
+          },
+          {
+            "lineNumber": 93,
+            "content": ""
+          },
+          {
+            "lineNumber": 94,
+            "content": "    it('should not display notification when strict mode is disabled', () => {"
+          },
+          {
+            "lineNumber": 95,
+            "content": "      const wrapper = setup({ initialValues: { mode: 'dropNN' } });"
+          },
+          {
+            "lineNumber": 96,
+            "content": "      expect(wrapper.find('Alert').exists()).toBe(false);"
+          },
+          {
+            "lineNumber": 97,
+            "content": "    });"
+          },
+          {
+            "lineNumber": 98,
+            "content": "  });"
+          }
+        ]
+      },
+      {
+        "filename": "docs/sources/fundamentals/query-expressions/index.md",
+        "additions": [
+          {
+            "lineNumber": 156,
+            "content": "#### Strict Mode with InfluxQL"
+          },
+          {
+            "lineNumber": 157,
+            "content": ""
+          },
+          {
+            "lineNumber": 158,
+            "content": "When using the Reduce expression with InfluxQL queries and Strict Mode enabled, be aware that the `fill(null)` function will result in NaN values. The component will display a notification when this mode is active to help you understand this behavior."
+          }
+        ]
+      }
+    ]
+  }

@@ -1,0 +1,13 @@
+Comparison,Variable,Variable Column,Method,Correlation (rho),P-value,N
+Original vs Improved_Original,SE Satisfaction Score,overall_se_satisfaction_score,Spearman,0.124,0.490,33
+Original vs Improved_Original,Other Satisfaction Score,overall_other_satisfaction_score,Spearman,0.095,0.594,34
+Original vs Improved_Original,Experience (Numeric),experience_numeric,Spearman,0.184,0.270,38
+Degraded vs Improved_Degraded,SE Satisfaction Score,overall_se_satisfaction_score,Spearman,-0.067,0.710,33
+Degraded vs Improved_Degraded,Other Satisfaction Score,overall_other_satisfaction_score,Spearman,-0.021,0.907,34
+Degraded vs Improved_Degraded,Experience (Numeric),experience_numeric,Spearman,-0.037,0.827,38
+Improved_Degraded vs Improved_Original,SE Satisfaction Score,overall_se_satisfaction_score,Spearman,0.025,0.890,33
+Improved_Degraded vs Improved_Original,Other Satisfaction Score,overall_other_satisfaction_score,Spearman,0.308,0.076,34
+Improved_Degraded vs Improved_Original,Experience (Numeric),experience_numeric,Spearman,-0.236,0.154,38
+Original vs Degraded,SE Satisfaction Score,overall_se_satisfaction_score,Spearman,-0.181,0.314,33
+Original vs Degraded,Other Satisfaction Score,overall_other_satisfaction_score,Spearman,-0.183,0.301,34
+Original vs Degraded,Experience (Numeric),experience_numeric,Spearman,-0.046,0.785,38

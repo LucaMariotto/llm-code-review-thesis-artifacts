@@ -1,0 +1,13 @@
+Comparison,Variable,Variable Column,H-statistic,P-value,Significance,Groups Compared,Group Details
+Original vs Improved_Original,SE Satisfaction Score,overall_se_satisfaction_score,3.075,0.215,ns,3,'Original' (N=9); 'Neither' (N=7); 'Improved_Original' (N=17)
+Original vs Improved_Original,Other Satisfaction Score,overall_other_satisfaction_score,0.428,0.807,ns,3,'Original' (N=8); 'Neither' (N=7); 'Improved_Original' (N=19)
+Original vs Improved_Original,Experience (Numeric),experience_numeric,1.686,0.431,ns,3,'Original' (N=11); 'Neither' (N=7); 'Improved_Original' (N=20)
+Degraded vs Improved_Degraded,SE Satisfaction Score,overall_se_satisfaction_score,0.337,0.845,ns,3,'Degraded' (N=7); 'Neither' (N=4); 'Improved_Degraded' (N=22)
+Degraded vs Improved_Degraded,Other Satisfaction Score,overall_other_satisfaction_score,0.016,0.992,ns,3,'Degraded' (N=8); 'Neither' (N=4); 'Improved_Degraded' (N=22)
+Degraded vs Improved_Degraded,Experience (Numeric),experience_numeric,0.068,0.966,ns,3,'Degraded' (N=11); 'Neither' (N=4); 'Improved_Degraded' (N=23)
+Improved_Degraded vs Improved_Original,SE Satisfaction Score,overall_se_satisfaction_score,0.097,0.953,ns,3,'Improved_Degraded' (N=8); 'Neither' (N=7); 'Improved_Original' (N=18)
+Improved_Degraded vs Improved_Original,Other Satisfaction Score,overall_other_satisfaction_score,3.399,0.183,ns,3,'Improved_Degraded' (N=9); 'Neither' (N=7); 'Improved_Original' (N=18)
+Improved_Degraded vs Improved_Original,Experience (Numeric),experience_numeric,2.472,0.290,ns,3,'Improved_Degraded' (N=11); 'Neither' (N=7); 'Improved_Original' (N=20)
+Original vs Degraded,SE Satisfaction Score,overall_se_satisfaction_score,1.252,0.535,ns,3,'Original' (N=14); 'Neither' (N=5); 'Degraded' (N=14)
+Original vs Degraded,Other Satisfaction Score,overall_other_satisfaction_score,2.016,0.365,ns,3,'Original' (N=14); 'Neither' (N=6); 'Degraded' (N=14)
+Original vs Degraded,Experience (Numeric),experience_numeric,0.078,0.962,ns,3,'Original' (N=15); 'Neither' (N=7); 'Degraded' (N=16)

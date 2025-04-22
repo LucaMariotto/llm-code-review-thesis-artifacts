@@ -1,0 +1,143 @@
+{
+    "number": 57375,
+    "title": "Refactor tsserver",
+    "body": "<!--\r\nThank you for submitting a pull request!\r\n\r\nPlease verify that:\r\n* [ ] There is an associated issue in the `Backlog` milestone (**required**)\r\n* [ ] Code is up-to-date with the `main` branch\r\n* [ ] You've successfully run `hereby runtests` locally\r\n* [ ] There are new or updated unit tests validating the change\r\n\r\nRefer to CONTRIBUTING.MD for more details.\r\n  https://github.com/Microsoft/TypeScript/blob/main/CONTRIBUTING.md\r\n\r\n** Please don't send typo fixes! **\r\nPlease don't send a PR solely for the purpose of fixing a typo, unless that\r\ntypo truly hurts understanding of the text. Each PR represents work for the\r\nmaintainers, and that work should provide commensurate value.\r\n\r\nIf you're interested in sending a PR, the issue tracker has many issues marked `help wanted`.\r\n-->\r\n\r\nRefator #\r\n\r\nI'm making some changes to the tsserver code.\r\n\r\nI changed a function to use a different method.\r\n\r\nSee before and after:\r\n\r\n<img width=\"735\" alt=\"image\" src=\"https://github.com/microsoft/TypeScript/assets/20498649/af13fa8d-c538-4bf6-b8db-13aa6da0729c\">\r\n\r\nTO:\r\n\r\n<img width=\"672\" alt=\"image\" src=\"https://github.com/microsoft/TypeScript/assets/20498649/f9374809-9b43-4322-b3f7-955f9e8ee59d\">\r\n\r\nAlso, I improved some code.\r\n\r\nSee here:\r\n\r\n<img width=\"713\" alt=\"image\" src=\"https://github.com/microsoft/TypeScript/assets/20498649/a4f733de-3de9-4b00-afae-2897f73e8ef2\">\r\n\r\n<img width=\"869\" alt=\"image\" src=\"https://github.com/microsoft/TypeScript/assets/20498649/cbe7b2d6-7d7c-4483-a50b-2adfced63aea\">\r\n\r\nTO:\r\n\r\n<img width=\"669\" alt=\"image\" src=\"https://github.com/microsoft/TypeScript/assets/20498649/25886b5b-1f27-42fc-b10e-d0074f075472\">\r\n<img width=\"679\" alt=\"image\" src=\"https://github.com/microsoft/TypeScript/assets/20498649/a1711207-c76d-4d2e-baad-fd153bf65260\">\r\n\r\nLastly, I fixed a lint error by changing something.\r\n\r\nThis PR is related to an issue I opened.\r\n",
+    "state": "CLOSED",
+    "createdAt": "2024-02-11T20:24:59Z",
+    "closedAt": "2024-02-12T16:23:53Z",
+    "mergedAt": null,
+    "url": "https://github.com/microsoft/TypeScript/pull/57375",
+    "author": {
+      "login": "kevinuehara",
+      "url": "https://github.com/kevinuehara"
+    },
+    "comments": {
+      "totalCount": 4,
+      "nodes": [
+        {
+          "body": "This PR needs an issue linked. Do that.",
+          "author": {
+            "login": "typescript-bot",
+            "url": "https://github.com/typescript-bot"
+          },
+          "createdAt": "2024-02-11T20:25:04Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "@microsoft-github-policy-service agree",
+          "author": {
+            "login": "kevinuehara",
+            "url": "https://github.com/kevinuehara"
+          },
+          "createdAt": "2024-02-11T20:26:33Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Somenone help with CI step?",
+          "author": {
+            "login": "kevinuehara",
+            "url": "https://github.com/kevinuehara"
+          },
+          "createdAt": "2024-02-11T20:55:15Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "We got lots of issues to fix. Don’t send cleanup stuff like this.",
+          "author": {
+            "login": "RyanCavanaugh",
+            "url": "https://github.com/RyanCavanaugh"
+          },
+          "createdAt": "2024-02-12T16:23:54Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    },
+    "reviews": {
+      "totalCount": 3,
+      "nodes": [
+        {
+          "body": "",
+          "author": {
+            "login": "RyanCavanaugh",
+            "url": "https://github.com/RyanCavanaugh"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-02-12T16:18:58Z"
+        },
+        {
+          "body": "",
+          "author": {
+            "login": "RyanCavanaugh",
+            "url": "https://github.com/RyanCavanaugh"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-02-12T16:19:42Z"
+        },
+        {
+          "body": "",
+          "author": {
+            "login": "RyanCavanaugh",
+            "url": "https://github.com/RyanCavanaugh"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-02-12T16:20:43Z"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "totalCount": 3,
+      "nodes": [
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "This might not be efficient.",
+                "author": {
+                  "login": "RyanCavanaugh",
+                  "url": "https://github.com/RyanCavanaugh"
+                },
+                "createdAt": "2024-02-12T16:18:59Z"
+              }
+            ]
+          }
+        },
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "This doesn’t match our style.",
+                "author": {
+                  "login": "RyanCavanaugh",
+                  "url": "https://github.com/RyanCavanaugh"
+                },
+                "createdAt": "2024-02-12T16:19:42Z"
+              }
+            ]
+          }
+        },
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "This change isn’t needed.",
+                "author": {
+                  "login": "RyanCavanaugh",
+                  "url": "https://github.com/RyanCavanaugh"
+                },
+                "createdAt": "2024-02-12T16:20:43Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "filesChanged": []
+  }

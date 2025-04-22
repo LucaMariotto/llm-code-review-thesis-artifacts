@@ -1,0 +1,113 @@
+{
+    "number": 97224,
+    "title": "Expressions: Introduce notification for Strict Mode behavior in Reduce component to clarify InfluxQL fill(null) behavior",
+    "body": "**What is this feature?**\n\nThis PR introduces a notification in the Reduce component to inform users about the behavior of 'Strict Mode' when using InfluxQL's `fill(null)`, which results in `NaN`. The notification appears when 'Strict Mode' is enabled, providing immediate clarity and linking to relevant documentation.\n\n**Why do we need this feature?**\n\nUsers unfamiliar with 'Strict Mode' and InfluxQL's `fill(null)` behavior may find the `NaN` result confusing. This notification addresses that confusion by offering instant feedback and guidance, improving the overall user experience and reducing friction in query debugging.\n\n**Who is this feature for?**\n\nThis enhancement benefits Grafana users who utilize the Reduce component with 'Strict Mode' enabled, particularly those working with InfluxQL queries and who might be puzzled by the `NaN` results from `fill(null)`.\n\n**Which issue(s) does this PR fix?**\n\nFixes #79315\n\n**Implementation Details**\n\n- Added a `Notification` component in `src/components/Reduce.tsx`, conditionally rendered when 'Strict Mode' is selected.\n- Leveraged Grafana’s UI library (`@grafana/ui`) for the notification to ensure visual consistency and reusability.\n- Integrated internationalization (i18n) support with a new key in `public/locales/en-US/grafana.json` for the notification text.\n\n**Special notes for your reviewer:**\n\n- [ ] Verify that the notification displays correctly when 'Strict Mode' is enabled in the Reduce component.\n- [ ] Ensure the notification text is clear, concise, and helpful to users.\n- [ ] Confirm that the i18n key is properly added and the `make i18n-extract` command has been run successfully.\n- [ ] Check that this minor enhancement does not require a feature toggle (it’s not a pre-GA feature).\n- [ ] Confirm whether documentation updates or a 'What’s New' entry are needed (likely not, given the scope).\n- [ ] Review the attached screenshot for a visual preview of the notification.\n\n![GraphanaFix](https://github.com/user-attachments/assets/3b1cbc4f-2370-4eaa-b24c-4768cc8602d3)\n\nThank you for reviewing this PR! Your feedback is greatly appreciated.",
+    "state": "MERGED",
+    "createdAt": "2024-12-02T03:50:27Z",
+    "closedAt": "2024-12-29T11:58:21Z",
+    "mergedAt": "2024-12-29T11:58:21Z",
+    "url": "https://github.com/grafana/grafana/pull/97224",
+    "author": {
+      "login": "shubhankarunhale",
+      "url": "https://github.com/shubhankarunhale"
+    },
+    "comments": {
+      "totalCount": 1,
+      "nodes": [
+        {
+          "body": "[![CLA assistant check](https://cla-assistant.io/pull/badge/signed)](https://cla-assistant.io/grafana/grafana?pullRequest=97224) <br/>All committers have signed the CLA.",
+          "author": {
+            "login": "CLAassistant",
+            "url": "https://github.com/CLAassistant"
+          },
+          "createdAt": "2024-12-02T03:50:34Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    },
+    "reviews": {
+      "totalCount": 4,
+      "nodes": [
+        {
+          "body": "Great work on this feature! Just a quick note: the i18n check is failing because the key needs to be added to the translations file. Could you please add it to `public/locales/en-US/grafana.json`, run `make i18n-extract` to update the files, and commit the changes? Once that’s done, we should be all set!",
+          "author": {
+            "login": "itsmylife",
+            "url": "https://github.com/itsmylife"
+          },
+          "state": "CHANGES_REQUESTED",
+          "createdAt": "2024-12-23T21:54:47Z"
+        },
+        {
+          "body": "Thanks for the feedback! I’ve added the translation keys to `public/locales/en-US/grafana.json` and updated the files with `make i18n-extract`. There was a small issue with an incorrect rebase, which I’ve reverted. Everything should be in order now—could you please take another look? Appreciate your help!",
+          "author": {
+            "login": "shubhankarunhale",
+            "url": "https://github.com/shubhankarunhale"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-12-27T14:52:29Z"
+        },
+        {
+          "body": "Looks solid now—nice job resolving the i18n issue. Thank you!",
+          "author": {
+            "login": "itsmylife",
+            "url": "https://github.com/itsmylife"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-12-29T11:01:29Z"
+        },
+        {
+          "body": "🚀",
+          "author": {
+            "login": "itsmylife",
+            "url": "https://github.com/itsmylife"
+          },
+          "state": "APPROVED",
+          "createdAt": "2024-12-29T11:10:03Z"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "totalCount": 2,
+      "nodes": [
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "Great work on this feature! Just a quick note: the i18n check is failing because the key needs to be added to the translations file. Could you please add it to `public/locales/en-US/grafana.json`, run `make i18n-extract` to update the files, and commit the changes? Once that’s done, we should be all set!",
+                "author": {
+                  "login": "itsmylife",
+                  "url": "https://github.com/itsmylife"
+                },
+                "createdAt": "2024-12-23T21:54:48Z"
+              },
+              {
+                "body": "Thanks for the feedback! I’ve added the translation keys to `public/locales/en-US/grafana.json` and updated the files with `make i18n-extract`. There was a small issue with an incorrect rebase, which I’ve reverted. Everything should be in order now—could you please take another look? Appreciate your help!",
+                "author": {
+                  "login": "shubhankarunhale",
+                  "url": "https://github.com/shubhankarunhale"
+                },
+                "createdAt": "2024-12-27T14:52:29Z"
+              }
+            ]
+          }
+        },
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "Looks solid now—nice job resolving the i18n issue. Thank you!",
+                "author": {
+                  "login": "itsmylife",
+                  "url": "https://github.com/itsmylife"
+                },
+                "createdAt": "2024-12-29T11:01:29Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "filesChanged": []
+  }

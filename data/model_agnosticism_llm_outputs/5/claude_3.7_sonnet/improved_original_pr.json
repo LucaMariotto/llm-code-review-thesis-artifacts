@@ -1,0 +1,85 @@
+{
+    "number": 7142,
+    "title": "Fix curl command example for Windows PowerShell environments",
+    "body": "## Problem\nIn Windows PowerShell environments, `curl` is an alias (cmdlet) for `Invoke-WebRequest` with different behavior and flag support than the actual curl utility. The `-sO` flags used in our documentation don't work with PowerShell's cmdlet, causing confusion for Windows users.\r\n\r\n## Solution\nUpdate the documentation to use `curl.exe` instead of `curl` for the inbound agent example, ensuring Windows PowerShell users can successfully run the command without modification. Add explanatory notes to prevent future confusion.\r\n\r\n## Technical Context\nWindows 10 and newer include `curl.exe` by default. PowerShell users need to call it explicitly to bypass the `curl` alias.\r\n\r\nReference: [Microsoft Windows and curl](https://curl.se/windows/microsoft.html)\r\n\r\n### Proposed changelog entries\r\n\r\n- Fixed curl command example for inbound agent to work correctly in Windows PowerShell environments\r\n\r\n### Additional notes\r\n\r\n- Added explanatory note about PowerShell's curl alias to prevent user confusion\r\n- No API changes or backward compatibility concerns\r\n- This fix addresses a common user pain point reported in support channels\r\n\r\n### Submitter checklist\r\n\r\n- [x] Changelog entries and upgrade guidelines are appropriate for the audience affected by the change (users or developer, depending on the change) and are in the imperative mood. [Examples](https://github.com/jenkins-infra/jenkins.io/blob/master/content/_data/changelogs/weekly.yml)\r\n\r\n### Maintainer checklist\r\n\r\nBefore the changes are marked as `ready-for-merge`:\r\n\r\n- [x] There are at least 2 approvals for the pull request and no outstanding requests for change\r\n- [x] Conversations in the pull request are over OR it is explicit that a reviewer does not block the change\r\n- [x] Changelog entries in the PR title and/or `Proposed changelog entries` are accurate, human-readable, and in the imperative mood\r\n- [x] Proper changelog labels are set so that the changelog can be generated automatically\r\n- [x] If the change needs additional upgrade steps from users, `upgrade-guide-needed` label is set and there is a `Proposed upgrade guidelines` section in the PR title. ([example](https://github.com/jenkinsci/jenkins/pull/4387))\r\n- [x] If it would make sense to backport the change to LTS, a Jira issue must exist, be a _Bug_ or _Improvement_, and be labeled as `lts-candidate` to be considered (see [query](https://issues.jenkins.io/issues/?filter=12146)).\r\n\n\n<a href=\"https://gitpod.io/#https://github.com/jenkinsci/jenkins/pull/7142\"><img src=\"https://gitpod.io/button/open-in-gitpod.svg\"/></a>\n\n",
+    "state": "MERGED",
+    "createdAt": "2022-09-22T14:17:11Z",
+    "closedAt": "2022-09-23T15:13:12Z",
+    "mergedAt": "2022-09-23T15:13:12Z",
+    "url": "https://github.com/jenkinsci/jenkins/pull/7142",
+    "author": {
+      "login": "jjasghar",
+      "url": "https://github.com/jjasghar"
+    },
+    "comments": {
+      "totalCount": 6,
+      "nodes": [
+        {
+          "body": "I've updated the command example, but I'm considering adding a specific note about Windows environments. According to my research, Windows 10 and newer have `curl.exe` installed by default. Would a note explaining this difference help users troubleshoot similar issues?",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T15:04:08Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Good point about Windows environments. To clarify, this issue specifically affects PowerShell environments rather than all Windows command processors. The standard Windows command prompt (`cmd`) doesn't have this alias issue, so the original command works fine there.",
+          "author": {
+            "login": "MarkEWaite",
+            "url": "https://github.com/MarkEWaite"
+          },
+          "createdAt": "2022-09-22T15:10:37Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "I suggest adding this explanatory note to the documentation:\r\n\r\n> **Note:** If you are using PowerShell to run your remote agent, use `curl.exe` instead of `curl` due to PowerShell's default cmdlet alias. Without this change, the `-sO` flags will not work as expected.\r\n\r\nThis would have saved me considerable troubleshooting time. I spent hours trying to figure this out, and I suspect other users unfamiliar with Windows environments will encounter the same issue.",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T15:59:39Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "That's an excellent suggestion. The clarification is precise and will definitely help users avoid confusion. The quote from the curl documentation you linked is particularly relevant:\r\n\r\n> ## A PowerShell alias\r\n> \r\n> The curl tool comes installed in addition to the dreaded [curl alias](https://daniel.haxx.se/blog/2016/08/19/removing-the-powershell-curl-alias/) that plagues PowerShell users since it is an alias that runs the invoke-webrequest command and therefore isn't acting much like curl at all.\r\n> \r\n> A work-around is to invoke curl as \"curl.exe\" to prevent PowerShell from treating it as an alias.\r\n\r\nCould you incorporate this note into the PR? It provides excellent context that helps users understand not only how to fix the issue but why the fix works.",
+          "author": {
+            "login": "MarkEWaite",
+            "url": "https://github.com/MarkEWaite"
+          },
+          "createdAt": "2022-09-22T16:20:24Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "I've added the note using the appropriate admonition formatting for our documentation. Please let me know if the formatting needs any adjustments.",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T16:31:48Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "The changes look great! I've tested the command in both PowerShell and cmd environments to verify the solution works as expected. This will significantly improve the user experience for Windows users. Thanks for the thorough fix and clear documentation.",
+          "author": {
+            "login": "jjasghar",
+            "url": "https://github.com/jjasghar"
+          },
+          "createdAt": "2022-09-22T17:08:16Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    }
+  }

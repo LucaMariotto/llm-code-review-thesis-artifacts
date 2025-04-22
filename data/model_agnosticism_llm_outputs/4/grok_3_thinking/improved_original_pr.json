@@ -1,0 +1,71 @@
+{
+    "number": 57375,
+    "title": "Refactor TypeScript Server Code for Improved Maintainability and Performance",
+    "body": "This pull request addresses issue #57376 by refactoring parts of the TypeScript server code to enhance maintainability and performance.\n\n### Changes Made:\n\n1. **`nodeServer.ts`:**\n   - Optimized `functionName` by replacing the original switch statement with a `Map` data structure. This avoids object allocations on every call, improving performance by reducing memory overhead.\n   - Changed a type assertion from `null!` to `undefined` to resolve a lint error while preserving type safety.\n\n2. **`server.ts`:**\n   - Consolidated repeated validation logic into a reusable function, reducing code duplication and improving readability.\n\n### Rationale:\n\n- The switch statement replacement with a `Map` in `nodeServer.ts` provides constant-time lookups and eliminates the performance cost of object creation, making it a scalable solution as the codebase grows.\n- The type assertion adjustment ensures compliance with TypeScript's type system, preventing potential runtime issues.\n- The refactoring in `server.ts` adheres to the DRY (Don't Repeat Yourself) principle, simplifying future maintenance and reducing the risk of inconsistent validation logic.\n\n### Testing:\n\n- All existing unit tests in the `tsserver` suite pass.\n- Added new unit tests in `tests/cases/tsserver/` to verify the `Map`-based implementation in `nodeServer.ts` and the refactored validation logic in `server.ts`.\n\n### Notes:\n\n- These changes do not affect user-facing functionality, as they are confined to server-side logic.\n- The refactoring preserves the existing architectural patterns of the TypeScript server, ensuring consistency with the broader codebase.\n- For contributors: To troubleshoot CI failures (e.g., `CI / format`), run `hereby lint` locally and review the [contribution guidelines](https://github.com/Microsoft/TypeScript/blob/main/CONTRIBUTING.md).\n\n### Related Issue:\n\n- [Issue #57376](https://github.com/microsoft/TypeScript/issues/57376)",
+    "state": "OPEN",
+    "createdAt": "2024-02-11T20:24:59Z",
+    "closedAt": null,
+    "mergedAt": null,
+    "url": "https://github.com/microsoft/TypeScript/pull/57375",
+    "author": {
+      "login": "kevinuehara",
+      "url": "https://github.com/kevinuehara"
+    },
+    "comments": {
+      "totalCount": 2,
+      "nodes": [
+        {
+          "body": "This PR addresses issue #57376. I've refactored `nodeServer.ts` and `server.ts` to improve performance and maintainability. Please review the changes and let me know your feedback!",
+          "author": {
+            "login": "kevinuehara",
+            "url": "https://github.com/kevinuehara"
+          },
+          "createdAt": "2024-02-11T20:25:04Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "I've addressed the CI formatting issue by running `hereby lint` locally and updated the code accordingly. Could someone confirm if the `CI / format` step is now passing? Thanks!",
+          "author": {
+            "login": "kevinuehara",
+            "url": "https://github.com/kevinuehara"
+          },
+          "createdAt": "2024-02-11T20:55:15Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    },
+    "reviews": {
+      "totalCount": 0,
+      "nodes": []
+    },
+    "reviewThreads": {
+      "totalCount": 0,
+      "nodes": []
+    },
+    "filesChanged": [
+      {
+        "filename": "src/tsserver/nodeServer.ts",
+        "additions": 12,
+        "deletions": 8
+      },
+      {
+        "filename": "src/tsserver/server.ts",
+        "additions": 10,
+        "deletions": 15
+      },
+      {
+        "filename": "tests/cases/tsserver/functionNameTests.ts",
+        "additions": 20,
+        "deletions": 0
+      },
+      {
+        "filename": "tests/cases/tsserver/validationTests.ts",
+        "additions": 15,
+        "deletions": 0
+      }
+    ]
+  }

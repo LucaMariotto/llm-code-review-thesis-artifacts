@@ -1,0 +1,203 @@
+{
+    "number": 73144,
+    "title": "Replaced OpenXR operating system alert dialog with a warning log message",
+    "body": "Fixes #73141\r\n\r\nThis pull request addresses an issue where an intrusive operating system alert dialog would appear when OpenXR failed to initialize (e.g., due to SteamVR not running or an HMD being disconnected). This has been replaced with a **WARN** log message, providing a less disruptive experience, particularly during development.\r\n\r\nA new project setting, **Startup Alert** (defaulting to true), has been introduced to allow users with XR-only devices to retain the alert dialog functionality if desired. This setting provides flexibility for different user needs.\r\n\r\n### Rationale\r\n\r\nThe previous alert dialog presented several drawbacks:\r\n\r\n- It significantly interrupted the development workflow by causing delays on project startup.\r\n- It required manual dismissal on every run, making iterative adjustments cumbersome.\r\n- It differed in behavior from other OpenXR failure scenarios, which typically result in log messages.\r\n\r\nThe implemented solution offers several advantages:\r\n\r\n- The warning message is displayed in the Editor's **Errors** tab and the Console output, aligning with existing engine behavior for similar issues.\r\n- The code impact is minimal, utilizing existing logging mechanisms.\r\n\r\n### User Experience Considerations\r\n\r\nThis change aims to improve the initial experience for developers, especially those who frequently switch between VR and non-VR workflows. By default, the alert remains enabled to inform users on XR-only setups about potential issues. The new project setting allows customization based on individual user preferences and hardware configurations.\r\n\r\n### Alternatives Considered\r\n\r\nDisabling OpenXR in project settings was considered, but this requires an editor restart, which is also disruptive. Similarly, ensuring an OpenXR runtime is always active is not always practical during development.\r\n\r\n### Visual Evidence\r\n\r\nScreenshots demonstrating the warning message in the console and the **Errors** tab are attached below.\r\n\r\n![log_example](https://user-images.githubusercontent.com/2136005/218293226-52fc619c-b0c1-4436-99a9-3d86a8455571.png)\r\n![openxr_errors_tab_example](https://user-images.githubusercontent.com/2136005/218293237-d8533245-1b0b-4343-9946-c538d8b82938.png)\r\n\r\n![image](https://user-images.githubusercontent.com/2136005/218386058-c4ad31ad-5b7d-410b-a65e-d6f352d92ed2.png)\r\n",
+    "state": "MERGED",
+    "createdAt": "2023-02-12T04:35:58Z",
+    "closedAt": "2023-03-15T13:07:05Z",
+    "mergedAt": "2023-03-15T13:07:05Z",
+    "url": "https://github.com/godotengine/godot/pull/73144",
+    "author": {
+      "login": "chutchinson",
+      "url": "https://github.com/chutchinson"
+    },
+    "comments": {
+      "totalCount": 9,
+      "nodes": [
+        {
+          "body": "An additional benefit observed is a reduction in project startup time on some systems, likely due to the elimination of the synchronous alert dialog. While the exact cause requires further investigation, this improvement contributes to a smoother development experience.",
+          "author": {
+            "login": "chutchinson",
+            "url": "https://github.com/chutchinson"
+          },
+          "createdAt": "2023-02-12T04:50:30Z",
+          "reactions": {
+            "nodes": [
+              {
+                "content": "THUMBS_UP"
+              }
+            ]
+          }
+        },
+        {
+          "body": "This change aligns with our usability guidelines, as it prevents a non-critical OpenXR failure from halting the editor's startup process.",
+          "author": {
+            "login": "fire",
+            "url": "https://github.com/fire"
+          },
+          "createdAt": "2023-02-12T05:03:19Z",
+          "reactions": {
+            "nodes":[]
+          }
+        },
+        {
+          "body": "> This change aligns with our usability guidelines, as it prevents a non-critical OpenXR failure from halting the editor's startup process.\r\n\r\nWhile generally supportive, it's important to consider that on XR-only devices, the user might not realize OpenXR has failed if only a log message is shown, potentially leading to a black screen. Therefore, the introduction of a project setting (defaulting to the alert) seems like a good compromise to address both development convenience and the needs of XR-only users.",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "createdAt": "2023-02-12T08:15:45Z",
+          "reactions": {
+            "nodes":[]
+          }
+        },
+        {
+          "body": "@BastiaanOlij Thanks for raising that point. I've implemented a project setting called **Startup Alert** (found under the XR settings) which controls the display of the alert modal on startup. It defaults to true. The warning message will still be printed regardless of this setting. Should this warning be elevated to an error? Given that it indicates a \"failure\", it might be appropriate.",
+          "author": {
+            "login": "chutchinson",
+            "url": "https://github.com/chutchinson"
+          },
+          "createdAt": "2023-02-13T06:25:27Z",
+          "reactions": {
+            "nodes":[]
+          }
+        },
+        {
+          "body": "The current implementation with the project setting and the warning message seems like a well-balanced solution. Thanks!",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "createdAt": "2023-02-13T08:47:17Z",
+          "reactions": {
+            "nodes":[]
+          }
+        },
+        {
+          "body": "This looks good for merging.",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "createdAt": "2023-03-15T02:53:22Z",
+          "reactions": {
+            "nodes": [
+              {
+                "content": "LAUGH"
+              }
+            ]
+          }
+        },
+        {
+          "body": "Thank you for this contribution!",
+          "author": {
+            "login": "YuriSizov",
+            "url": "https://github.com/YuriSizov"
+          },
+          "createdAt": "2023-03-15T13:07:18Z",
+          "reactions": {
+            "nodes":[]
+          }
+        },
+        {
+          "body": "This has been backported to the 4.0.2 release branch.",
+          "author": {
+            "login": "YuriSizov",
+            "url": "https://github.com/YuriSizov"
+          },
+          "createdAt": "2023-03-30T17:29:16Z",
+          "reactions": {
+            "nodes":[]
+          }
+        },
+        {
+          "body": "It appears the email address used for the commits is not associated with your GitHub account. Please ensure your commit author identity is correctly configured to receive contribution credit.\r\n\r\n```\r\nChris Hutchinson <chutchinson@dynics.com>\r\n```",
+          "author": {
+            "login": "YuriSizov",
+            "url": "https://github.com/YuriSizov"
+          },
+          "createdAt": "2023-03-30T17:32:42Z",
+          "reactions": {
+            "nodes":[]
+          }
+        }
+      ]
+    },
+    "reviews": {
+      "totalCount": 4,
+      "nodes": [
+        {
+          "body": "",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "state": "APPROVED",
+          "createdAt": "2023-02-13T08:46:31Z"
+        },
+        {
+          "body": "",
+          "author": {
+            "login": "m4gr3d",
+            "url": "https://github.com/m4gr3d"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2023-02-14T17:13:12Z"
+        },
+        {
+          "body": "",
+          "author": {
+            "login": "akien-mga",
+            "url": "https://github.com/akien-mga"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2023-02-14T17:20:34Z"
+        },
+        {
+          "body": "",
+          "author": {
+            "login": "BastiaanOlij",
+            "url": "https://github.com/BastiaanOlij"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2023-03-15T02:53:10Z"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "totalCount": 1,
+      "nodes": [
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "Consider wrapping the new warning message within the engine's translation system (e.g., using `TTR(\"...\")`) to ensure it can be localized.",
+                "author": {
+                  "login": "m4gr3d",
+                  "url": "https://github.com/m4gr3d"
+                },
+                "createdAt": "2023-02-14T17:13:12Z"
+              },
+              {
+                "body": "Regarding translation, while `TTR()` is generally used, for error messages like this, it's often preferable to keep them in English. This aids in searchability for users encountering the issue, allowing them to easily find relevant documentation, forum discussions, and bug reports that mention the specific error text.",
+                "author": {
+                  "login": "akien-mga",
+                  "url": "https://github.com/akien-mga"
+                },
+                "createdAt": "2023-02-14T17:20:34Z"
+              },
+              {
+                "body": "Agreed. Keeping it in English for better searchability makes sense in this context.",
+                "author": {
+                  "login": "BastiaanOlij",
+                  "url": "https://github.com/BastiaanOlij"
+                },
+                "createdAt": "2023-03-15T02:53:10Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "filesChanged":[]
+  }

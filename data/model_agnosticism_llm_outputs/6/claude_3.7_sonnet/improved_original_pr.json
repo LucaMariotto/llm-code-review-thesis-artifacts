@@ -1,0 +1,154 @@
+{
+    "number": 14778,
+    "title": "KAFKA-15776: Introduce remote.fetch.max.timeout.ms to configure DelayedRemoteFetch timeout",
+    "body": "## Summary\nImplements [KIP-1018](https://cwiki.apache.org/confluence/display/KAFKA/KIP-1018%3A+Introduce+max+remote+fetch+timeout+config+for+DelayedRemoteFetch+requests) to address remote fetch timeouts in tiered storage scenarios.\n\n## Problem Statement\nWhen fetching data from tiered storage, the broker may need to wait longer than the standard `fetch.max.wait.ms` to retrieve data from remote storage. Currently, we use a fixed server request timeout, which can cause unexpected behavior for clients and potentially impact performance under varying network conditions.\n\n## Solution\nThis PR introduces a new configuration parameter `remote.fetch.max.timeout.ms` that allows administrators to configure the maximum time a DelayedRemoteFetch request can wait before timing out. This provides flexibility for environments with varying remote storage latency characteristics.\n\n## Compatibility Impact\n- Backward compatibility is maintained as existing configurations continue to work\n- Client behavior remains predictable with clear timeout boundaries\n- No user-visible API changes\n\n## Usage Example\n```properties\n# Configure remote fetch timeout to 15 seconds\nremote.fetch.max.timeout.ms=15000\n```\n\n## Testing\n- Verified with existing unit and integration tests\n- Added specific tests to validate timeout behavior\n- Tested with simulated network latency to ensure proper behavior\n\n### Committer Checklist (excluded from commit message)\n- [ ] Verify design and implementation \n- [ ] Verify test coverage and CI build status\n- [ ] Verify documentation (including upgrade notes)\n",
+    "state": "MERGED",
+    "createdAt": "2023-11-16T10:00:29Z",
+    "closedAt": "2024-06-05T06:42:23Z",
+    "mergedAt": "2024-06-05T06:42:23Z",
+    "url": "https://github.com/apache/kafka/pull/14778",
+    "author": {
+      "login": "kamalcph",
+      "url": "https://github.com/kamalcph"
+    },
+    "comments": {
+      "totalCount": 8,
+      "nodes": [
+        {
+          "body": "Could you please help me understand how this change works with `fetch.max.wait.ms` from a user perspective i.e. what happens when we are retrieving data from both local & remote in a single fetch call?\r\n\r\nAlso, wouldn't this change user clients? Asking because prior to this change users were expecting a guaranteed response within `fetch.max.wait.ms` = 500ms but now they might not receive a response until 40s `request.timeout.ms`. If the user has configured their application timeouts to according to `fetch.max.wait.ms`, this change will break my application. ",
+          "author": {
+            "login": "divijvaidya",
+            "url": "https://github.com/divijvaidya"
+          },
+          "createdAt": "2023-11-18T18:43:43Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Great questions @divijvaidya, let me clarify:\n\n> Could you please help me understand how this change works with fetch.max.wait.ms from a user perspective i.e. what happens when we are retrieving data from both local & remote in a single fetch call?\n\nWhen data is requested from both local and remote storage in a single fetch call:\n\n1. `fetch.max.wait.ms` continues to apply for local data fetches as before (when there isn't enough data to satisfy `fetch.min.bytes`)\n2. For remote fetches, the new `remote.fetch.max.timeout.ms` parameter provides a separate timeout boundary\n3. This separation allows optimizing for both local fetch latency and remote storage latency independently\n\nThe client still receives data as soon as it's available, with appropriate timeouts applied to each storage tier.\n\n> Also, wouldn't this change user clients? Asking because prior to this change users were expecting a guaranteed response within fetch.max.wait.ms = 500ms but now they might not receive a response until 40s request.timeout.ms.\n\nThis change doesn't break the existing client contract. `fetch.max.wait.ms` has never guaranteed a response within that exact timeframe - it only specifies how long the broker should wait for new data when not enough data is available. The actual response time depends on various factors including disk I/O speed.\n\nWith this change:\n- If no remote data is found, clients still get responses within the expected timeframe\n- If remote data is available but taking longer to retrieve, the broker can wait up to `remote.fetch.max.timeout.ms` before responding\n- Clients continue to use `request.timeout.ms` for their overall request expiration\n\nWe've designed this to maintain backward compatibility while providing better control over remote storage timeouts. Default values are chosen to preserve existing behavior.",
+          "author": {
+            "login": "kamalcph",
+            "url": "https://github.com/kamalcph"
+          },
+          "createdAt": "2023-11-20T06:15:41Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Thanks for the explanation. I see the motivation, but I have a concern about using the server default request timeout as it could affect the predictability of the fetch protocol. \n\nFrom a consistency standpoint, having a dedicated configuration for remote fetch timeouts would make the behavior more explicit to users rather than repurposing the existing timeout. This would help operators distinguish between local and remote storage latency expectations.\n\nWhile remote storage does blur the line between \"data exists\" and \"waiting for data,\" ensuring consistent and documented behavior will help users configure their systems appropriately.",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "createdAt": "2023-11-21T09:59:58Z",
+          "reactions": {
+            "nodes": [
+              {
+                "content": "THUMBS_UP"
+              }
+            ]
+          }
+        },
+        {
+          "body": "This PR is being marked as stale since it has not had any activity in 90 days. If you would like to keep this PR alive, please ask a committer for review. If the PR has  merge conflicts, please update it with the latest from trunk (or appropriate release branch) <p> If this PR is no longer valid or desired, please feel free to close it. If no activity occurs in the next 30 days, it will be automatically closed.",
+          "author": {
+            "login": "github-actions",
+            "url": "https://github.com/apps/github-actions"
+          },
+          "createdAt": "2024-02-20T03:33:13Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "I need to clarify my earlier comment:\n\n> some users might feel surprised when their fetch doesn't respond in fetch.max.wait.ms time.\n\nThis is incorrect. Even when remote reading is still in progress, the fetch request will return within `fetch.max.wait.ms` with whatever data is available at that time. If remote data isn't yet available, the response may contain only local data or be empty.",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "createdAt": "2024-04-12T10:09:56Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "@showuon @clolov @jeqo \n\nThe implementation is ready for review. I've incorporated the feedback to add a dedicated config parameter `remote.fetch.max.timeout.ms` instead of repurposing the request timeout.\n\nAs discussed, I'll open a separate PR to implement the `FetchRateAndTimeMs` metric for RemoteLogReader to provide better observability into remote fetch performance.",
+          "author": {
+            "login": "kamalcph",
+            "url": "https://github.com/kamalcph"
+          },
+          "createdAt": "2024-06-04T10:21:51Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "@kamalcph I suggest we move the dynamic config change implementation into a separate PR. I have some specific comments about that aspect, but they're independent from the core functionality changes in this PR.",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "createdAt": "2024-06-05T00:00:35Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "CI test failures are unrelated to this PR and can be ignored.",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "createdAt": "2024-06-05T06:40:54Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    },
+    "reviews": {
+      "totalCount": 2,
+      "nodes": [
+        {
+          "body": "The implementation looks good! I've added a minor documentation suggestion in the comments.",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-06-04T11:23:52Z"
+        },
+        {
+          "body": "All my concerns have been addressed. The implementation properly separates remote fetch timeout configuration from local fetch timeouts, maintains backward compatibility, and provides clear documentation. Approved!",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "state": "APPROVED",
+          "createdAt": "2024-06-05T02:18:00Z"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "totalCount": 1,
+      "nodes": [
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "In the configuration documentation, we should clarify that `fetch.max.wait.ms` is used exclusively for local log fetches, and add a cross-reference: \"To configure the maximum wait time for remote storage fetches, see the `remote.fetch.max.timeout.ms` configuration parameter.\" This will help users understand the relationship between these two settings and choose appropriate values for their environment.",
+                "author": {
+                  "login": "showuon",
+                  "url": "https://github.com/showuon"
+                },
+                "createdAt": "2024-06-04T11:23:52Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "filesChanged": []
+  }

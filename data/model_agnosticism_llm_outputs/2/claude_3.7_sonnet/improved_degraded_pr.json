@@ -1,0 +1,115 @@
+{
+    "number": 69259,
+    "title": "Dashboards: Improve data source template variable selection by using UID instead of name",
+    "body": "## Summary\n\nThis PR enhances dashboard data source selection by allowing template variables to use the data source's unique ID (UID) rather than its name. This enables more reliable dashboard provisioning across different environments and provides better control over default data source selection.\n\n## Changes\n\n- Modified template variable options for data sources to use UID as the value property\n- Implemented backward compatibility to maintain support for existing dashboards\n- Added new `:text` format specifier to explicitly request the data source name\n- Added comprehensive tests for both the new and legacy behaviors\n\n## Motivation\n\nWhen dashboards and data sources are provisioned across multiple environments (especially in cloud deployments), names can vary while UIDs remain consistent. This change enables more reliable cross-environment dashboard compatibility by:\n\n1. Ensuring consistent data source selection across instances regardless of naming conventions\n2. Providing a deterministic way to select specific data sources rather than relying on alphabetical order\n3. Supporting infrastructure-as-code and GitOps workflows for Grafana deployments\n\n## User Impact\n\nThis change introduces a modification to variable interpolation behavior that requires attention:\n\n- Existing dashboards will continue to work as the code handles both formats\n- For new dashboards, the default interpolation now uses the UID instead of the name\n- Users can explicitly request the name using the `:text` format specifier\n\n## Breaking Change Details\n\nData source template variables now use the UID for the value property instead of the name. This affects interpolation in the following scenarios:\n\n```\n${dsVar}         → Now returns the UID (previously returned the name)\n${dsVar:text}    → Returns the name (new format specifier)\n${dsVar:raw}     → Returns the UID (behavior unchanged)\n```\n\nAffected use cases include:\n1. Text/markdown panels that display data source information\n2. Queries that incorporate the data source variable\n3. Custom panels or plugins that expect the variable to contain the name\n\nThe data source picker UI remains unaffected by this change.\n\n## Testing and Documentation\n\n- Added unit tests for both the new behavior and backward compatibility\n- Updated relevant documentation to reflect the changes in variable interpolation\n- Verified compatibility with existing dashboards in various environments\n\n## Implementation Notes\n\nThe implementation leverages the existing `value` property in the option structure, which was previously not fully utilized. This approach minimizes code changes while enabling the enhanced functionality.",
+    "state": "MERGED",
+    "createdAt": "2023-05-30T15:24:59Z",
+    "closedAt": "2023-06-12T08:05:51Z",
+    "mergedAt": "2023-06-12T08:05:51Z",
+    "url": "https://github.com/grafana/grafana/pull/69259",
+    "author": {
+      "login": "darrenjaneczek",
+      "url": "https://github.com/darrenjaneczek"
+    },
+    "comments": {
+      "totalCount": 7,
+      "nodes": [
+        {
+          "body": "@darrenjaneczek This is a valuable change that addresses a key pain point in multi-environment deployments. I do have some concerns about backwards compatibility though. Since this changes the output of `${dsVar}` interpolation, we should carefully document this as a breaking change and consider providing migration guidance for users. Could you elaborate on how existing dashboards will handle this transition?",
+          "author": {
+            "login": "dprokop",
+            "url": "https://github.com/dprokop"
+          },
+          "createdAt": "2023-05-31T08:43:09Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "@dprokop\n\nI agree this change addresses an important use case, especially for our enterprise and cloud customers. We should definitely highlight this as a breaking change in the release notes, but with clear migration steps. \n\nThe `:text` specifier is a good addition that provides an explicit way to maintain backward compatibility where needed. Would it be worth considering a configuration option to maintain legacy behavior during a transition period?",
+          "author": {
+            "login": "torkelo",
+            "url": "https://github.com/torkelo"
+          },
+          "createdAt": "2023-05-31T08:46:15Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "@darrenjaneczek Given the nature of this breaking change, I think we should target a major or minor release rather than a patch version. Could we move this from 9.5.x to 10.0.x or at least ensure it's properly highlighted in our upgrade guide? This would give users adequate time to prepare for the change.",
+          "author": {
+            "login": "dprokop",
+            "url": "https://github.com/dprokop"
+          },
+          "createdAt": "2023-05-31T10:19:49Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "> Given the nature of this breaking change, I think we should target a major or minor release rather than a patch version.\n\n@dprokop I checked with the release team, and you're right - this should be targeted at a more appropriate release. Would 10.1.x be suitable, or do you think we should aim for 10.0.x to align with the major version change?",
+          "author": {
+            "login": "darrenjaneczek",
+            "url": "https://github.com/darrenjaneczek"
+          },
+          "createdAt": "2023-05-31T13:56:00Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "> Thanks for the feedback about the `:text` specifier.\n\nI've implemented comprehensive tests for both the `:text` format and the legacy behavior to ensure proper backward compatibility. The tests verify that:\n\n1. New dashboards correctly use the UID for default interpolation\n2. The `:text` format correctly returns the name for all cases\n3. Existing dashboards with variables that expect names continue to work properly\n\nWould you like me to add any additional test scenarios?",
+          "author": {
+            "login": "darrenjaneczek",
+            "url": "https://github.com/darrenjaneczek"
+          },
+          "createdAt": "2023-05-31T14:07:02Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "> Regarding the release version and potential impact.\n\nI think 10.1.x is appropriate for this change. It's significant enough to warrant careful planning but doesn't need to block the 10.0 release. I suggest we enhance the breaking change documentation to include specific examples of affected use cases (markdown panels, query interpolation, etc.) and provide a migration guide in the documentation. This will help users understand exactly what might break and how to address it.",
+          "author": {
+            "login": "ivanortegaalba",
+            "url": "https://github.com/ivanortegaalba"
+          },
+          "createdAt": "2023-05-31T16:05:31Z",
+          "reactions": {
+            "nodes": []
+          }
+        },
+        {
+          "body": "Thank you all for the thoughtful feedback.\n\nI've made the following updates:\n- Changed milestone to 10.1.x as suggested\n- Enhanced the breaking change notice with detailed examples\n- Added documentation explaining migration paths for different use cases\n- Expanded test coverage to include edge cases and various interpolation scenarios\n\nThe implementation now handles both formats seamlessly to minimize disruption, while providing clear guidance for users who need to update their dashboards.",
+          "author": {
+            "login": "darrenjaneczek",
+            "url": "https://github.com/darrenjaneczek"
+          },
+          "createdAt": "2023-05-31T16:16:35Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    },
+    "reviews": {
+      "totalCount": 1,
+      "nodes": [
+        {
+          "body": "This PR implements a significant improvement for multi-environment dashboard provisioning by using UIDs for data source template variables. The implementation is clean and maintains backwards compatibility while properly documenting the breaking changes. The test coverage is comprehensive and addresses both new and legacy behaviors. The migration path via the `:text` format specifier is well-designed and provides a clear upgrade path for users.",
+          "author": {
+            "login": "dprokop",
+            "url": "https://github.com/dprokop"
+          },
+          "state": "APPROVED",
+          "createdAt": "2023-06-02T07:55:24Z"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "totalCount": 0,
+      "nodes": []
+    },
+    "filesChanged": []
+  }

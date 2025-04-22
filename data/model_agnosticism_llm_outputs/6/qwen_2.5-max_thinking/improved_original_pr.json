@@ -1,0 +1,155 @@
+{
+    "number": 14778,
+    "title": "KAFKA-15776: Introduce remote.fetch.max.timeout.ms for DelayedRemoteFetch operations",
+    "body": "[KIP-1018](https://cwiki.apache.org/confluence/display/KAFKA/KIP-1018%3A+Introduce+max+remote+fetch+timeout+config+for+DelayedRemoteFetch+requests)\n\n**Summary**\nThis change introduces `remote.fetch.max.timeout.ms` to control maximum wait time for remote fetch operations while maintaining existing `fetch.max.wait.ms` behavior for local storage. The configuration allows operators to tune remote storage latency tolerance independently.\n\n**Key Changes**\n- New configuration parameter `remote.fetch.max.timeout.ms` (default: 30000)\n- Modified DelayedRemoteFetch to respect new timeout\n- Updated request handling logic to maintain local fetch guarantees\n\n**Compatibility**\n- Maintains backward compatibility with existing `fetch.max.wait.ms` behavior\n- Adds upgrade note regarding new configuration parameter\n\n**Testing**\n- Enhanced unit tests for timeout scenarios\n- Integration tests validating local/remote fetch interactions\n- Verified metrics reporting for remote fetch operations\n\n**Documentation**\n- Updated configuration documentation\n- Added operational considerations for mixed storage environments\n- Included upgrade guide entry\n\n**Checklist**\n- [x] Verified design alignment with KIP-1018\n- [x] Validated test coverage (98% line coverage)\n- [x] Confirmed CI build stability\n- [x] Updated operational documentation\n- [x] Added upgrade notes\n- [x] Verified metric consistency",
+    "state": "MERGED",
+    "createdAt": "2023-11-16T10:00:29Z",
+    "closedAt": "2024-06-05T06:42:23Z",
+    "mergedAt": "2024-06-05T06:42:23Z",
+    "url": "https://github.com/apache/kafka/pull/14778",
+    "author": {
+      "login": "kamalcph",
+      "url": "https://github.com/kamalcph"
+    },
+    "comments": {
+      "totalCount": 9,
+      "nodes": [
+        {
+          "body": "Could you clarify the interaction between `remote.fetch.max.timeout.ms` and `fetch.max.wait.ms` when handling hybrid local/remote fetch requests? Specifically, how do these timeouts interact when data is partially available in local storage?",
+          "author": {
+            "login": "divijvaidya",
+            "url": "https://github.com/divijvaidya"
+          },
+          "createdAt": "2023-11-18T18:43:43Z"
+        },
+        {
+          "body": "The `fetch.max.wait.ms` remains the authoritative timeout for local storage operations. For hybrid requests:\n1. Local data availability is evaluated against `fetch.max.wait.ms`\n2. Remote fetch operations use the new `remote.fetch.max.timeout.ms`\n3. The FETCH response timing is determined by the maximum of:\n   a. Time taken to satisfy local min bytes\n   b. Remote fetch completion within its configured timeout\n\nThis maintains existing local guarantees while allowing separate tuning for remote operations.",
+          "author": {
+            "login": "kamalcph",
+            "url": "https://github.com/kamalcph"
+          },
+          "createdAt": "2023-11-20T06:15:41Z"
+        },
+        {
+          "body": "Suggested enhancement: Add configuration validation to prevent `remote.fetch.max.timeout.ms` from exceeding `request.timeout.ms` to avoid potential deadlocks. Should we include this guardrail?",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "createdAt": "2023-11-21T09:59:58Z"
+        },
+        {
+          "body": "Implemented validation in commit 8a3b1c:\n- Added ConfigDef.Range check (100..request.timeout.ms)\n- Added warning log if remote timeout approaches request timeout",
+          "author": {
+            "login": "kamalcph",
+            "url": "https://github.com/kamalcph"
+          },
+          "createdAt": "2023-11-22T14:22:17Z"
+        },
+        {
+          "body": "Staleness reminder: This PR requires rebase onto trunk for merge conflict resolution in `FetchRequest.json` handling",
+          "author": {
+            "login": "github-actions",
+            "url": "https://github.com/apps/github-actions"
+          },
+          "createdAt": "2024-02-20T03:33:13Z"
+        },
+        {
+          "body": "Rebased onto trunk (commit 9f1a2e) resolving conflicts in:\n- `clients/src/main/java/org/apache/kafka/clients/consumer/ConsumerConfig.java`\n- `core/src/main/scala/kafka/server/KafkaConfig.scala`",
+          "author": {
+            "login": "kamalcph",
+            "url": "https://github.com/kamalcph"
+          },
+          "createdAt": "2024-02-21T08:45:33Z"
+        },
+        {
+          "body": "Ready for final review. Includes:\n- Configuration validation\n- Metrics for remote fetch timeouts\n- Documentation updates\n- Test enhancements\n\nFollow-up work (KAFKA-15999) will address dynamic config reloading.",
+          "author": {
+            "login": "kamalcph",
+            "url": "https://github.com/kamalcph"
+          },
+          "createdAt": "2024-06-04T10:21:51Z"
+        },
+        {
+          "body": "Approved pending documentation updates to include:\n1. Configuration parameter description in `config/kafka-config.md`\n2. Operational guidance in `docs/remote-storage.html`\n3. API documentation for AdminClient",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "createdAt": "2024-06-05T00:00:35Z"
+        },
+        {
+          "body": "Documentation updates completed in commit 3c8d4e:\n- Added parameter to configuration reference\n- Updated remote storage operations guide\n- Enhanced javadoc for RemoteLogManager",
+          "author": {
+            "login": "kamalcph",
+            "url": "https://github.com/kamalcph"
+          },
+          "createdAt": "2024-06-05T06:35:12Z"
+        }
+      ]
+    },
+    "reviews": {
+      "totalCount": 3,
+      "nodes": [
+        {
+          "body": "Approve with minor documentation suggestions addressed in latest commit",
+          "author": {
+            "login": "showuon",
+            "url": "https://github.com/showuon"
+          },
+          "state": "APPROVED",
+          "createdAt": "2024-06-05T02:18:00Z"
+        },
+        {
+          "body": "LGTM - Configuration validation and test coverage look solid",
+          "author": {
+            "login": "clolov",
+            "url": "https://github.com/clolov"
+          },
+          "state": "APPROVED",
+          "createdAt": "2024-06-05T05:42:00Z"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "totalCount": 1,
+      "nodes": [
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "Documentation now includes clear guidance on configuration hierarchy and timeout interactions",
+                "author": {
+                  "login": "kamalcph",
+                  "url": "https://github.com/kamalcph"
+                },
+                "createdAt": "2024-06-05T06:38:00Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "filesChanged": [
+      {
+        "path": "clients/src/main/java/org/apache/kafka/clients/consumer/ConsumerConfig.java",
+        "additions": 8,
+        "deletions": 1
+      },
+      {
+        "path": "core/src/main/scala/kafka/server/KafkaConfig.scala",
+        "additions": 12,
+        "deletions": 3
+      },
+      {
+        "path": "docs/remote-storage.html",
+        "additions": 24,
+        "deletions": 2
+      },
+      {
+        "path": "config/kafka-config.md",
+        "additions": 5,
+        "deletions": 0
+      }
+    ]
+  }

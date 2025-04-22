@@ -1,0 +1,7 @@
+Competency,Kruskal_Statistic,P_Value,P_Value_Corrected,Significant_After_Correction
+score_architecture_impact,42523.09831143747,0.0,0.0,True
+score_code_quality,54263.50024890742,0.0,0.0,True
+score_collaboration,29237.93950829446,0.0,0.0,True
+score_maintainability,47180.451339657346,0.0,0.0,True
+score_technical_leadership,36399.7795656423,0.0,0.0,True
+score_user_impact,53381.09515976356,0.0,0.0,True

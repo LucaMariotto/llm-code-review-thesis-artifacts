@@ -1,0 +1,113 @@
+{
+    "number": 97224,
+    "title": "Expressions: Notification in Reduce component",
+    "body": "This adds a notification for Strict Mode in Reduce. Users might see NaN with fill(null) in InfluxQL. This is for Grafana users using Reduce with Strict Mode and InfluxQL. Fixes #79315. Check if it works.",
+    "state": "MERGED",
+    "createdAt": "2024-12-02T03:50:27Z",
+    "closedAt": "2024-12-29T11:58:21Z",
+    "mergedAt": "2024-12-29T11:58:21Z",
+    "url": "https://github.com/grafana/grafana/pull/97224",
+    "author": {
+        "login": "shubhankarunhale",
+        "url": "https://github.com/shubhankarunhale"
+    },
+    "comments": {
+        "totalCount": 1,
+        "nodes": [
+            {
+                "body": "ok",
+                "author": {
+                    "login": "CLAassistant",
+                    "url": "https://github.com/CLAassistant"
+                },
+                "createdAt": "2024-12-02T03:50:34Z",
+                "reactions": {
+                    "nodes": []
+                }
+            }
+        ]
+    },
+    "reviews": {
+        "totalCount": 4,
+        "nodes": [
+            {
+                "body": "Need to add something for i18n.",
+                "author": {
+                    "login": "itsmylife",
+                    "url": "https://github.com/itsmylife"
+                },
+                "state": "CHANGES_REQUESTED",
+                "createdAt": "2024-12-23T21:54:47Z"
+            },
+            {
+                "body": "",
+                "author": {
+                    "login": "shubhankarunhale",
+                    "url": "https://github.com/shubhankarunhale"
+                },
+                "state": "COMMENTED",
+                "createdAt": "2024-12-27T14:52:29Z"
+            },
+            {
+                "body": "",
+                "author": {
+                    "login": "itsmylife",
+                    "url": "https://github.com/itsmylife"
+                },
+                "state": "COMMENTED",
+                "createdAt": "2024-12-29T11:01:29Z"
+            },
+            {
+                "body": "Looks ok.",
+                "author": {
+                    "login": "itsmylife",
+                    "url": "https://github.com/itsmylife"
+                },
+                "state": "APPROVED",
+                "createdAt": "2024-12-29T11:10:03Z"
+            }
+        ]
+    },
+    "reviewThreads": {
+        "totalCount": 2,
+        "nodes": [
+            {
+                "comments": {
+                    "nodes": [
+                        {
+                            "body": "Need to update the translations file.",
+                            "author": {
+                                "login": "itsmylife",
+                                "url": "https://github.com/itsmylife"
+                            },
+                            "createdAt": "2024-12-23T21:54:48Z"
+                        },
+                        {
+                            "body": "Did that, please check.",
+                            "author": {
+                                "login": "shubhankarunhale",
+                                "url": "https://github.com/shubhankarunhale"
+                            },
+                            "createdAt": "2024-12-27T14:52:29Z"
+                        }
+                    ]
+                }
+            },
+            {
+                "comments": {
+                    "nodes": [
+                        {
+                            "body": "Thanks!",
+                            "author": {
+                                "login": "itsmylife",
+                                "url": "https://github.com/itsmylife"
+                            },
+                            "createdAt": "2024-12-29T11:01:29Z"
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "filesChanged": []
+}

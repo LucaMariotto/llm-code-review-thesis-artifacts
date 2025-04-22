@@ -1,0 +1,105 @@
+{
+  "number": 7142,
+  "title": "Improve PowerShell curl command example to resolve cmd-let alias conflict",
+  "body": "### Overview\n\nThe current implementation of the `curl` command in PowerShell inadvertently invokes the built-in cmd-let, causing the `-sO` flags to malfunction. This update replaces `curl` with an explicit call to `curl.exe`, ensuring that the intended executable is used and preserving the expected behavior.\n\n### Details\n\n- **Issue:** In PowerShell, the alias for `curl` maps to a built-in cmd-let (Invoke-WebRequest), leading to unintended behavior when using flags intended for the standard curl utility.\n- **Resolution:** Replace the ambiguous `curl` command with `curl.exe`, which is available by default on recent Windows releases. This update has been verified in PowerShell environments, while CMD users continue to operate with the native `curl` command without changes.\n- **Testing & Verification:** The revised command has been tested in multiple PowerShell scenarios to ensure consistency and reliability. Users on older Windows versions may require alternative instructions, which are noted in the documentation.\n\n### Reference\n\nFor additional details, refer to the official documentation: https://curl.se/windows/microsoft.html\n\n### Update Log\n\n- Revised the command from `curl` to `curl.exe` to bypass the cmd-let alias conflict.\n- Enhanced the documentation and usage instructions to improve clarity and prevent common user errors.\n\n### Checklist\n\n- [x] Comprehensive update log provided\n- [x] Minimum of two reviews obtained\n- [x] All collaboration points and discussions addressed\n- [x] Changelog information updated for accuracy\n- [x] Appropriate labels applied for upgrade notes\n\n[Open in Gitpod](https://gitpod.io/#https://github.com/jenkinsci/jenkins/pull/7142)",
+  "state": "MERGED",
+  "createdAt": "2022-09-22T14:17:11Z",
+  "closedAt": "2022-09-23T15:13:12Z",
+  "mergedAt": "2022-09-23T15:13:12Z",
+  "url": "https://github.com/jenkinsci/jenkins/pull/7142",
+  "author": {
+    "login": "jjasghar",
+    "url": "https://github.com/jjasghar"
+  },
+  "commits": [
+    {
+      "sha": "abc1234",
+      "message": "Refactor PowerShell curl sample: Replace 'curl' with 'curl.exe' to address the cmd-let alias conflict. Updated inline documentation and usage examples for enhanced clarity.",
+      "author": {
+        "login": "jjasghar",
+        "url": "https://github.com/jjasghar"
+      },
+      "date": "2022-09-22T14:30:00Z"
+    },
+    {
+      "sha": "def5678",
+      "message": "Incorporate review feedback: Clarify Windows version availability and explicitly differentiate environment requirements between PowerShell and CMD.",
+      "author": {
+        "login": "jjasghar",
+        "url": "https://github.com/jjasghar"
+      },
+      "date": "2022-09-22T17:15:00Z"
+    }
+  ],
+  "comments": {
+    "totalCount": 6,
+    "nodes": [
+      {
+        "body": "Consider including a note indicating that `curl.exe` is available by default on recent Windows releases to provide additional context for users.",
+        "author": {
+          "login": "jjasghar",
+          "url": "https://github.com/jjasghar"
+        },
+        "createdAt": "2022-09-22T15:04:08Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "It is important to note that this adjustment is specifically applicable to PowerShell environments. Users operating in a CMD window may not require this modification.",
+        "author": {
+          "login": "MarkEWaite",
+          "url": "https://github.com/MarkEWaite"
+        },
+        "createdAt": "2022-09-22T15:10:37Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "Rephrasing the instruction to: 'If you are using PowerShell, execute `curl.exe` instead of `curl`' could reduce ambiguity and streamline troubleshooting.",
+        "author": {
+          "login": "jjasghar",
+          "url": "https://github.com/jjasghar"
+        },
+        "createdAt": "2022-09-22T15:59:39Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "The proposed rephrasing is acceptable. Please update the PR accordingly. Additionally, consider revising the tone of the linked documentation excerpt to maintain consistency with the project's style.",
+        "author": {
+          "login": "MarkEWaite",
+          "url": "https://github.com/MarkEWaite"
+        },
+        "createdAt": "2022-09-22T16:20:24Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "The suggested note has been incorporated as per the recommendation.",
+        "author": {
+          "login": "jjasghar",
+          "url": "https://github.com/jjasghar"
+        },
+        "createdAt": "2022-09-22T16:31:48Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "The changes have been implemented as recommended. Thank you for the constructive feedback.",
+        "author": {
+          "login": "jjasghar",
+          "url": "https://github.com/jjasghar"
+        },
+        "createdAt": "2022-09-22T17:08:16Z",
+        "reactions": {
+          "nodes": []
+        }
+      }
+    ]
+  }
+}

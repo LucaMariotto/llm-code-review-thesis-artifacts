@@ -1,0 +1,85 @@
+{
+  "number": 7142,
+  "title": "Revise curl example for inbound agent",
+  "body": "`curl` in powershell is a `cmd-let` and the `-sO` flags don't working with it. If you change it to `curl.exe` it will work with the flags. \r\n\r\nReference: https://curl.se/windows/microsoft.html\r\n\r\n\r\n### Proposed changelog entries\r\n\r\n- Changed the hint command for `curl.exe` instead of the `cmd-let` of `curl`\r\n\r\n\r\n### Submitter checklist\r\n\r\n- [x] Changelog entries and upgrade guidelines are appropriate for the audience affected by the change (users or developer, depending on the change) and are in the imperative mood. [Examples](https://github.com/jenkins-infra/jenkins.io/blob/master/content/_data/changelogs/weekly.yml)\r\n\r\n### Maintainer checklist\r\n\r\nBefore the changes are marked as `ready-for-merge`:\r\n\r\n- [x] There are at least 2 approvals for the pull request and no outstanding requests for change\r\n- [x] Conversations in the pull request are over OR it is explicit that a reviewer does not block the change\r\n- [x] Changelog entries in the PR title and/or `Proposed changelog entries` are accurate, human-readable, and in the imperative mood\r\n- [x] Proper changelog labels are set so that the changelog can be generated automatically\r\n- [x] If the change needs additional upgrade steps from users, `upgrade-guide-needed` label is set and there is a `Proposed upgrade guidelines` section in the PR title. ([example](https://github.com/jenkinsci/jenkins/pull/4387))\r\n- [x] If it would make sense to backport the change to LTS, a Jira issue must exist, be a _Bug_ or _Improvement_, and be labeled as `lts-candidate` to be considered (see [query](https://issues.jenkins.io/issues/?filter=12146)).\r\n\n\n<a href=\"https://gitpod.io/#https://github.com/jenkinsci/jenkins/pull/7142\"><img src=\"https://gitpod.io/button/open-in-gitpod.svg\"/></a>\n\n",
+  "state": "MERGED",
+  "createdAt": "2022-09-22T14:17:11Z",
+  "closedAt": "2022-09-23T15:13:12Z",
+  "mergedAt": "2022-09-23T15:13:12Z",
+  "url": "https://github.com/jenkinsci/jenkins/pull/7142",
+  "author": {
+    "login": "jjasghar",
+    "url": "https://github.com/jjasghar"
+  },
+  "comments": {
+    "totalCount": 6,
+    "nodes": [
+      {
+        "body": "Maybe add a note about `curl.exe` for windows based environments? From what i can tell from Windows 10 onwards they have `curl.exe` installed via the base install.",
+        "author": {
+          "login": "jjasghar",
+          "url": "https://github.com/jjasghar"
+        },
+        "createdAt": "2022-09-22T15:04:08Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "> Maybe add a note about `curl.exe` for windows based environments? From what i can tell from Windows 10 onwards they have `curl.exe` installed via the base install.\r\n\r\nBut it is only need for Powershell environments, not for Windows command processor environments.  If the Windows 10 user runs that command from a `cmd` window, it works as expected.",
+        "author": {
+          "login": "MarkEWaite",
+          "url": "https://github.com/MarkEWaite"
+        },
+        "createdAt": "2022-09-22T15:10:37Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "How about something like:\r\n> If you are using Powershell to run your remote agent, run `curl.exe` instead of `curl` due to the default `cmd-let` alias\r\n\r\nAs someone who doesn't use Windows environments very often, searching for this fix took me a good couple of hours; if this was in this copy pasta page it would have saved some significant heart ache. I can imagine it's something other people _will_ hit going forward.",
+        "author": {
+          "login": "jjasghar",
+          "url": "https://github.com/jjasghar"
+        },
+        "createdAt": "2022-09-22T15:59:39Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "> How about something like:\r\n> \r\n> > If you are using Powershell to run your remote agent, run `curl.exe` instead of `curl` due to the default `cmd-let` alias\r\n> \r\n> As someone who doesn't use Windows environments very often, searching for this fix took me a good couple of hours; if this was in this copy pasta page it would have saved some significant heart ache. I can imagine it's something other people _will_ hit going forward.\r\n\r\nI like that.  Can you put that into the pull request?  \r\n\r\nThe quote from the curl documentation page that you linked is especially fun:\r\n\r\n> ## A Powershell alias\r\n> \r\n> The curl tool comes installed in addition to the dreaded [curl alias](https://daniel.haxx.se/blog/2016/08/19/removing-the-powershell-curl-alias/) that plagues Powershell users since it is an alias that runs the invoke-webrequest command and therefore isn't acting much like curl at all.\r\n> \r\n> A work-around is to invoke curl as \"curl.exe\" to prevent powershell from treating it as an alias.",
+        "author": {
+          "login": "MarkEWaite",
+          "url": "https://github.com/MarkEWaite"
+        },
+        "createdAt": "2022-09-22T16:20:24Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "I think I got that right, (I never had to use this formatting), but put it as a \"note.\"",
+        "author": {
+          "login": "jjasghar",
+          "url": "https://github.com/jjasghar"
+        },
+        "createdAt": "2022-09-22T16:31:48Z",
+        "reactions": {
+          "nodes": []
+        }
+      },
+      {
+        "body": "Fixed per your suggestion. Thanks!",
+        "author": {
+          "login": "jjasghar",
+          "url": "https://github.com/jjasghar"
+        },
+        "createdAt": "2022-09-22T17:08:16Z",
+        "reactions": {
+          "nodes": []
+        }
+      }
+    ]
+  }
+}

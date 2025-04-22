@@ -1,0 +1,114 @@
+{
+    "number": 97224,
+    "title": "Expressions: Add Notification for Strict Mode Behavior in Reduce Component",
+    "body": "### Overview\n\nThis pull request introduces a notification within the Reduce component to inform users when \"Strict Mode\" is enabled. The notification clarifies that using `fill(null)` in InfluxQL queries will result in a `NaN` value and provides a direct link to updated documentation for further clarification.\n\n### Motivation\n\nUsers may experience confusion when encountering unexpected `NaN` values due to the behavior of `fill(null)` in Strict Mode. This update aims to enhance clarity by guiding users to the appropriate documentation, ultimately improving the overall user experience.\n\n### Affected Users\n\nThis feature benefits Grafana users who leverage the Reduce component with Strict Mode enabled, particularly those working with InfluxQL queries.\n\n### Implementation Details\n\n- Integrated a notification element directly into the Reduce component interface.\n- Updated documentation in the `docs/` folder now explains the behavior of `fill(null)` under Strict Mode.\n- Confirmed changes through both unit and integration tests, with the feature remaining behind a toggle for pre-release versions.\n\n### Issue Reference\n\nResolves [#79315](https://github.com/grafana/grafana/issues/79315).\n\n### Visual Confirmation\n\nThe following screenshot demonstrates the updated notification in the UI:\n\n![Notification Screenshot](https://github.com/user-attachments/assets/3b1cbc4f-2370-4eaa-b24c-4768cc8602d3)\n\n### Reviewer Checklist\n\n- [ ] Verify that the notification behaves as expected from the user's perspective.\n- [ ] Confirm that the feature toggle works correctly for pre-release features.\n- [ ] Ensure that all related documentation has been updated accordingly.\n",
+    "state": "MERGED",
+    "createdAt": "2024-12-02T03:50:27Z",
+    "closedAt": "2024-12-29T11:58:21Z",
+    "mergedAt": "2024-12-29T11:58:21Z",
+    "url": "https://github.com/grafana/grafana/pull/97224",
+    "author": {
+      "login": "shubhankarunhale",
+      "url": "https://github.com/shubhankarunhale"
+    },
+    "comments": {
+      "totalCount": 1,
+      "nodes": [
+        {
+          "body": "[![CLA assistant check](https://cla-assistant.io/pull/badge/signed)](https://cla-assistant.io/grafana/grafana?pullRequest=97224) <br/>All committers have signed the CLA.",
+          "author": {
+            "login": "CLAassistant",
+            "url": "https://github.com/CLAassistant"
+          },
+          "createdAt": "2024-12-02T03:50:34Z",
+          "reactions": {
+            "nodes": []
+          }
+        }
+      ]
+    },
+    "reviews": {
+      "totalCount": 4,
+      "nodes": [
+        {
+          "body": "The changes appear functionally correct. However, the localization key is missing. Please add the required key to the translations file at [grafana.json](https://github.com/grafana/grafana/blob/main/public/locales/en-US/grafana.json) and run `make i18n-extract` to update the localization resources.",
+          "author": {
+            "login": "itsmylife",
+            "url": "https://github.com/itsmylife"
+          },
+          "state": "CHANGES_REQUESTED",
+          "createdAt": "2024-12-23T21:54:47Z"
+        },
+        {
+          "body": "",
+          "author": {
+            "login": "shubhankarunhale",
+            "url": "https://github.com/shubhankarunhale"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-12-27T14:52:29Z"
+        },
+        {
+          "body": "",
+          "author": {
+            "login": "itsmylife",
+            "url": "https://github.com/itsmylife"
+          },
+          "state": "COMMENTED",
+          "createdAt": "2024-12-29T11:01:29Z"
+        },
+        {
+          "body": "\ud83d\ude80",
+          "author": {
+            "login": "itsmylife",
+            "url": "https://github.com/itsmylife"
+          },
+          "state": "APPROVED",
+          "createdAt": "2024-12-29T11:10:03Z"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "totalCount": 2,
+      "nodes": [
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "Please add the missing translation key to [grafana.json](https://github.com/grafana/grafana/blob/main/public/locales/en-US/grafana.json). After updating the file, run `make i18n-extract` to regenerate the localization resources and commit the updated files.",
+                "author": {
+                  "login": "itsmylife",
+                  "url": "https://github.com/itsmylife"
+                },
+                "createdAt": "2024-12-23T21:54:48Z"
+              },
+              {
+                "body": "I have added the required translation keys. Note that an incorrect rebase resulted in additional tags being appended by the automation process, which I have since reverted. I currently lack permission to remove these extra tags. @itsmylife, could you please review the adjustments?",
+                "author": {
+                  "login": "shubhankarunhale",
+                  "url": "https://github.com/shubhankarunhale"
+                },
+                "createdAt": "2024-12-27T14:52:29Z"
+              }
+            ]
+          }
+        },
+        {
+          "comments": {
+            "nodes": [
+              {
+                "body": "The changes have been verified and appear satisfactory. Thank you!",
+                "author": {
+                  "login": "itsmylife",
+                  "url": "https://github.com/itsmylife"
+                },
+                "createdAt": "2024-12-29T11:01:29Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "filesChanged": []
+  }
+  
