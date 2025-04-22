@@ -26,13 +26,14 @@ This research investigates the potential of Large Language Models (LLMs) to enha
 -   `/.gitignore`: Files ignored by Git
 -   `scripts/`: Python scripts for fetching, scoring, analysis, etc. & JS/HTML for survey load balancer
     -   `analyze_agnosticism.py`
-    -   `pr_analyzer9.py` # Or pr_quality_analyzer.py (use final name)
+    -   `pr_analyzer9.py`
     -   `pr_comparer.py`
     -   `pr_fetcher_4.py`
     -   `pr_link_creator.py`
     -   `pr_scorer.py`
     -   `survey_analysis_7.py`
     -   `top_prs_getter.py`
+    -   `pr_quality_analyzer.py`
     -   `index.html`
 -   `prompts/`: Text files containing LLM prompt templates
     -   `competencies_list.txt`
