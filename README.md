@@ -1,8 +1,8 @@
-# Artifacts for Master Thesis: A Model-Agnostic Approach for AI-Powered Code Reviews
+# Artifacts for Master Thesis: "Improving Code Review Effectiveness with AI: A Model-Agnostic Approach on LLM-Enhanced Code Change Explanations and Personalized Feedback Strategies"
 
 This repository contains the code, processed data, configuration files, prompts, reports, and key visualizations supporting the Master Thesis titled:
 
-**"A Model-Agnostic Approach for AI-Powered Code Reviews: Integrating User-Specific Nudges and Customizable Features"**
+**"Improving Code Review Effectiveness with AI: A Model-Agnostic Approach on LLM-Enhanced Code Change Explanations and Personalized Feedback Strategies"**
 
 *   **Author:** Luca Mariotto
 *   **Institution:** Hasso Plattner Institute, University of Potsdam
