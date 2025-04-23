@@ -10,7 +10,8 @@ This repository contains the code, processed data, configuration files, prompts,
 
 **Archived Version (Zenodo):**
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXXX) **<-- REPLACE XXXXXXX with your actual Zenodo DOI number once published!**
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15271232.svg)](https://doi.org/10.5281/zenodo.15271232)
+
 
 This DOI links to the specific version of these artifacts archived on Zenodo corresponding to the submitted thesis.
 
