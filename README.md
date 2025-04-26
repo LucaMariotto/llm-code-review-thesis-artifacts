@@ -1,8 +1,8 @@
-# Artifacts for Master Thesis: A Model-Agnostic Approach for AI-Powered Code Reviews
+# Artifacts for Master Thesis: "Improving Code Review Effectiveness with AI: A Model-Agnostic Approach on LLM-Enhanced Code Change Explanations and Personalized Feedback Strategies"
 
 This repository contains the code, processed data, configuration files, prompts, reports, and key visualizations supporting the Master Thesis titled:
 
-**"A Model-Agnostic Approach for AI-Powered Code Reviews: Integrating User-Specific Nudges and Customizable Features"**
+**"Improving Code Review Effectiveness with AI: A Model-Agnostic Approach on LLM-Enhanced Code Change Explanations and Personalized Feedback Strategies"**
 
 *   **Author:** Luca Mariotto
 *   **Institution:** Hasso Plattner Institute, University of Potsdam
@@ -10,7 +10,8 @@ This repository contains the code, processed data, configuration files, prompts,
 
 **Archived Version (Zenodo):**
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXXX) **<-- REPLACE XXXXXXX with your actual Zenodo DOI number once published!**
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15271232.svg)](https://doi.org/10.5281/zenodo.15271232)
+
 
 This DOI links to the specific version of these artifacts archived on Zenodo corresponding to the submitted thesis.
 
